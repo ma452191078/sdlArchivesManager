@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sdl="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.trinea.android.common.view.DropDownListView
+        android:id="@+id/list_view"
+        sdl:isAutoLoadOnBottom="true"
+        sdl:isDropDownStyle="true"
+        sdl:isOnBottomStyle="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"/>
+</LinearLayout>

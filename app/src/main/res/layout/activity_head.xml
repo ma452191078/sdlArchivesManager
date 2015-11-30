@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorTitleBlue"
+    android:orientation="horizontal"
+    android:elevation="5dp"
+    android:gravity="center">
+    <LinearLayout
+        android:id="@+id/ll_menu"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/button_selector"
+        >
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/menu"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/top_tv"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="9"
+        android:gravity="center"
+        android:text="档案管理"
+        android:textSize="@dimen/activity_head_text"
+        android:textColor="@color/colorWhite" />
+
+    <Gallery
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gallery" />
+
+    <LinearLayout
+        android:id="@+id/ll_add"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/plus"
+            android:layout_margin="13dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

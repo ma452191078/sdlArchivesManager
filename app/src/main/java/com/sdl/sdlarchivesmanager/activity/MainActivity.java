@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
             {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
             {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
             {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"}} ;
     public static final int      MORE_DATA_MAX_COUNT = 3;
     public int                   moreDataCount       = 0;

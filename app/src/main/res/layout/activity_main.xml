@@ -24,27 +24,30 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
                     <include
                         android:id="@+id/in_head"
                         layout="@layout/activity_head"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <cn.trinea.android.common.view.DropDownListView
-                        android:id="@+id/list_view"
-                        sdl:isAutoLoadOnBottom="true"
-                        sdl:isDropDownStyle="true"
-                        sdl:isOnBottomStyle="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:background="@color/colorBackgroudn"
-                        android:dividerHeight="5dp"
-                        android:divider="@color/colorBackgroudn"/>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
+                    <!--<cn.trinea.android.common.view.DropDownListView-->
+                        <!--android:id="@+id/list_view"-->
+                        <!--sdl:isAutoLoadOnBottom="true"-->
+                        <!--sdl:isDropDownStyle="true"-->
+                        <!--sdl:isOnBottomStyle="true"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:background="@color/colorBackgroudn"-->
+                        <!--android:dividerHeight="5dp"-->
+                        <!--android:divider="@color/colorBackgroudn"/>-->
+                <!--</LinearLayout>-->
 
+                <include
+                    layout="@layout/activity_dropdownlist"/>
             </LinearLayout>
         </LinearLayout>
     </com.sdl.sdlarchivesmanager.view.SlidingMenu>

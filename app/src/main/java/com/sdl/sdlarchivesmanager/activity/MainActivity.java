@@ -1,6 +1,7 @@
 package com.sdl.sdlarchivesmanager.activity;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.trinea.android.common.util.ToastUtils;
 import cn.trinea.android.common.view.DropDownListView;
 import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
 
@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private DropDownListView     listView  = null;
     private MainListAdapter adapter;
     private String[][] mStrings = {  {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"}} ;
+            {"营销中心审核", "农资店1", "张某", "山东省临沂市临沭县石门镇刘晓村"},
+            {"营销中心审核", "农资店2", "张某", "山东省临沂市临沭县石门镇刘晓村"},
+            {"营销中心审核", "农资店3", "张某", "山东省临沂市临沭县石门镇刘晓村"},
+            {"营销中心审核", "农资店4", "张某", "山东省临沂市临沭县石门镇刘晓村"},
+            {"营销中心审核", "农资店5", "张某", "山东省临沂市临沭县石门镇刘晓村"},
+            {"营销中心审核", "农资店6", "张某", "山东省临沂市临沭县石门镇刘晓村"}} ;
     public static final int      MORE_DATA_MAX_COUNT = 3;
     public int                   moreDataCount       = 0;
 
@@ -66,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
         llAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, ActivityFlowChart.class);
+                startActivity(intent);
             }
         });
         listView = (DropDownListView)findViewById(R.id.list_view);
@@ -91,7 +94,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ToastUtils.show(getApplicationContext(), "点击项目");
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, ActivityFlowChart.class);
+                startActivity(intent);
             }
         });
          listView.setShowFooterWhenNoMore(true);

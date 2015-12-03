@@ -17,11 +17,10 @@
         >
         <ImageView
             android:id="@+id/iv_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:src="@mipmap/menu"
-            android:layout_margin="10dp"/>
+            android:src="@mipmap/menu"/>
     </LinearLayout>
 
     <TextView
@@ -46,14 +45,14 @@
         android:layout_weight="1.5"
         android:orientation="vertical"
         android:gravity="center"
+        android:background="@drawable/button_selector"
         >
         <ImageView
             android:id="@+id/iv_add"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:src="@mipmap/plus"
-            android:layout_margin="13dp"/>
+            android:src="@mipmap/plus"/>
     </LinearLayout>
 
 

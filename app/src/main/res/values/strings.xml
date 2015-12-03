@@ -13,4 +13,10 @@
     <string name="drop_down_list_footer_default_text">更多</string>
     <string name="drop_down_list_footer_loading_text">加载中…</string>
     <string name="drop_down_list_footer_no_more_text">没有更多了</string>
+    <string name="archives_jbxx">基本信息</string>
+    <string name="archives_yhxx">银行信息</string>
+    <string name="archives_yyzz">营业执照</string>
+    <string name="archives_sfz">法人身份证</string>
+    <string name="archives_xys">经销商协议书</string>
+    <string name="archives_zlk">填写资料卡照片</string>
 </resources>

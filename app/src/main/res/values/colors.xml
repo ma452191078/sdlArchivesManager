@@ -17,4 +17,5 @@
     <!-- drop down list footer font color -->
     <color name="drop_down_list_footer_font_color">#ff7b7b7b</color>
     <color name="colorRed">#ffe51c23</color>
+    <color name="colorGreen">#ff54af61</color>
 </resources>

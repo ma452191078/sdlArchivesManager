@@ -11,5 +11,7 @@
         sdl:isOnBottomStyle="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"/>
+        android:background="@color/colorWhite"
+        android:dividerHeight="5dp"
+        android:divider="@color/colorBackgroudn"/>
 </LinearLayout>

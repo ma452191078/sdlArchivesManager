@@ -12,5 +12,7 @@
     <dimen name="drop_down_list_header_progress_bar_height">36dp</dimen>
     <dimen name="drop_down_list_footer_progress_bar_height">36dp</dimen>
     <dimen name="left_menu_item_margin">18dp</dimen>
+    <dimen name="left_text_width">100dp</dimen>
+    <dimen name="left_text_height">50dp</dimen>
 
 </resources>

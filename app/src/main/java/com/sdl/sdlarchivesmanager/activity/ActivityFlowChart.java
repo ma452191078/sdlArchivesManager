@@ -1,5 +1,6 @@
 package com.sdl.sdlarchivesmanager.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,7 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
     private ImageView ivBack;
     private LinearLayout llBack;
     private LinearLayout llAdd;
+    private LinearLayout llStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,11 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
 
         llBack = (LinearLayout)findViewById(R.id.ll_menu);
         llAdd = (LinearLayout)findViewById(R.id.ll_add);
+        llStart = (LinearLayout)findViewById(R.id.ll_start);
         llAdd.setVisibility(View.INVISIBLE);
         llBack.setOnClickListener(this);
+        llStart.setOnClickListener(this);
+
     }
 
     public void onClick(View view){
@@ -36,6 +41,10 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
             case R.id.ll_menu:
                 ActivityFlowChart.this.finish();
                 break;
+            case  R.id.ll_start:
+                Intent intent = new Intent();
+                intent.setClass(ActivityFlowChart.this,ActivityStep1.class);
+                startActivity(intent);
             default:
                 break;
         }

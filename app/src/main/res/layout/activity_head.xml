@@ -33,11 +33,6 @@
         android:textSize="@dimen/activity_head_text"
         android:textColor="@color/colorWhite" />
 
-    <Gallery
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gallery" />
-
     <LinearLayout
         android:id="@+id/ll_add"
         android:layout_width="0dp"

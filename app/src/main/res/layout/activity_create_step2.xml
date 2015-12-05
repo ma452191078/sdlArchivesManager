@@ -11,56 +11,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarFadeDuration="5"
-        android:scrollbarStyle="insideOverlay"
+        android:layout_margin="5dp"
         android:background="@color/colorWhite"
-        android:layout_margin="5dp">
+        android:scrollbarFadeDuration="5"
+        android:scrollbarStyle="insideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="2dp">
-            <!--经销商类型-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/left_text_height"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+            android:layout_margin="2dp"
+            android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="@dimen/left_text_width"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/step_tv_client_type" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left"
-                    android:orientation="horizontal">
-
-                    <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <RadioButton
-                            android:id="@+id/rb_jxs"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="经销商" />
-                        <RadioButton
-                            android:id="@+id/rb_zzdh"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="种植大户" />
-                    </RadioGroup>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!--经销商层级-->
+            <!--银行卡号-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
@@ -71,73 +33,29 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_level" />
+                    android:text="@string/step_tv_bank_number" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/right_layout_margin"
                     android:gravity="left"
                     android:orientation="horizontal">
 
-                    <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <RadioButton
-                            android:id="@+id/cb_lvevl1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="一级" />
-
-                        <RadioButton
-                            android:id="@+id/cb_level2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="二级" />
-
-                        <RadioButton
-                            android:id="@+id/cb_level3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="三级" />
-                    </RadioGroup>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!--上级经销商-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/left_text_height"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/left_text_width"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/step_tv_client_uplevel" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left"
-                    android:orientation="horizontal">
-
-                    <TextView
+                    <EditText
+                        android:id="@+id/dt_banknumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:hint="@string/step_ev_client_uplevel"/>
+                        android:hint="@string/step_ev_bank_number" />
 
                 </LinearLayout>
             </LinearLayout>
-
-            <!--经销商名称-->
+            <!--开户行-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -145,7 +63,7 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_name" />
+                    android:text="@string/step_tv_bank_name" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,15 +72,15 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_bankname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/step_ev_client_name"
-                        android:textSize="@dimen/editview_textsize"/>
-
+                        android:enabled="false"
+                        android:hint="@string/step_ev_bank_name" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--法人代表-->
+            <!--户主-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
@@ -173,7 +91,7 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_owner" />
+                    android:text="@string/step_tv_bank_owner" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -182,15 +100,59 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_bankowner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/step_ev_client_owner"
-                        android:textSize="@dimen/editview_textsize"/>
+                        android:gravity="center_vertical"
+                        android:hint="@string/step_ev_bank_owner" />
 
                 </LinearLayout>
             </LinearLayout>
 
-            <!--电话-->
+
+            <!--发票类型-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:text="@string/step_tv_invoice_type" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/right_layout_margin"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <RadioGroup
+                        android:id="@+id/rg_invoicetype"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rb_zyfp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/invoice_type_zy" />
+
+                        <RadioButton
+                            android:id="@+id/rb_ptfp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/invoice_type_pt" />
+                    </RadioGroup>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--对公账号-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
@@ -201,7 +163,37 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_phone" />
+                    android:text="@string/step_tv_invoice_banknum" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/right_layout_margin"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_invoicebanknum"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/step_ev_bank_number" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <!--对公账户开户行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/left_text_height"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/step_tv_invoice_bankname" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,18 +202,19 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_invoicebankname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/step_ev_phone"
-                        android:textSize="@dimen/editview_textsize"/>
-
+                        android:enabled="false"
+                        android:hint="@string/step_ev_invoice_bankname" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--地址-->
+            <!--支行-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -229,7 +222,7 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_address" />
+                    android:text="@string/step_tv_invoice_bankname2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,15 +231,15 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_invoicebankname2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/step_ev_address"
-                        android:textSize="@dimen/editview_textsize"/>
-
+                        android:enabled="false"
+                        android:hint="@string/step_ev_invoice_bankname2" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!--经纬度-->
+            <!--对公账号户主-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
@@ -257,20 +250,20 @@
                     android:layout_width="@dimen/left_text_width"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="@string/step_tv_client_lnglat" />
+                    android:text="@string/step_tv_bank_owner" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="@dimen/right_layout_margin">
+                    android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_invoicebankowner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/step_ev_lnglat"
-                        android:textSize="@dimen/editview_textsize"/>
+                        android:gravity="center_vertical"
+                        android:hint="@string/step_ev_bank_owner" />
 
                 </LinearLayout>
             </LinearLayout>

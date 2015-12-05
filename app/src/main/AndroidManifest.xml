@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ActivityFlowChart" />
+        <activity android:name=".activity.ActivityStep1" />
+        <activity android:name=".activity.ActivityStep2" />
+        <activity android:name=".activity.ActivityStep3" />
     </application>
 
 </manifest>

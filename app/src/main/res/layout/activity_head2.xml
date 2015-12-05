@@ -9,7 +9,7 @@
     <!--带上一步和下一步的标题栏-->
 
     <LinearLayout
-        android:id="@+id/ll_menu"
+        android:id="@+id/ll_back"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
@@ -41,13 +41,8 @@
         android:textSize="@dimen/activity_head_text"
         android:textColor="@color/colorWhite" />
 
-    <Gallery
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gallery" />
-
     <LinearLayout
-        android:id="@+id/ll_add"
+        android:id="@+id/ll_next"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
@@ -61,7 +56,8 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="下一步"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="2dp"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="match_parent"

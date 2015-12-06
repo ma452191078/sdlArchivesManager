@@ -63,7 +63,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_jbxx"
+                            android:text="@string/archives_baseinfo"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>
@@ -117,7 +117,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_yhxx"
+                            android:text="@string/archives_bankinfo"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>
@@ -171,7 +171,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_yyzz"
+                            android:text="@string/archives_licence"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>
@@ -224,7 +224,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_sfz"
+                            android:text="@string/archives_idcard"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>
@@ -277,7 +277,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_xys"
+                            android:text="@string/archives_contract"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>
@@ -330,7 +330,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/archives_zlk"
+                            android:text="@string/archives_material"
                             android:textSize="@dimen/activity_head_text"
                             android:layout_marginLeft="60dp"/>
                     </LinearLayout>

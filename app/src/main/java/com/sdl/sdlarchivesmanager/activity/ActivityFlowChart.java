@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sdl.sdlarchivesmanager.R;
 
@@ -13,37 +14,40 @@ import com.sdl.sdlarchivesmanager.R;
  * Created by majingyuan on 15/12/3.
  * 步骤列表
  */
-public class ActivityFlowChart extends AppCompatActivity implements View.OnClickListener{
+public class ActivityFlowChart extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView ivBack;
     private LinearLayout llBack;
     private LinearLayout llAdd;
     private LinearLayout llStart;
+    private TextView tvTittle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flowchart);
         ivBack = (ImageView) findViewById(R.id.iv_menu);
-        ivBack.setImageResource(R.mipmap.button_back);
+        tvTittle = (TextView) findViewById(R.id.tv_tittle);
+        llBack = (LinearLayout) findViewById(R.id.ll_menu);
+        llAdd = (LinearLayout) findViewById(R.id.ll_add);
+        llStart = (LinearLayout) findViewById(R.id.ll_start);
 
-        llBack = (LinearLayout)findViewById(R.id.ll_menu);
-        llAdd = (LinearLayout)findViewById(R.id.ll_add);
-        llStart = (LinearLayout)findViewById(R.id.ll_start);
+        ivBack.setImageResource(R.mipmap.button_back);
+        tvTittle.setText(R.string.archives_flowchart);
         llAdd.setVisibility(View.INVISIBLE);
         llBack.setOnClickListener(this);
         llStart.setOnClickListener(this);
 
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_menu:
                 ActivityFlowChart.this.finish();
                 break;
-            case  R.id.ll_start:
+            case R.id.ll_start:
                 Intent intent = new Intent();
-                intent.setClass(ActivityFlowChart.this,ActivityStep1.class);
+                intent.setClass(ActivityFlowChart.this, ActivityBaseInfo.class);
                 startActivity(intent);
             default:
                 break;

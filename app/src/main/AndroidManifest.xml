@@ -21,9 +21,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ActivityFlowChart" />
-        <activity android:name=".activity.ActivityStep1" />
-        <activity android:name=".activity.ActivityStep2" />
-        <activity android:name=".activity.ActivityStep3" />
+        <activity android:name=".activity.ActivityBaseInfo" />
+        <activity android:name=".activity.ActivityBankInfo" />
+        <activity android:name=".activity.ActivityLicence" />
+        <activity android:name=".activity.ActivityIDCard" />
+
+
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.sdl.sdlarchivesmanager.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,11 +32,10 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     private TextView tvTittle;
 
     private CharSequence[] items;   //提示框文本,数组形式,可以自定义
-
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
     private static final int PHOTO_REQUEST_CUT = 3;// 结果
-    private File tempFile = new File(Environment.getExternalStorageDirectory(),
+    private File tempFile = new File(Environment.getExternalStorageDirectory()+ "/DCIM/Camera/",
             getPhotoFileName());    //照片文件
 
     @Override
@@ -85,9 +83,9 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
         Intent cameraintent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
-//        // 指定调用相机拍照后照片的储存路径
-//        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.fromFile(tempFile));
+//      指定调用相机拍照后照片的储存路径
+        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(tempFile));
         startActivityForResult(cameraintent,
                 PHOTO_REQUEST_CAMERA);
     }
@@ -115,8 +113,8 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("crop", "true");
 
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 4);
-        intent.putExtra("aspectY", 3);
+//        intent.putExtra("aspectX", 4);
+//        intent.putExtra("aspectY", 3);
 
         // outputX,outputY 是剪裁图片的宽高
         intent.putExtra("outputX", 400);
@@ -130,7 +128,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLicence.this);
-        items = new CharSequence[]{"拍照", "从相册选择"};
+        items = new CharSequence[]{"拍照上传", "从相册选择"};
 
         builder.setTitle("请选择图片来源");
         builder.setCancelable(true);
@@ -159,25 +157,35 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PHOTO_REQUEST_CAMERA:// 当选择拍照时调用
-                    //startPhotoZoom(Uri.fromFile(tempFile));
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    ivPicture.setImageBitmap(bitmap);
+                    setPhoto(Uri.fromFile(tempFile));
                     break;
                 case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
                     // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                     if (data != null) {
-                        //startPhotoZoom(data.getData());
-                        ivPicture.setImageURI(data.getData());
+
+                        setPhoto(data.getData());
                     } else {
                         Toast.makeText(ActivityLicence.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
                     }
                     break;
-//                case PHOTO_REQUEST_CUT:// 返回的结果
-//                    if (data != null)
-//                        setPicToView(data);
-//                    break;
+                case PHOTO_REQUEST_CUT:// 返回的结果
+                    if (data != null)
+                        setPhoto(data.getData());
+                    break;
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void setPhoto(Uri uri){
+//        try{
+//            Bitmap bmp = MediaStore.Images.Media.getBitmap(ActivityLicence.this.getContentResolver(),
+//                    uri);
+//            ivPicture.setImageBitmap(bmp);
+//        }catch (IOException e){
+//            Toast.makeText(ActivityLicence.this,e.toString(),Toast.LENGTH_LONG).show();
+//        }
+
+        ivPicture.setImageURI(uri);
     }
 }

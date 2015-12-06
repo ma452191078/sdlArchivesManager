@@ -22,16 +22,14 @@ import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/6.
- * 创建经销商第四步,身份证信息
+ * 经销商协议书
  */
-public class ActivityIDCard extends AppCompatActivity implements View.OnClickListener {
+public class ActivityContract extends AppCompatActivity implements View.OnClickListener {
 
-    private int imageItem;  //0正面,1反面
     private LinearLayout llBack;
     private LinearLayout llNext;
+    private ImageView ivPicture;
     private TextView tvTittle;
-    private ImageView ivCardF, ivCardB;
-
 
     private CharSequence[] items;   //提示框文本,数组形式,可以自定义
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
@@ -43,43 +41,39 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_idcard);
+        setContentView(R.layout.activity_create_contract);
+//        组件声明
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
+        ivPicture = (ImageView) findViewById(R.id.iv_picture);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
-        ivCardF = (ImageView) findViewById(R.id.iv_idcardf);
-        ivCardB = (ImageView) findViewById(R.id.iv_idcardb);
 
+        tvTittle.setText(R.string.archives_contract);
+//        添加监听
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
-        ivCardF.setOnClickListener(this);
-        ivCardB.setOnClickListener(this);
-        tvTittle.setText(R.string.archives_idcard);
+        ivPicture.setOnClickListener(this);
+//        初次载入显示选择提示
+        getPhoto();
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.ll_back:
                 this.finish();
                 break;
             case R.id.ll_next:
                 Intent intent = new Intent();
-                intent.setClass(ActivityIDCard.this, ActivityContract.class);
+                intent.setClass(ActivityContract.this, ActivityIDCard.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_idcardf:
-                imageItem = 0;
+            case R.id.iv_picture:
                 getPhoto();
-                break;
-            case R.id.iv_idcardb:
-                imageItem = 1;
-                getPhoto();
-                break;
             default:
                 break;
         }
+
     }
 
     //    启动拍照并返回照片
@@ -87,7 +81,7 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
 
         Intent cameraintent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
-        //        // 指定调用相机拍照后照片的储存路径
+//      指定调用相机拍照后照片的储存路径
         cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
                 Uri.fromFile(tempFile));
         startActivityForResult(cameraintent,
@@ -111,8 +105,7 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
 
     private void getPhoto() {
 
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityIDCard.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityContract.this);
         items = new CharSequence[]{"拍照上传", "从相册选择"};
 
         builder.setTitle("请选择图片来源");
@@ -145,12 +138,12 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
                     setPhoto(Uri.fromFile(tempFile));
                     break;
                 case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
-                    // 做非空判断
+                    // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                     if (data != null) {
 
                         setPhoto(data.getData());
                     } else {
-                        Toast.makeText(ActivityIDCard.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityContract.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case PHOTO_REQUEST_CUT:// 返回的结果
@@ -163,10 +156,6 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setPhoto(Uri uri) {
-        if (imageItem == 0) {
-            ivCardF.setImageURI(uri);
-        } else if (imageItem == 1) {
-            ivCardB.setImageURI(uri);
-        }
+        ivPicture.setImageURI(uri);
     }
 }

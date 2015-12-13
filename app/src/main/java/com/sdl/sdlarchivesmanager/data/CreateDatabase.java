@@ -25,6 +25,7 @@ public class CreateDatabase {
         //user.setTableName("USER");  //表名
         user.addIdProperty().autoincrement();   //ID
         user.addStringProperty("User_Num").notNull();  //业务员编号
+        user.addStringProperty("User_Pass");    //密码
         user.addStringProperty("User_Name"); //业务员姓名
         user.addStringProperty("User_Regin");    //业务员区域
         user.addStringProperty("User_Role");     //用户角色,业务员或大区经理

@@ -25,10 +25,11 @@ public class UserDao extends AbstractDao<User, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property User_Num = new Property(1, String.class, "User_Num", false, "USER__NUM");
-        public final static Property User_Name = new Property(2, String.class, "User_Name", false, "USER__NAME");
-        public final static Property User_Regin = new Property(3, String.class, "User_Regin", false, "USER__REGIN");
-        public final static Property User_Role = new Property(4, String.class, "User_Role", false, "USER__ROLE");
-        public final static Property User_Date = new Property(5, java.util.Date.class, "User_Date", false, "USER__DATE");
+        public final static Property User_Pass = new Property(2, String.class, "User_Pass", false, "USER__PASS");
+        public final static Property User_Name = new Property(3, String.class, "User_Name", false, "USER__NAME");
+        public final static Property User_Regin = new Property(4, String.class, "User_Regin", false, "USER__REGIN");
+        public final static Property User_Role = new Property(5, String.class, "User_Role", false, "USER__ROLE");
+        public final static Property User_Date = new Property(6, java.util.Date.class, "User_Date", false, "USER__DATE");
     };
 
 
@@ -46,10 +47,11 @@ public class UserDao extends AbstractDao<User, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER__NUM\" TEXT NOT NULL ," + // 1: User_Num
-                "\"USER__NAME\" TEXT," + // 2: User_Name
-                "\"USER__REGIN\" TEXT," + // 3: User_Regin
-                "\"USER__ROLE\" TEXT," + // 4: User_Role
-                "\"USER__DATE\" INTEGER);"); // 5: User_Date
+                "\"USER__PASS\" TEXT," + // 2: User_Pass
+                "\"USER__NAME\" TEXT," + // 3: User_Name
+                "\"USER__REGIN\" TEXT," + // 4: User_Regin
+                "\"USER__ROLE\" TEXT," + // 5: User_Role
+                "\"USER__DATE\" INTEGER);"); // 6: User_Date
     }
 
     /** Drops the underlying database table. */
@@ -69,24 +71,29 @@ public class UserDao extends AbstractDao<User, Long> {
         }
         stmt.bindString(2, entity.getUser_Num());
  
+        String User_Pass = entity.getUser_Pass();
+        if (User_Pass != null) {
+            stmt.bindString(3, User_Pass);
+        }
+ 
         String User_Name = entity.getUser_Name();
         if (User_Name != null) {
-            stmt.bindString(3, User_Name);
+            stmt.bindString(4, User_Name);
         }
  
         String User_Regin = entity.getUser_Regin();
         if (User_Regin != null) {
-            stmt.bindString(4, User_Regin);
+            stmt.bindString(5, User_Regin);
         }
  
         String User_Role = entity.getUser_Role();
         if (User_Role != null) {
-            stmt.bindString(5, User_Role);
+            stmt.bindString(6, User_Role);
         }
  
         java.util.Date User_Date = entity.getUser_Date();
         if (User_Date != null) {
-            stmt.bindLong(6, User_Date.getTime());
+            stmt.bindLong(7, User_Date.getTime());
         }
     }
 
@@ -102,10 +109,11 @@ public class UserDao extends AbstractDao<User, Long> {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // User_Num
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // User_Name
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // User_Regin
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // User_Role
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)) // User_Date
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // User_Pass
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // User_Name
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // User_Regin
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // User_Role
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)) // User_Date
         );
         return entity;
     }
@@ -115,10 +123,11 @@ public class UserDao extends AbstractDao<User, Long> {
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUser_Num(cursor.getString(offset + 1));
-        entity.setUser_Name(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setUser_Regin(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setUser_Role(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setUser_Date(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setUser_Pass(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setUser_Name(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setUser_Regin(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setUser_Role(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setUser_Date(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
      }
     
     /** @inheritdoc */

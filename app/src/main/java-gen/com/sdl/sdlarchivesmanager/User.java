@@ -9,6 +9,7 @@ public class User {
     private Long id;
     /** Not-null value. */
     private String User_Num;
+    private String User_Pass;
     private String User_Name;
     private String User_Regin;
     private String User_Role;
@@ -21,9 +22,10 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, String User_Num, String User_Name, String User_Regin, String User_Role, java.util.Date User_Date) {
+    public User(Long id, String User_Num, String User_Pass, String User_Name, String User_Regin, String User_Role, java.util.Date User_Date) {
         this.id = id;
         this.User_Num = User_Num;
+        this.User_Pass = User_Pass;
         this.User_Name = User_Name;
         this.User_Regin = User_Regin;
         this.User_Role = User_Role;
@@ -46,6 +48,14 @@ public class User {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setUser_Num(String User_Num) {
         this.User_Num = User_Num;
+    }
+
+    public String getUser_Pass() {
+        return User_Pass;
+    }
+
+    public void setUser_Pass(String User_Pass) {
+        this.User_Pass = User_Pass;
     }
 
     public String getUser_Name() {

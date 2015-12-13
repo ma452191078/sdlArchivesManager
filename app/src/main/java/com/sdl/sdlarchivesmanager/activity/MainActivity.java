@@ -2,7 +2,6 @@ package com.sdl.sdlarchivesmanager.activity;
 
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,19 +9,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
 import com.sdl.sdlarchivesmanager.bean.BeanAudit;
 import com.sdl.sdlarchivesmanager.view.SlidingMenu;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import cn.trinea.android.common.view.DropDownListView;
-import cn.trinea.android.common.view.DropDownListView.OnDropDownListener;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 
 /**
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout llAdd;   //添加经销商
 
     private List<BeanAudit> listItems = new ArrayList<BeanAudit>();
-    private DropDownListView     listView  = null;
+    private PtrClassicFrameLayout ptrFrame  = null;
+    private ListView listView;
     private MainListAdapter adapter;
     private String[][] mStrings = {  {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
             {"营销中心审核", "农资店1", "张某", "山东省临沂市临沭县石门镇刘晓村"},
@@ -49,12 +51,13 @@ public class MainActivity extends AppCompatActivity {
     public int                   moreDataCount       = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLeftMenu = (SlidingMenu) findViewById(R.id.id_menu);   //侧滑菜单
         llMenu = (LinearLayout) findViewById(R.id.ll_menu);
         llAdd = (LinearLayout) findViewById(R.id.ll_add);
+        listView = (ListView) findViewById(R.id.lv_itemlist);
 
         llMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,42 +69,42 @@ public class MainActivity extends AppCompatActivity {
         llAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
+
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, ActivityFlowChart.class);
                 startActivity(intent);
             }
         });
-        listView = (DropDownListView)findViewById(R.id.list_view);
-        // set drop down listener
-        listView.setOnDropDownListener(new OnDropDownListener() {
+
+//        下拉刷新控件
+        ptrFrame = (PtrClassicFrameLayout)findViewById(R.id.list_view);
+        ptrFrame.disableWhenHorizontalMove(true);
+        ptrFrame.setLastUpdateTimeRelateObject(this);
+        ptrFrame.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+
+                // here check $mListView instead of $content
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, listView, header);
+            }
 
             @Override
-            public void onDropDown() {
-                new GetDataTask(true).execute();
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                updateData();
             }
         });
 
-        // set on bottom listener
-        listView.setOnBottomListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                new GetDataTask(false).execute();
-            }
-        });
+//        列表项目
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
+
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, ActivityFlowChart.class);
                 startActivity(intent);
             }
         });
-         listView.setShowFooterWhenNoMore(true);
-
         BeanAudit audit ;
 
         for (int i = 0; i < mStrings.length; i++){
@@ -114,49 +117,6 @@ public class MainActivity extends AppCompatActivity {
         }
         adapter = new MainListAdapter(MainActivity.this, listItems);
         listView.setAdapter(adapter);
-    }
-
-    private class GetDataTask extends AsyncTask<Void, Void, String[][]> {
-
-        private boolean isDropDown;
-
-        public GetDataTask(boolean isDropDown) {
-            this.isDropDown = isDropDown;
-        }
-
-        @Override
-        protected String[][] doInBackground(Void... params) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-
-            }
-            return mStrings;
-        }
-
-        @Override
-        protected void onPostExecute(String[][] result) {
-
-            if (isDropDown) {
-                adapter.notifyDataSetChanged();
-
-                // should call onDropDownComplete function of DropDownListView at end of drop down complete.
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
-                listView.onDropDownComplete("上次刷新" + dateFormat.format(new Date()));
-            } else {
-                moreDataCount++;
-                adapter.notifyDataSetChanged();
-
-                if (moreDataCount >= MORE_DATA_MAX_COUNT) {
-                    listView.setHasMore(false);
-                }
-
-                // should call onBottomComplete function of DropDownListView at end of on bottom complete.
-                listView.onBottomComplete();
-            }
-
-            super.onPostExecute(result);
-        }
     }
 
     @Override
@@ -181,5 +141,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void updateData() {
+
+        Toast.makeText(MainActivity.this,"刷新成功",Toast.LENGTH_SHORT).show();
+        ptrFrame.refreshComplete();
+    }
 
 }

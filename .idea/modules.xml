@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoCore/DaoCore.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoCore/DaoCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoExample/DaoExample.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoExample/DaoExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoExampleGenerator/DaoExampleGenerator.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoExampleGenerator/DaoExampleGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoGenerator/DaoGenerator.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoGenerator/DaoGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoTest/DaoTest.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoTest/DaoTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoTestGenerator/DaoTestGenerator.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoTestGenerator/DaoTestGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-demo/ptr-demo.iml" filepath="$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-demo/ptr-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-lib/ptr-lib.iml" filepath="$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-lib/ptr-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdlArchivesManager.iml" filepath="$PROJECT_DIR$/sdlArchivesManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/trinea-android-common2/trinea-android-common2.iml" filepath="$PROJECT_DIR$/trinea-android-common2/trinea-android-common2.iml" />
     </modules>

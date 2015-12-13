@@ -49,7 +49,8 @@
                             android:id="@+id/rb_jxs"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="经销商" />
+                            android:text="经销商"
+                            android:checked="true"/>
                         <RadioButton
                             android:id="@+id/rb_zzdh"
                             android:layout_width="wrap_content"
@@ -62,6 +63,7 @@
 
             <!--经销商层级-->
             <LinearLayout
+                android:id="@+id/ll_clientlevel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
                 android:gravity="center"
@@ -84,20 +86,21 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
                         <RadioButton
-                            android:id="@+id/cb_lvevl1"
+                            android:id="@+id/rb_level1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="一级" />
+                            android:text="一级"
+                            android:checked="true"/>
 
                         <RadioButton
-                            android:id="@+id/cb_level2"
+                            android:id="@+id/rb_level2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:text="二级" />
 
                         <RadioButton
-                            android:id="@+id/cb_level3"
+                            android:id="@+id/rb_level3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -108,10 +111,12 @@
 
             <!--上级经销商-->
             <LinearLayout
+                android:id="@+id/ll_uplevel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/left_text_height"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="@dimen/left_text_width"

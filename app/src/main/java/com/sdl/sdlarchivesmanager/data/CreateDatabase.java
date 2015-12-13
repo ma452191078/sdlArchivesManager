@@ -11,12 +11,12 @@ import de.greenrobot.daogenerator.Schema;
 public class CreateDatabase {
 
     public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1, "com.sdl.sdlarchivesmanager.data");
+        Schema schema = new Schema(1, "com.sdl.sdlarchivesmanager");
 //        用户
         addUser(schema);
 //        经销商
 
-        new DaoGenerator().generateAll(schema, "../app/src/main/java-gen");
+        new DaoGenerator().generateAll(schema, "/Users/majingyuan/AndroidStudioProjects/sdlArchivesManager/app/src/main/java-gen");
     }
 
     private static void addUser(Schema schema) {

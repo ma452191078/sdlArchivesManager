@@ -28,17 +28,26 @@ import de.greenrobot.daogenerator.Schema;
  */
 public class ExampleDaoGenerator {
 
-    public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1, "com.sdl.sdlarchivesmanager");
-//        用户
-        addUser(schema);
-//        经销商
 
-        new DaoGenerator().generateAll(schema, "../app/src/main/java-gen");
+    public static void main(String[] args) throws Exception {
+        Schema schema = new Schema(1, "de.greenrobot.daoexample");
+
+        addNote(schema);
+        addCustomerOrder(schema);
+
+        new DaoGenerator().generateAll(schema, "../DaoExample/src/main/java");
     }
 
-    private static void addUser(Schema schema) {
-//        用户表
+    private static void addNote(Schema schema) {
+        Entity note = schema.addEntity("Note");
+        note.addIdProperty();
+        note.addStringProperty("text").notNull();
+        note.addStringProperty("comment");
+        note.addDateProperty("date");
+    }
+
+    private static void addCustomerOrder(Schema schema) {
+        //        用户表
         Entity user = schema.addEntity("User");
         //user.setTableName("USER");  //表名
         user.addIdProperty().autoincrement();   //ID
@@ -47,38 +56,6 @@ public class ExampleDaoGenerator {
         user.addStringProperty("User_Regin");    //业务员区域
         user.addStringProperty("User_Role");     //用户角色,业务员或大区经理
         user.addDateProperty("User_Date");
-
-//        经销商表
-        Entity client = schema.addEntity("Client");
-        client.addIdProperty().autoincrement();
-        client.addStringProperty("Client_Num").notNull();    //经销商编号
-        client.addStringProperty("Client_Name");     //经销商名称
-        client.addStringProperty("Client_Owner");    //法人代表
-        client.addStringProperty("Client_Type");     //经销商类型,经销商/种植大户
-        client.addStringProperty("Client_Level");    //经销商层级,一级/二级/三级
-        client.addStringProperty("Client_Uplevel");  //上级经销商编号
-        client.addStringProperty("Client_Phone");    //经销商电话
-        client.addStringProperty("Client_Province");    //省
-        client.addStringProperty("Client_City");    //市
-        client.addStringProperty("Client_Country"); //县
-        client.addStringProperty("Client_Town");    //乡镇
-        client.addStringProperty("Client_Address"); //详细地址
-        client.addStringProperty("Client_LngLat");  //经纬度
-
-//        银行信息
-        Entity bank = schema.addEntity("Bank");
-        bank.addIdProperty().autoincrement();
-        bank.addStringProperty("Bank_ClientNum");   //经销商编号
-        bank.addStringProperty("Bank_Num");     //银行卡号
-        bank.addStringProperty("Bank_Name");    //银行名称
-        bank.addStringProperty("Bank_Name2");   //支行名称
-        bank.addStringProperty("Bank_Phone");   //电话
-        bank.addStringProperty("Bank_Invoice");  //发票类型,专用发票,普通发票
-
-//        申请表
-        Entity application = schema.addEntity("Application");
-        application.addIdProperty();
-
     }
 
 }

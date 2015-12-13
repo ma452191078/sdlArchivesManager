@@ -19,8 +19,8 @@ android {
     productFlavors {
     }
 
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
         }
     }
@@ -36,6 +36,6 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
     compile project(':ptr-lib')
-    compile 'de.greenrobot:greendao:2.0.0'
     compile project(':DaoGenerator')
+    compile 'de.greenrobot:greendao:2.0.0'
 }

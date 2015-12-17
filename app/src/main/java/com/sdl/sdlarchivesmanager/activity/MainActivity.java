@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
 import com.sdl.sdlarchivesmanager.bean.BeanAudit;
-import com.sdl.sdlarchivesmanager.view.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +25,15 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 
+
+
+
 /**
  * Create by majingyuan on 2015-11-28 16:47:10
  * 主窗口,侧滑菜单实现
  */
 public class MainActivity extends AppCompatActivity {
 
-    private SlidingMenu mLeftMenu;  //侧滑菜单
     private LinearLayout llMenu;  //侧滑菜单呼出
     private LinearLayout llAdd;   //添加经销商
 
@@ -54,18 +55,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mLeftMenu = (SlidingMenu) findViewById(R.id.id_menu);   //侧滑菜单
+
+
+//        SlidingMenu menu = new SlidingMenu(this);
+//        menu.setMode(SlidingMenu.LEFT);
+//        // 设置触摸屏幕的模式
+//        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+//        menu.setShadowWidthRes(R.dimen.shadow_width);
+//        menu.setShadowDrawable(R.drawable.shadow);
+//
+//        // 设置滑动菜单视图的宽度
+//        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//        // 设置渐入渐出效果的值
+//        menu.setFadeDegree(0.35f);
+//        /**
+//         * SLIDING_WINDOW will include the Title/ActionBar in the content
+//         * section of the SlidingMenu, while SLIDING_CONTENT does not.
+//         */
+//        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+//        //为侧滑菜单设置布局
+//        menu.setMenu(R.layout.leftmenu);
+
+
         llMenu = (LinearLayout) findViewById(R.id.ll_menu);
         llAdd = (LinearLayout) findViewById(R.id.ll_add);
         listView = (ListView) findViewById(R.id.lv_itemlist);
 
-        llMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLeftMenu.toggle();
-
-            }
-        });
         llAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

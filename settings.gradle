@@ -1,6 +1,5 @@
-include ':app', ':trinea-android-common2', ':ptr-lib', ':ptr-demo', ':DaoGenerator', ':DaoExample', ':DaoExampleGenerator', ':DaoTestGenerator', ':DaoCore', ':DaoTest'
+include ':app', ':trinea-android-common2', ':ptr-lib', ':DaoGenerator', ':DaoExample', ':DaoExampleGenerator', ':DaoTestGenerator', ':DaoCore', ':DaoTest'
 project(':ptr-lib').projectDir = new File('android-Ultra-Pull-To-Refresh-master-2/ptr-lib')
-//project(':ptr-demo').projectDir = new File('android-Ultra-Pull-To-Refresh-master-2/ptr-demo')
 project(':DaoGenerator').projectDir = new File('greenDAO-master/DaoGenerator')
 project(':DaoExample').projectDir = new File('greenDAO-master/DaoExample')
 project(':DaoExampleGenerator').projectDir = new File('greenDAO-master/DaoExampleGenerator')

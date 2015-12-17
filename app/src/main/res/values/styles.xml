@@ -12,10 +12,14 @@
     </style>
 
     <!--EditText主题-->
-    <style name="AppEditTextStyle" parent="Base.Widget.AppCompat.EditText" >
+    <style name="AppEditTextStyle" parent="Base.Widget.AppCompat.EditText">
 
         <item name="android:textSize">15sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

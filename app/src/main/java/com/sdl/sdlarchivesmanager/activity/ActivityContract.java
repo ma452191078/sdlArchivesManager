@@ -53,6 +53,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         ivPicture.setOnClickListener(this);
+
 //        初次载入显示选择提示
         getPhoto();
     }

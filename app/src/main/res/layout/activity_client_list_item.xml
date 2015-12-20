@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
-
         android:elevation="3dp"
         >
         <LinearLayout
@@ -41,19 +40,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/tv_statustitle"
+                    android:id="@+id/tv_clientname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="状态: "
-                    android:textColor="@color/colorRed"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="营销中心审批"
+                    android:text="临沭丰收农资"
                     android:textColor="@color/colorRed"
                     android:textSize="15sp"
                     />
@@ -73,20 +65,34 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_clientname"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="农资超市"
-                    android:layout_marginBottom="3dp"
-                    android:textSize="12sp"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_clientowner"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="张三"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/tv_clientlevel"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="一级商"/>
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/tv_clientman"
+                    android:id="@+id/tv_clientphone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="张某"
+                    android:text="18265190928"
                     android:layout_marginBottom="3dp"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:inputType="phone"/>
                 <TextView
                     android:id="@+id/tv_clientaddr"
                     android:layout_width="match_parent"

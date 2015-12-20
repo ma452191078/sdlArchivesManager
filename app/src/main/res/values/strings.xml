@@ -57,4 +57,8 @@
     <string name="invoice_type_pt">普通发票</string>
 
     <string name="step_tv_photo_tips">点击上方图片,\n拍照或从相册选择需要上传的照片</string>
+    <!--界面tittle-->
+    <string name="title_activity_settings">设置</string>
+
+
 </resources>

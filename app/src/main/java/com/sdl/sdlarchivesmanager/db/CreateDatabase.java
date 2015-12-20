@@ -1,4 +1,4 @@
-package com.sdl.sdlarchivesmanager.data;
+package com.sdl.sdlarchivesmanager.db;
 
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
@@ -37,8 +37,8 @@ public class CreateDatabase {
         client.addStringProperty("Client_Num").notNull();    //经销商编号
         client.addStringProperty("Client_Name");     //经销商名称
         client.addStringProperty("Client_Owner");    //法人代表
-        client.addStringProperty("Client_Type");     //经销商类型,经销商/种植大户
-        client.addStringProperty("Client_Level");    //经销商层级,一级/二级/三级
+        client.addStringProperty("Client_Type");     //经销商类型,经销商0/种植大户1
+        client.addStringProperty("Client_Level");    //经销商层级,一级1/二级2/三级3
         client.addStringProperty("Client_Uplevel");  //上级经销商编号
         client.addStringProperty("Client_Phone");    //经销商电话
         client.addStringProperty("Client_Province");    //省

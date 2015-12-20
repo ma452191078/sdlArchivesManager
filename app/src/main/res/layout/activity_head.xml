@@ -13,14 +13,14 @@
         android:layout_weight="1.5"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/button_selector"
+        android:background="?android:attr/selectableItemBackground"
         >
         <ImageView
             android:id="@+id/iv_menu"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:src="@mipmap/menu"/>
+            android:src="@mipmap/button_back"/>
     </LinearLayout>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_weight="1.5"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/button_selector"
+        android:background="?android:attr/selectableItemBackground"
         >
         <ImageView
             android:id="@+id/iv_add"

@@ -32,7 +32,6 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
         llAdd = (LinearLayout) findViewById(R.id.ll_add);
         llStart = (LinearLayout) findViewById(R.id.ll_start);
 
-        ivBack.setImageResource(R.mipmap.button_back);
         tvTittle.setText(R.string.archives_flowchart);
         llAdd.setVisibility(View.INVISIBLE);
         llBack.setOnClickListener(this);

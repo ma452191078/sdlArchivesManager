@@ -41,6 +41,7 @@
         <activity android:name=".activity.ActivityLicence" />
         <activity android:name=".activity.ActivityIDCard" />
         <activity android:name=".activity.ActivityContract" />
+        <activity android:name=".activity.ActivityLogin" />
         <!-- <activity -->
         <!-- android:name=".activity.MainActivity" -->
         <!-- android:label="@string/title_activity_main2" -->

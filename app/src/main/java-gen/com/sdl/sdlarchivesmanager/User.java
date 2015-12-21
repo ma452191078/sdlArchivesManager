@@ -13,6 +13,7 @@ public class User {
     private String User_Name;
     private String User_Regin;
     private String User_Role;
+    private Boolean User_Status;
     private java.util.Date User_Date;
 
     public User() {
@@ -22,13 +23,14 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, String User_Num, String User_Pass, String User_Name, String User_Regin, String User_Role, java.util.Date User_Date) {
+    public User(Long id, String User_Num, String User_Pass, String User_Name, String User_Regin, String User_Role, Boolean User_Status, java.util.Date User_Date) {
         this.id = id;
         this.User_Num = User_Num;
         this.User_Pass = User_Pass;
         this.User_Name = User_Name;
         this.User_Regin = User_Regin;
         this.User_Role = User_Role;
+        this.User_Status = User_Status;
         this.User_Date = User_Date;
     }
 
@@ -80,6 +82,14 @@ public class User {
 
     public void setUser_Role(String User_Role) {
         this.User_Role = User_Role;
+    }
+
+    public Boolean getUser_Status() {
+        return User_Status;
+    }
+
+    public void setUser_Status(Boolean User_Status) {
+        this.User_Status = User_Status;
     }
 
     public java.util.Date getUser_Date() {

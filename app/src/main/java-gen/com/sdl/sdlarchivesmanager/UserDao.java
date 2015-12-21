@@ -29,7 +29,8 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property User_Name = new Property(3, String.class, "User_Name", false, "USER__NAME");
         public final static Property User_Regin = new Property(4, String.class, "User_Regin", false, "USER__REGIN");
         public final static Property User_Role = new Property(5, String.class, "User_Role", false, "USER__ROLE");
-        public final static Property User_Date = new Property(6, java.util.Date.class, "User_Date", false, "USER__DATE");
+        public final static Property User_Status = new Property(6, Boolean.class, "User_Status", false, "USER__STATUS");
+        public final static Property User_Date = new Property(7, java.util.Date.class, "User_Date", false, "USER__DATE");
     };
 
 
@@ -51,7 +52,8 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"USER__NAME\" TEXT," + // 3: User_Name
                 "\"USER__REGIN\" TEXT," + // 4: User_Regin
                 "\"USER__ROLE\" TEXT," + // 5: User_Role
-                "\"USER__DATE\" INTEGER);"); // 6: User_Date
+                "\"USER__STATUS\" INTEGER," + // 6: User_Status
+                "\"USER__DATE\" INTEGER);"); // 7: User_Date
     }
 
     /** Drops the underlying database table. */
@@ -91,9 +93,14 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindString(6, User_Role);
         }
  
+        Boolean User_Status = entity.getUser_Status();
+        if (User_Status != null) {
+            stmt.bindLong(7, User_Status ? 1L: 0L);
+        }
+ 
         java.util.Date User_Date = entity.getUser_Date();
         if (User_Date != null) {
-            stmt.bindLong(7, User_Date.getTime());
+            stmt.bindLong(8, User_Date.getTime());
         }
     }
 
@@ -113,7 +120,8 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // User_Name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // User_Regin
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // User_Role
-            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)) // User_Date
+            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // User_Status
+            cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)) // User_Date
         );
         return entity;
     }
@@ -127,7 +135,8 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setUser_Name(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setUser_Regin(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setUser_Role(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setUser_Date(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
+        entity.setUser_Status(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
+        entity.setUser_Date(cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)));
      }
     
     /** @inheritdoc */

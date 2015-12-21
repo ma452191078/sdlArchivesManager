@@ -29,6 +29,7 @@ public class CreateDatabase {
         user.addStringProperty("User_Name"); //业务员姓名
         user.addStringProperty("User_Regin");    //业务员区域
         user.addStringProperty("User_Role");     //用户角色,业务员或大区经理
+        user.addBooleanProperty("User_Status");   //用户登录状态,true可用,false不可用
         user.addDateProperty("User_Date");
 
 //        经销商表

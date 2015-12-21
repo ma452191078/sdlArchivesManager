@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.sdl.sdlarchivesmanager.DBHelper;
+import com.sdl.sdlarchivesmanager.DaoMaster;
+import com.sdl.sdlarchivesmanager.DaoSession;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
-import com.sdl.sdlarchivesmanager.db.DbUser;
 import com.sdl.sdlarchivesmanager.util.SharePreferenceUtil;
 import com.sdl.sdlarchivesmanager.util.UpdateManager;
 import com.sdl.sdlarchivesmanager.util.sdlClient;
@@ -35,7 +37,9 @@ import java.util.Date;
  */
 public class ActivityLogin extends AppCompatActivity {
 
-    private EditText etUserName,etUserPass;
+    private static DaoSession daoSession;
+    private static DaoMaster daoMaster;
+    private EditText etUserName, etUserPass;
     private Button btLogin;
     private String userName, userPass, userId;
 
@@ -43,14 +47,18 @@ public class ActivityLogin extends AppCompatActivity {
     private static final String baseurl = "HttpLoginAction!salesLogin?";
     private boolean newtworstatus = true;
     private UpdateManager mUpdateManager;
-    private static	int newVerCode = 1;
-    private static	String newVerName = "archive.apk";
+    private static int newVerCode = 1;
+    private static String newVerName = "archive.apk";
+
+    private DBHelper dBManager;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        dBManager = DBHelper.getInstance(this);
+
         setContentView(R.layout.activity_login);
 
         etUserName = (EditText) findViewById(R.id.et_login_user);
@@ -62,7 +70,7 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 userId = etUserName.getText().toString();
                 userPass = etUserPass.getText().toString();
-                setLoginLocal(userId,userPass);
+                setLoginLocal(userId, userPass);
             }
         });
 
@@ -89,15 +97,12 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        if(newtworstatus)
-        {
+        if (newtworstatus) {
             mUpdateManager = new UpdateManager(this);
             //这里来检测版本是否需要更新
             getServerVer();
 
-        }
-        else
-        {
+        } else {
             Toast.makeText(this,
                     "你没有开启网络连接！！请开启网络连接,否则影响使用",
                     Toast.LENGTH_LONG).show();
@@ -117,28 +122,41 @@ public class ActivityLogin extends AppCompatActivity {
         return netSatus;
     }
 
-    protected void setLoginLocal(String userid, String password){
+    protected void setLoginLocal(String usernum, String password) {
 
+        boolean login = false;
         Bundle bundle = new Bundle();
         Intent intent = new Intent();
-        Date lastLoginDate = new Date(System.currentTimeMillis() - ((long) (Math.random() * 1000 * 60 * 60 * 24 * 365)));
+        Date lastLoginDate = new Date(System.currentTimeMillis());
         User loginUser = new User();
-        loginUser.setUser_Name("马靖沅");
-        loginUser.setUser_Pass(password);
-        loginUser.setUser_Num(userid);
-        loginUser.setUser_Date(lastLoginDate);
-        if (new DbUser().addUser(loginUser)){
-            bundle.putString("personName", userid);
-            bundle.putString("personAccount", password);
+        if (dBManager.existUser(usernum)) {
+            loginUser = dBManager.loadUserByNum(usernum);
+            loginUser.setUser_Date(lastLoginDate);
+            login = dBManager.updateUser(loginUser);
+
+        } else {
+            loginUser.setUser_Name("马靖沅");
+            loginUser.setUser_Num(usernum);
+            loginUser.setUser_Date(lastLoginDate);
+            loginUser.setUser_Status(true);
+            login = dBManager.addUser(loginUser);
+
+        }
+
+        if (login) {
+            bundle.putString("userNum", usernum);
+            bundle.putString("userName", password);
 
             intent.setClass(ActivityLogin.this, MainActivity.class);
 
             intent.putExtras(bundle);
             startActivity(intent);
             ActivityLogin.this.finish();
-        }else {
-            Toast.makeText(ActivityLogin.this,"写入用户数据失败", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(ActivityLogin.this, "写入用户数据失败", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     protected void getloginstatus(String username2, String pwd2) {
@@ -162,7 +180,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                     if (flag.equals("账户或密码错误")) {
                         //提示密码错误
-                        Toast.makeText(getApplicationContext(), "账户或密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     } else {
 
                         JSONObject user = arg2.getJSONObject("user");
@@ -177,19 +195,22 @@ public class ActivityLogin extends AppCompatActivity {
                         loginUser.setUser_Pass(userPass);
                         loginUser.setUser_Num(pid);
                         loginUser.setUser_Date(lastLoginDate);
-                        if (new DbUser().addUser(loginUser)){
-                            args.putString("personName", pname);
-                            args.putString("personAccount", pid);
+                        if (dBManager.existUser(pid)) {
+                            dBManager.updateUser(loginUser);
+                        } else {
+                            if (dBManager.addUser(loginUser)) {
+                                args.putString("userName", pname);
+                                args.putString("userNum", pid);
 
-                            intent.setClass(ActivityLogin.this, MainActivity.class);
+                                intent.setClass(ActivityLogin.this, MainActivity.class);
 
-                            intent.putExtras(args);
-                            startActivity(intent);
-                            ActivityLogin.this.finish();
-                        }else {
-                            Toast.makeText(ActivityLogin.this,"写入用户数据失败", Toast.LENGTH_SHORT).show();
+                                intent.putExtras(args);
+                                startActivity(intent);
+                                ActivityLogin.this.finish();
+                            } else {
+                                Toast.makeText(ActivityLogin.this, "写入用户数据失败", Toast.LENGTH_SHORT).show();
+                            }
                         }
-
 
                     }
 
@@ -209,14 +230,14 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     //得到服务器上的版本
-    public  void getServerVer() {
+    public void getServerVer() {
         getuserData("http://eb.shidanli.cn/AppSyncAction!getAppLastVersion");//HttpUtils.getData("http://test.56539.cn/version.aspx");
 
     }
-    protected void getuserData(String url)
-    {
 
-        sdlClient.post(url,null,   new JsonHttpResponseHandler()
+    protected void getuserData(String url) {
+
+        sdlClient.post(url, null, new JsonHttpResponseHandler()
 
         {
 
@@ -224,7 +245,7 @@ public class ActivityLogin extends AppCompatActivity {
                 //解析JSON
 
                 try {
-                    int  vercode = arg2.getInt("verCode");
+                    int vercode = arg2.getInt("verCode");
                     newVerCode = vercode;
 
                     {
@@ -232,10 +253,9 @@ public class ActivityLogin extends AppCompatActivity {
                         vercode = mUpdateManager.getVerCode(ActivityLogin.this); // 获得版本
                         if (newVerCode > vercode) {
 
-                            mUpdateManager.checkUpdateInfo();  ; // 更新新版本
-                        }
-                        else
-                        {
+                            mUpdateManager.checkUpdateInfo();
+                            ; // 更新新版本
+                        } else {
                             //继续进行
                         }
                     }
@@ -247,8 +267,5 @@ public class ActivityLogin extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
 }

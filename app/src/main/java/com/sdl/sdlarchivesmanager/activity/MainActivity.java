@@ -10,9 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.DBHelper;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.fragment.FragmentClient;
 import com.sdl.sdlarchivesmanager.fragment.FragmentHome;
 import com.sdl.sdlarchivesmanager.fragment.FragmentSetting;
@@ -23,26 +27,58 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private long clickTime = 0; // 记录第一次点击返回键的时间
+    private DBHelper dbManager;
+    private String userNum, userName;
+    private User user;
+
+    private TextView tvUserName;
+    private TextView tvUserRegin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        检查登录时间是否超过30天
+        dbManager = DBHelper.getInstance(this);
+        user = new User();
+        user = dbManager.loadUserByStatus();
+        if (user != null) {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            Bundle bundle = this.getIntent().getExtras();
+            if (bundle == null){
+                userName = user.getUser_Name();
+                userNum = user.getUser_Num();
+            }else {
+                userName = bundle.getString("UserName");
+                userNum = bundle.getString("UserNum");
+            }
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentHome()).commit();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
 
+            View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
+
+            tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
+            tvUserName.setText(userName);
+            tvUserRegin = (TextView) headerLayout.findViewById(R.id.tv_userregin);
+
+//            未超过三十天加载数据
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentHome()).commit();
+        } else {
+//            超过30天重新登录
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, ActivityLogin.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -69,7 +105,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_send:
                 break;
             case R.id.nav_client:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe,new FragmentClient()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentClient()).commit();
                 toolbar.setTitle(item.getTitle());
                 break;
             case R.id.nav_setting:
@@ -90,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
     private void SignOut() {
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this,ActivityLogin.class);
+        intent.setClass(MainActivity.this, ActivityLogin.class);
         startActivity(intent);
     }
 

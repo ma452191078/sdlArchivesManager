@@ -20,6 +20,7 @@ import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.fragment.FragmentClient;
 import com.sdl.sdlarchivesmanager.fragment.FragmentHome;
 import com.sdl.sdlarchivesmanager.fragment.FragmentSetting;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SysApplication.getInstance().addActivity(this);
 //        检查登录时间是否超过30天
         dbManager = DBHelper.getInstance(this);
         user = new User();
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
+//            修改侧滑菜单中头部控件
             View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
-
             tvUserName = (TextView) headerLayout.findViewById(R.id.tv_username);
             tvUserName.setText(userName);
             tvUserRegin = (TextView) headerLayout.findViewById(R.id.tv_userregin);
@@ -125,9 +127,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void SignOut() {
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, ActivityLogin.class);
-        startActivity(intent);
+        user.setUser_Status(false);
+        if (dbManager.updateUser(user)){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, ActivityLogin.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -145,7 +151,8 @@ public class MainActivity extends AppCompatActivity
                     Toast.LENGTH_SHORT).show();
             clickTime = System.currentTimeMillis();
         } else {
-            this.finish();
+            //关闭整个程序
+            SysApplication.getInstance().exit();
         }
     }
 

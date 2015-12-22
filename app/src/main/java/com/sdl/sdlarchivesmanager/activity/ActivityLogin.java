@@ -23,6 +23,7 @@ import com.sdl.sdlarchivesmanager.DaoSession;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.util.SharePreferenceUtil;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 import com.sdl.sdlarchivesmanager.util.UpdateManager;
 import com.sdl.sdlarchivesmanager.util.sdlClient;
 
@@ -57,6 +58,7 @@ public class ActivityLogin extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        SysApplication.getInstance().addActivity(this);
         dBManager = DBHelper.getInstance(this);
 
         setContentView(R.layout.activity_login);
@@ -145,7 +147,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         if (login) {
             bundle.putString("userNum", usernum);
-            bundle.putString("userName", password);
+            bundle.putString("userName", loginUser.getUser_Name());
 
             intent.setClass(ActivityLogin.this, MainActivity.class);
 
@@ -267,5 +269,15 @@ public class ActivityLogin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //关闭整个程序
+            SysApplication.getInstance().exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

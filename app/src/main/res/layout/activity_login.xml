@@ -44,7 +44,8 @@
                 android:gravity="center"
                 android:hint="用户名"
                 android:textSize="15dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:singleLine="true"/>
 
             <EditText
                 android:id="@+id/et_login_pass"
@@ -58,7 +59,8 @@
                 android:hint="密码"
                 android:textSize="15dp"
                 android:inputType="textPassword"
-                android:background="@null"/>
+                android:background="@null"
+                android:singleLine="true"/>
         </LinearLayout>
 
         <Button

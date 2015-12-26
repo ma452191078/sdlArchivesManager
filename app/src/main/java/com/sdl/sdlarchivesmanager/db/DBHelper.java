@@ -1,9 +1,14 @@
-package com.sdl.sdlarchivesmanager;
+package com.sdl.sdlarchivesmanager.db;
 
 
 import android.content.Context;
 
-import com.sdl.sdlarchivesmanager.db.DBControl;
+import com.sdl.sdlarchivesmanager.ApplicationDao;
+import com.sdl.sdlarchivesmanager.BankDao;
+import com.sdl.sdlarchivesmanager.ClientDao;
+import com.sdl.sdlarchivesmanager.DaoSession;
+import com.sdl.sdlarchivesmanager.User;
+import com.sdl.sdlarchivesmanager.UserDao;
 import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 
 import java.util.Date;
@@ -133,6 +138,8 @@ public class DBHelper {
         } else {
             status = false;
         }
+        QueryBuilder.LOG_SQL = true;
+        QueryBuilder.LOG_VALUES = true;
         return status;
     }
 
@@ -158,11 +165,23 @@ public class DBHelper {
             } else {
                 status = true;
             }
-
-            QueryBuilder.LOG_SQL = true;
-            QueryBuilder.LOG_VALUES = true;
         }
 
         return status;
+    }
+
+    public void setOtherUserFalse(String userNum){
+        Query query = userDao.queryBuilder()
+                .where(UserDao.Properties.User_Num.notEq(userNum))
+                .orderAsc(UserDao.Properties.User_Date)
+                .build();
+        List<User> userList = query.list();
+        if (userList.size() > 0) {
+            try {
+                userDao.updateInTx(userList);
+            }catch (Exception ex){
+
+            }
+        }
     }
 }

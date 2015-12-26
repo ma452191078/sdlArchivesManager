@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sdl.sdlarchivesmanager.DBHelper;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.DaoMaster;
 import com.sdl.sdlarchivesmanager.DaoSession;
 import com.sdl.sdlarchivesmanager.R;
@@ -58,7 +58,7 @@ public class ActivityLogin extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        SysApplication.getInstance().addActivity(this);
+        //SysApplication.getInstance().addActivity(this);
         dBManager = DBHelper.getInstance(this);
 
         setContentView(R.layout.activity_login);
@@ -76,6 +76,19 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
+//        用户名上点击下一个焦点切换到密码
+        etUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT){
+                    etUserPass.setFocusable(true);
+                    etUserPass.setFocusableInTouchMode(true);
+                    etUserPass.clearFocus();
+                    etUserPass.requestFocus();
+                }
+                return true;
+            }
+        });
         /*点击回车键，隐藏键盘并登录*/
         etUserPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
@@ -134,7 +147,9 @@ public class ActivityLogin extends AppCompatActivity {
         if (dBManager.existUser(usernum)) {
             loginUser = dBManager.loadUserByNum(usernum);
             loginUser.setUser_Date(lastLoginDate);
+            loginUser.setUser_Status(true);
             login = dBManager.updateUser(loginUser);
+            dBManager.setOtherUserFalse(loginUser.getUser_Num());
 
         } else {
             loginUser.setUser_Name("马靖沅");
@@ -199,6 +214,7 @@ public class ActivityLogin extends AppCompatActivity {
                         loginUser.setUser_Date(lastLoginDate);
                         if (dBManager.existUser(pid)) {
                             dBManager.updateUser(loginUser);
+                            dBManager.setOtherUserFalse(loginUser.getUser_Num());
                         } else {
                             if (dBManager.addUser(loginUser)) {
                                 args.putString("userName", pname);

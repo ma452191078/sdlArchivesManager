@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 /**
  * Created by majingyuan on 15/12/3.
@@ -26,6 +27,8 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flowchart);
+        SysApplication.getInstance().addActivity(this);
+
         ivBack = (ImageView) findViewById(R.id.iv_menu);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
         llBack = (LinearLayout) findViewById(R.id.ll_menu);

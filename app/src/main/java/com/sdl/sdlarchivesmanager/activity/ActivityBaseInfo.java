@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 /**
  * Created by majingyuan on 15/12/5.
@@ -30,6 +31,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_baseinfo);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        SysApplication.getInstance().addActivity(this);
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         llLevel = (LinearLayout) findViewById(R.id.ll_clientlevel);

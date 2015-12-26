@@ -9,12 +9,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -44,6 +46,9 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_idcard);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        SysApplication.getInstance().addActivity(this);
+
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);

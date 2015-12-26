@@ -1,6 +1,5 @@
 package com.sdl.sdlarchivesmanager.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,46 +10,38 @@ import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 /**
- * create by majingyuan on 2015-12-05 20:31:29
- * 第二步,银行信息
+ * Created by majingyuan on 15/12/26.
+ * 信息确认
  */
-public class ActivityBankInfo extends AppCompatActivity implements View.OnClickListener {
-
+public class ActivityConfirm extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
     private LinearLayout llNext;
-    private TextView tvTittle;
-
+    private TextView tvNext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_create_bankinfo);
+        setContentView(R.layout.activity_confirm);
         SysApplication.getInstance().addActivity(this);
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
-        tvTittle = (TextView) findViewById(R.id.tv_tittle);
+        tvNext = (TextView) findViewById(R.id.tv_next);
 
+        tvNext.setText("提交");
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
-        tvTittle.setText(R.string.archives_bankinfo);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_next:
-                Intent intent = new Intent();
-                intent.setClass(ActivityBankInfo.this, ActivityLicence.class);
-                startActivity(intent);
-                break;
             case R.id.ll_back:
                 this.finish();
+                break;
+            case R.id.ll_next:
+//                Intent intent = new Intent();
+//                intent.setClass(ActivityConfirm.this, ActivityBankInfo.class);
+//                startActivity(intent);
                 break;
             default:
                 break;

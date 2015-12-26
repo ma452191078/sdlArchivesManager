@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,6 +43,8 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_licence);
+        SysApplication.getInstance().addActivity(this);
+
 //        组件声明
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);

@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sdl.sdlarchivesmanager.DBHelper;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.fragment.FragmentClient;
@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SysApplication.getInstance().addActivity(this);
-//        检查登录时间是否超过30天
+//        SysApplication.getInstance().addActivity(this);
+//        是否存在已登录用户
         dbManager = DBHelper.getInstance(this);
         user = new User();
         user = dbManager.loadUserByStatus();
@@ -73,13 +73,14 @@ public class MainActivity extends AppCompatActivity
             tvUserName.setText(userName);
             tvUserRegin = (TextView) headerLayout.findViewById(R.id.tv_userregin);
 
-//            未超过三十天加载数据
+//            加载数据
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentHome()).commit();
         } else {
-//            超过30天重新登录
+//            不存在进行登录操作
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, ActivityLogin.class);
             startActivity(intent);
+            MainActivity.this.finish();
         }
     }
 
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, ActivityLogin.class);
             startActivity(intent);
+            MainActivity.this.finish();
         }
 
     }

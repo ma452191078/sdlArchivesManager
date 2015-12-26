@@ -21,6 +21,10 @@ public class Client {
     private String Client_Town;
     private String Client_Address;
     private String Client_LngLat;
+    private String Client_Contract;
+    private String Client_IdCardF;
+    private String Client_IdCardB;
+    private String Client_Licence;
 
     public Client() {
     }
@@ -29,7 +33,7 @@ public class Client {
         this.id = id;
     }
 
-    public Client(Long id, String Client_Num, String Client_Name, String Client_Owner, String Client_Type, String Client_Level, String Client_Uplevel, String Client_Phone, String Client_Province, String Client_City, String Client_Country, String Client_Town, String Client_Address, String Client_LngLat) {
+    public Client(Long id, String Client_Num, String Client_Name, String Client_Owner, String Client_Type, String Client_Level, String Client_Uplevel, String Client_Phone, String Client_Province, String Client_City, String Client_Country, String Client_Town, String Client_Address, String Client_LngLat, String Client_Contract, String Client_IdCardF, String Client_IdCardB, String Client_Licence) {
         this.id = id;
         this.Client_Num = Client_Num;
         this.Client_Name = Client_Name;
@@ -44,6 +48,10 @@ public class Client {
         this.Client_Town = Client_Town;
         this.Client_Address = Client_Address;
         this.Client_LngLat = Client_LngLat;
+        this.Client_Contract = Client_Contract;
+        this.Client_IdCardF = Client_IdCardF;
+        this.Client_IdCardB = Client_IdCardB;
+        this.Client_Licence = Client_Licence;
     }
 
     public Long getId() {
@@ -158,6 +166,38 @@ public class Client {
 
     public void setClient_LngLat(String Client_LngLat) {
         this.Client_LngLat = Client_LngLat;
+    }
+
+    public String getClient_Contract() {
+        return Client_Contract;
+    }
+
+    public void setClient_Contract(String Client_Contract) {
+        this.Client_Contract = Client_Contract;
+    }
+
+    public String getClient_IdCardF() {
+        return Client_IdCardF;
+    }
+
+    public void setClient_IdCardF(String Client_IdCardF) {
+        this.Client_IdCardF = Client_IdCardF;
+    }
+
+    public String getClient_IdCardB() {
+        return Client_IdCardB;
+    }
+
+    public void setClient_IdCardB(String Client_IdCardB) {
+        this.Client_IdCardB = Client_IdCardB;
+    }
+
+    public String getClient_Licence() {
+        return Client_Licence;
+    }
+
+    public void setClient_Licence(String Client_Licence) {
+        this.Client_Licence = Client_Licence;
     }
 
 }

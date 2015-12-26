@@ -16,5 +16,6 @@
     <dimen name="left_text_height">50dp</dimen>
     <dimen name="right_layout_margin">5dp</dimen>
     <dimen name="editview_textsize">15sp</dimen>
+    <dimen name="confirm_text_height">25dp</dimen>
 
 </resources>

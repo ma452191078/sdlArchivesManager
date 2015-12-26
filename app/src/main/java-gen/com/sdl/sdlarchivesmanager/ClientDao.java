@@ -37,6 +37,10 @@ public class ClientDao extends AbstractDao<Client, Long> {
         public final static Property Client_Town = new Property(11, String.class, "Client_Town", false, "CLIENT__TOWN");
         public final static Property Client_Address = new Property(12, String.class, "Client_Address", false, "CLIENT__ADDRESS");
         public final static Property Client_LngLat = new Property(13, String.class, "Client_LngLat", false, "CLIENT__LNG_LAT");
+        public final static Property Client_Contract = new Property(14, String.class, "Client_Contract", false, "CLIENT__CONTRACT");
+        public final static Property Client_IdCardF = new Property(15, String.class, "Client_IdCardF", false, "CLIENT__ID_CARD_F");
+        public final static Property Client_IdCardB = new Property(16, String.class, "Client_IdCardB", false, "CLIENT__ID_CARD_B");
+        public final static Property Client_Licence = new Property(17, String.class, "Client_Licence", false, "CLIENT__LICENCE");
     };
 
 
@@ -65,7 +69,11 @@ public class ClientDao extends AbstractDao<Client, Long> {
                 "\"CLIENT__COUNTRY\" TEXT," + // 10: Client_Country
                 "\"CLIENT__TOWN\" TEXT," + // 11: Client_Town
                 "\"CLIENT__ADDRESS\" TEXT," + // 12: Client_Address
-                "\"CLIENT__LNG_LAT\" TEXT);"); // 13: Client_LngLat
+                "\"CLIENT__LNG_LAT\" TEXT," + // 13: Client_LngLat
+                "\"CLIENT__CONTRACT\" TEXT," + // 14: Client_Contract
+                "\"CLIENT__ID_CARD_F\" TEXT," + // 15: Client_IdCardF
+                "\"CLIENT__ID_CARD_B\" TEXT," + // 16: Client_IdCardB
+                "\"CLIENT__LICENCE\" TEXT);"); // 17: Client_Licence
     }
 
     /** Drops the underlying database table. */
@@ -144,6 +152,26 @@ public class ClientDao extends AbstractDao<Client, Long> {
         if (Client_LngLat != null) {
             stmt.bindString(14, Client_LngLat);
         }
+ 
+        String Client_Contract = entity.getClient_Contract();
+        if (Client_Contract != null) {
+            stmt.bindString(15, Client_Contract);
+        }
+ 
+        String Client_IdCardF = entity.getClient_IdCardF();
+        if (Client_IdCardF != null) {
+            stmt.bindString(16, Client_IdCardF);
+        }
+ 
+        String Client_IdCardB = entity.getClient_IdCardB();
+        if (Client_IdCardB != null) {
+            stmt.bindString(17, Client_IdCardB);
+        }
+ 
+        String Client_Licence = entity.getClient_Licence();
+        if (Client_Licence != null) {
+            stmt.bindString(18, Client_Licence);
+        }
     }
 
     /** @inheritdoc */
@@ -169,7 +197,11 @@ public class ClientDao extends AbstractDao<Client, Long> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Client_Country
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // Client_Town
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // Client_Address
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // Client_LngLat
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // Client_LngLat
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // Client_Contract
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Client_IdCardF
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // Client_IdCardB
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // Client_Licence
         );
         return entity;
     }
@@ -191,6 +223,10 @@ public class ClientDao extends AbstractDao<Client, Long> {
         entity.setClient_Town(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setClient_Address(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setClient_LngLat(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setClient_Contract(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setClient_IdCardF(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setClient_IdCardB(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setClient_Licence(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
      }
     
     /** @inheritdoc */

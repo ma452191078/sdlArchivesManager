@@ -48,6 +48,10 @@ public class CreateDatabase {
         client.addStringProperty("Client_Town");    //乡镇
         client.addStringProperty("Client_Address"); //详细地址
         client.addStringProperty("Client_LngLat");  //经纬度
+        client.addStringProperty("Client_Contract");    //营业执照
+        client.addStringProperty("Client_IdCardF"); //身份证正面
+        client.addStringProperty("Client_IdCardB"); //身份证反面
+        client.addStringProperty("Client_Licence"); //经销商协议书
 
 //        银行信息
         Entity bank = schema.addEntity("Bank");
@@ -62,7 +66,27 @@ public class CreateDatabase {
 //        申请表
         Entity application = schema.addEntity("Application");
         application.addIdProperty();
-
+        application.addStringProperty("App_Name");     //经销商名称
+        application.addStringProperty("App_Owner");    //法人代表
+        application.addStringProperty("App_Type");     //经销商类型,经销商0/种植大户1
+        application.addStringProperty("App_Level");    //经销商层级,一级1/二级2/三级3
+        application.addStringProperty("App_Uplevel");  //上级经销商编号
+        application.addStringProperty("App_Phone");    //经销商电话
+        application.addStringProperty("App_Province");    //省
+        application.addStringProperty("App_City");    //市
+        application.addStringProperty("App_Country"); //县
+        application.addStringProperty("App_Town");    //乡镇
+        application.addStringProperty("App_Address"); //详细地址
+        application.addStringProperty("App_LngLat");  //经纬度
+        application.addStringProperty("App_Contract");    //营业执照
+        application.addStringProperty("App_IdCardF"); //身份证正面
+        application.addStringProperty("App_IdCardB"); //身份证反面
+        application.addStringProperty("App_Licence"); //经销商协议书
+        application.addStringProperty("App_BankNum");     //银行卡号
+        application.addStringProperty("App_BankName");    //银行名称
+        application.addStringProperty("App_BankName2");   //支行名称
+        application.addStringProperty("App_BankPhone");   //电话
+        application.addStringProperty("App_BankInvoice");  //发票类型,专用发票,普通发票
     }
 
 }

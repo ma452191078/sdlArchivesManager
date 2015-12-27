@@ -20,6 +20,7 @@ import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.fragment.FragmentClient;
 import com.sdl.sdlarchivesmanager.fragment.FragmentHome;
 import com.sdl.sdlarchivesmanager.fragment.FragmentSetting;
+import com.sdl.sdlarchivesmanager.fragment.FragmentUpload;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 public class MainActivity extends AppCompatActivity
@@ -106,6 +107,8 @@ public class MainActivity extends AppCompatActivity
                 toolbar.setTitle("掌中档");
                 break;
             case R.id.nav_send:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentUpload()).commit();
+                toolbar.setTitle(item.getTitle());
                 break;
             case R.id.nav_client:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentClient()).commit();

@@ -17,11 +17,36 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="状态:"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="待上传"
+                    android:textColor="@color/colorRed" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_baseinfo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
                 android:elevation="5dp"
+                android:orientation="vertical"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -70,6 +95,7 @@
                             android:text="@string/step_tv_client_type" />
 
                         <TextView
+                            android:id="@+id/tv_clienttype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="经销商" />
@@ -88,6 +114,7 @@
                             android:text="@string/step_tv_client_level" />
 
                         <TextView
+                            android:id="@+id/tv_clientlevel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="二级商" />
@@ -106,6 +133,7 @@
                             android:text="@string/step_tv_client_name" />
 
                         <TextView
+                            android:id="@+id/tv_clientname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="农资超市" />
@@ -124,6 +152,7 @@
                             android:text="@string/step_tv_client_owner" />
 
                         <TextView
+                            android:id="@+id/tv_clientowner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="张三" />
@@ -142,6 +171,7 @@
                             android:text="@string/step_tv_client_phone" />
 
                         <TextView
+                            android:id="@+id/tv_clientphone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="18265186760" />
@@ -160,6 +190,7 @@
                             android:text="@string/step_tv_client_address" />
 
                         <TextView
+                            android:id="@+id/tv_clientaddr"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="山东省临沂市临沭县" />
@@ -178,6 +209,7 @@
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/tv_clientaddr2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="县城驻地" />
@@ -187,12 +219,13 @@
 
             <!--银行信息-->
             <LinearLayout
+                android:id="@+id/ll_bank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
                 android:elevation="5dp"
+                android:orientation="vertical"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -241,6 +274,7 @@
                             android:text="@string/step_tv_bank_name" />
 
                         <TextView
+                            android:id="@+id/tv_bankname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="中国银行" />
@@ -259,6 +293,7 @@
                             android:text="@string/step_tv_bank_number" />
 
                         <TextView
+                            android:id="@+id/tv_banknum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="10101010101010101010" />
@@ -277,6 +312,7 @@
                             android:text="@string/step_tv_bank_owner" />
 
                         <TextView
+                            android:id="@+id/tv_bankowner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="张三" />
@@ -295,6 +331,7 @@
                             android:text="@string/step_tv_invoice_type" />
 
                         <TextView
+                            android:id="@+id/tv_invoicetype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="增值税专用发票" />
@@ -313,6 +350,7 @@
                             android:text="@string/step_tv_invoice_banknum" />
 
                         <TextView
+                            android:id="@+id/tv_invoicenum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="1029302930" />
@@ -331,6 +369,7 @@
                             android:text="@string/step_tv_invoice_bankname" />
 
                         <TextView
+                            android:id="@+id/tv_invoicename"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="中国银行" />
@@ -349,6 +388,7 @@
                             android:text="@string/step_tv_invoice_bankname2" />
 
                         <TextView
+                            android:id="@+id/tv_invoicename2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="临沭支行" />
@@ -367,6 +407,7 @@
                             android:text="@string/step_tv_invoice_phone" />
 
                         <TextView
+                            android:id="@+id/tv_invoicephone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="临沭支行" />
@@ -376,12 +417,13 @@
 
             <!--营业执照-->
             <LinearLayout
+                android:id="@+id/ll_contract"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
                 android:elevation="5dp"
+                android:orientation="vertical"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -415,11 +457,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="10dp">
+                    android:orientation="vertical">
                     <!--营业执照-->
                     <ImageView
                         android:id="@+id/iv_contract"
@@ -427,19 +469,20 @@
                         android:layout_height="160dp"
                         android:background="@color/colorGray"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/picture"/>
+                        android:src="@mipmap/picture" />
 
                 </LinearLayout>
             </LinearLayout>
 
             <!--身份证-->
             <LinearLayout
+                android:id="@+id/ll_idcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:elevation="5dp">
+                android:elevation="5dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -472,53 +515,56 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="2dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginRight="2dp">
+                        android:orientation="vertical">
                         <!--正面-->
                         <ImageView
                             android:id="@+id/iv_idcardf"
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
+                            android:layout_marginBottom="10dp"
                             android:background="@color/colorGray"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/picture"
-                            android:layout_marginBottom="10dp"/>
+                            android:src="@mipmap/picture" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="正面"/>
+                            android:text="正面" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="2dp">
+                        android:orientation="vertical">
                         <!--反面-->
                         <ImageView
                             android:id="@+id/iv_idcardb"
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
+                            android:layout_marginBottom="10dp"
                             android:background="@color/colorGray"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/picture"
-                            android:layout_marginBottom="10dp"/>
+                            android:src="@mipmap/picture" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="反面"/>
+                            android:text="反面" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -526,12 +572,13 @@
 
             <!--营业执照-->
             <LinearLayout
+                android:id="@+id/ll_licence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:elevation="5dp">
+                android:elevation="5dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -564,11 +611,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="10dp">
+                    android:orientation="vertical">
                     <!--营业执照-->
                     <ImageView
                         android:id="@+id/iv_licence"
@@ -576,19 +623,10 @@
                         android:layout_height="160dp"
                         android:background="@color/colorGray"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/picture"/>
+                        android:src="@mipmap/picture" />
 
                 </LinearLayout>
             </LinearLayout>
-            <!--<Button-->
-                <!--android:id="@+id/bt_confirm_commit"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:text="提         交"-->
-                <!--android:textColor="@color/colorWhite"-->
-                <!--android:background="@color/colorRed"-->
-                <!--/>-->
         </LinearLayout>
     </ScrollView>
 

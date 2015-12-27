@@ -13,9 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityConfirm;
 import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
-import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
+import com.sdl.sdlarchivesmanager.adapter.ClientListAdapter;
 import com.sdl.sdlarchivesmanager.bean.BeanAudit;
 
 import java.util.ArrayList;
@@ -28,46 +27,39 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by majingyuan on 15/12/20.
- * 首页
+ * 经销商列表
  */
-public class FragmentHome extends Fragment {
+public class FragmentUpload extends Fragment {
 
-
-
-    public FragmentHome(){
+    public FragmentUpload(){
 
     }
 
-    private  View mainview;
-    private FloatingActionButton fabAdd;
+    private View mainview;
+    private String[][] mStrings = {  {"农资店", "张一","0","1", "山东省临沂市临沭县石门镇刘晓村"},
+            {"农资店1", "张21","0","2", "山东省临沂市临沭县石门镇刘晓村"},
+            {"农资店2", "张3","0","3", "山东省临沂市临沭县石门镇刘晓村"},
+            {"农资店3", "张4","1","", "山东省临沂市临沭县石门镇刘晓村"}} ;
+
+    private FloatingActionButton fabSearch;
     private List<BeanAudit> listItems = new ArrayList<BeanAudit>();
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
-    private MainListAdapter adapter;
-    private String[][] mStrings = {  {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店1", "张某1", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店2", "张某2", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店3", "张某3", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店4", "张某4", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店5", "张某5", "山东省临沂市临沭县石门镇刘晓村"},
-            {"营销中心审核", "农资店6", "张某6", "山东省临沂市临沭县石门镇刘晓村"}} ;
+    private ClientListAdapter adapter;
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mainview = inflater.inflate(R.layout.content_main, null);
+        mainview = inflater.inflate(R.layout.activity_client_list, null);
 
-
-        fabAdd = (FloatingActionButton) mainview.findViewById(R.id.fab);
+        fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
 
-        fabAdd.setOnClickListener(new View.OnClickListener() {
+        fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityFlowChart.class);
-                startActivity(intent);
+                Toast.makeText(mainview.getContext(),"搜索",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,7 +88,7 @@ public class FragmentHome extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityConfirm.class);
+                intent.setClass(mainview.getContext(), ActivityFlowChart.class);
                 startActivity(intent);
             }
         });
@@ -104,13 +96,14 @@ public class FragmentHome extends Fragment {
 
         for (int i = 0; i < mStrings.length; i++){
             audit = new BeanAudit();
-            audit.setStatus(mStrings[i][0]);
-            audit.setClientName(mStrings[i][1]);
-            audit.setClientAddress(mStrings[i][3]);
-            audit.setClientOwner(mStrings[i][2]);
+            audit.setClientName(mStrings[i][0]);
+            audit.setClientOwner(mStrings[i][1]);
+            audit.setClientType(mStrings[i][2]);
+            audit.setClientLevel(mStrings[i][3]);
+            audit.setClientAddress(mStrings[i][4]);
             listItems.add(audit);
         }
-        adapter = new MainListAdapter(getActivity(), listItems);
+        adapter = new ClientListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
 
         return mainview;
@@ -121,6 +114,4 @@ public class FragmentHome extends Fragment {
         Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
         ptrFrame.refreshComplete();
     }
-
-
 }

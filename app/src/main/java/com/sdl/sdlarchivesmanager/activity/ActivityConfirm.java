@@ -1,5 +1,6 @@
 package com.sdl.sdlarchivesmanager.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -39,9 +40,10 @@ public class ActivityConfirm extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
-//                Intent intent = new Intent();
-//                intent.setClass(ActivityConfirm.this, ActivityBankInfo.class);
-//                startActivity(intent);
+                Intent intent = new Intent();
+                intent.setClass(ActivityConfirm.this, MainActivity.class);
+                startActivity(intent);
+                this.finish();
                 break;
             default:
                 break;

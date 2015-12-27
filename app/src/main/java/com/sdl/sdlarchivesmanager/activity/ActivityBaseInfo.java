@@ -32,6 +32,13 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_create_baseinfo);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         SysApplication.getInstance().addActivity(this);
+
+        createWidget();
+        setWidget();
+        setClick();
+    }
+
+    private void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         llLevel = (LinearLayout) findViewById(R.id.ll_clientlevel);
@@ -42,7 +49,14 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         rbLevel1 = (RadioButton) findViewById(R.id.rb_level1);
         rbLevel2 = (RadioButton) findViewById(R.id.rb_level2);
         rbLevel3 = (RadioButton) findViewById(R.id.rb_level3);
+    }
 
+    private void setWidget() {
+        tvTittle.setText(R.string.archives_baseinfo);
+
+    }
+
+    private void setClick(){
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         rbZzdh.setOnClickListener(this);
@@ -50,9 +64,6 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         rbLevel1.setOnClickListener(this);
         rbLevel2.setOnClickListener(this);
         rbLevel3.setOnClickListener(this);
-        tvTittle.setText(R.string.archives_baseinfo);
-
-
     }
 
     @Override

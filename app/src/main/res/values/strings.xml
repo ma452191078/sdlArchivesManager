@@ -33,7 +33,8 @@
     <string name="step_ev_client_name">输入经销商名称</string>
     <string name="step_ev_client_owner">输入法人代表</string>
     <string name="step_ev_phone">输入联系电话</string>
-    <string name="step_ev_address">输入详细地址</string>
+    <string name="step_ev_address">点击选择省市县</string>
+    <string name="step_ev_address2">输入详细地址</string>
     <string name="step_ev_lnglat">点击获取经纬度</string>
 
     <!--银行信息-->
@@ -59,6 +60,7 @@
     <string name="step_tv_photo_tips">点击上方图片,\n拍照或从相册选择需要上传的照片</string>
     <!--界面tittle-->
     <string name="title_activity_settings">设置</string>
-
+    <string name="title_activity_clientinfo">经销商</string>
+    <string name="title_activity_archiveinfo">申请单</string>
 
 </resources>

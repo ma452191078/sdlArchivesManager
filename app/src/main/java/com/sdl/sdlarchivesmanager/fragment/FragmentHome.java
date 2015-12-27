@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityConfirm;
+import com.sdl.sdlarchivesmanager.activity.ActivityClientInfo;
 import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
 import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
 import com.sdl.sdlarchivesmanager.bean.BeanAudit;
@@ -96,7 +96,7 @@ public class FragmentHome extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityConfirm.class);
+                intent.setClass(mainview.getContext(), ActivityClientInfo.class);
                 startActivity(intent);
             }
         });

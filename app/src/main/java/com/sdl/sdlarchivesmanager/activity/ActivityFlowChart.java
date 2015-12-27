@@ -31,7 +31,7 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
 
         ivBack = (ImageView) findViewById(R.id.iv_menu);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
-        llBack = (LinearLayout) findViewById(R.id.ll_menu);
+        llBack = (LinearLayout) findViewById(R.id.ll_next);
         llAdd = (LinearLayout) findViewById(R.id.ll_add);
         llStart = (LinearLayout) findViewById(R.id.ll_start);
 
@@ -44,7 +44,7 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ll_menu:
+            case R.id.ll_next:
                 ActivityFlowChart.this.finish();
                 break;
             case R.id.ll_start:

@@ -159,6 +159,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_clientname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/step_ev_client_name"
@@ -187,6 +188,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_clientowner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/step_ev_client_owner"
@@ -215,6 +217,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_clientphone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/step_ev_phone"
@@ -243,6 +246,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/et_clientaddr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/step_ev_address"
@@ -250,6 +254,35 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/left_text_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_clientaddr2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/step_ev_address2"
+                        android:textSize="@dimen/editview_textsize"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
 
             <!--经纬度-->
             <LinearLayout

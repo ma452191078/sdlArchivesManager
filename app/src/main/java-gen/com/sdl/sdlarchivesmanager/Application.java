@@ -7,6 +7,30 @@ package com.sdl.sdlarchivesmanager;
 public class Application {
 
     private Long id;
+    private String App_Name;
+    private String App_Owner;
+    private String App_Type;
+    private String App_Level;
+    private String App_Uplevel;
+    private String App_Phone;
+    private String App_Province;
+    private String App_City;
+    private String App_Country;
+    private String App_Town;
+    private String App_Address;
+    private String App_LngLat;
+    private String App_Contract;
+    private String App_IdCardF;
+    private String App_IdCardB;
+    private String App_Licence;
+    private String App_BankNum;
+    private String App_BankName;
+    private String App_BankName2;
+    private String App_BankPhone;
+    private String App_BankInvoice;
+    private String App_Send;
+    private String App_Status;
+    private java.util.Date App_TimeFlag;
 
     public Application() {
     }
@@ -15,12 +39,232 @@ public class Application {
         this.id = id;
     }
 
+    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankName2, String App_BankPhone, String App_BankInvoice, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+        this.id = id;
+        this.App_Name = App_Name;
+        this.App_Owner = App_Owner;
+        this.App_Type = App_Type;
+        this.App_Level = App_Level;
+        this.App_Uplevel = App_Uplevel;
+        this.App_Phone = App_Phone;
+        this.App_Province = App_Province;
+        this.App_City = App_City;
+        this.App_Country = App_Country;
+        this.App_Town = App_Town;
+        this.App_Address = App_Address;
+        this.App_LngLat = App_LngLat;
+        this.App_Contract = App_Contract;
+        this.App_IdCardF = App_IdCardF;
+        this.App_IdCardB = App_IdCardB;
+        this.App_Licence = App_Licence;
+        this.App_BankNum = App_BankNum;
+        this.App_BankName = App_BankName;
+        this.App_BankName2 = App_BankName2;
+        this.App_BankPhone = App_BankPhone;
+        this.App_BankInvoice = App_BankInvoice;
+        this.App_Send = App_Send;
+        this.App_Status = App_Status;
+        this.App_TimeFlag = App_TimeFlag;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getApp_Name() {
+        return App_Name;
+    }
+
+    public void setApp_Name(String App_Name) {
+        this.App_Name = App_Name;
+    }
+
+    public String getApp_Owner() {
+        return App_Owner;
+    }
+
+    public void setApp_Owner(String App_Owner) {
+        this.App_Owner = App_Owner;
+    }
+
+    public String getApp_Type() {
+        return App_Type;
+    }
+
+    public void setApp_Type(String App_Type) {
+        this.App_Type = App_Type;
+    }
+
+    public String getApp_Level() {
+        return App_Level;
+    }
+
+    public void setApp_Level(String App_Level) {
+        this.App_Level = App_Level;
+    }
+
+    public String getApp_Uplevel() {
+        return App_Uplevel;
+    }
+
+    public void setApp_Uplevel(String App_Uplevel) {
+        this.App_Uplevel = App_Uplevel;
+    }
+
+    public String getApp_Phone() {
+        return App_Phone;
+    }
+
+    public void setApp_Phone(String App_Phone) {
+        this.App_Phone = App_Phone;
+    }
+
+    public String getApp_Province() {
+        return App_Province;
+    }
+
+    public void setApp_Province(String App_Province) {
+        this.App_Province = App_Province;
+    }
+
+    public String getApp_City() {
+        return App_City;
+    }
+
+    public void setApp_City(String App_City) {
+        this.App_City = App_City;
+    }
+
+    public String getApp_Country() {
+        return App_Country;
+    }
+
+    public void setApp_Country(String App_Country) {
+        this.App_Country = App_Country;
+    }
+
+    public String getApp_Town() {
+        return App_Town;
+    }
+
+    public void setApp_Town(String App_Town) {
+        this.App_Town = App_Town;
+    }
+
+    public String getApp_Address() {
+        return App_Address;
+    }
+
+    public void setApp_Address(String App_Address) {
+        this.App_Address = App_Address;
+    }
+
+    public String getApp_LngLat() {
+        return App_LngLat;
+    }
+
+    public void setApp_LngLat(String App_LngLat) {
+        this.App_LngLat = App_LngLat;
+    }
+
+    public String getApp_Contract() {
+        return App_Contract;
+    }
+
+    public void setApp_Contract(String App_Contract) {
+        this.App_Contract = App_Contract;
+    }
+
+    public String getApp_IdCardF() {
+        return App_IdCardF;
+    }
+
+    public void setApp_IdCardF(String App_IdCardF) {
+        this.App_IdCardF = App_IdCardF;
+    }
+
+    public String getApp_IdCardB() {
+        return App_IdCardB;
+    }
+
+    public void setApp_IdCardB(String App_IdCardB) {
+        this.App_IdCardB = App_IdCardB;
+    }
+
+    public String getApp_Licence() {
+        return App_Licence;
+    }
+
+    public void setApp_Licence(String App_Licence) {
+        this.App_Licence = App_Licence;
+    }
+
+    public String getApp_BankNum() {
+        return App_BankNum;
+    }
+
+    public void setApp_BankNum(String App_BankNum) {
+        this.App_BankNum = App_BankNum;
+    }
+
+    public String getApp_BankName() {
+        return App_BankName;
+    }
+
+    public void setApp_BankName(String App_BankName) {
+        this.App_BankName = App_BankName;
+    }
+
+    public String getApp_BankName2() {
+        return App_BankName2;
+    }
+
+    public void setApp_BankName2(String App_BankName2) {
+        this.App_BankName2 = App_BankName2;
+    }
+
+    public String getApp_BankPhone() {
+        return App_BankPhone;
+    }
+
+    public void setApp_BankPhone(String App_BankPhone) {
+        this.App_BankPhone = App_BankPhone;
+    }
+
+    public String getApp_BankInvoice() {
+        return App_BankInvoice;
+    }
+
+    public void setApp_BankInvoice(String App_BankInvoice) {
+        this.App_BankInvoice = App_BankInvoice;
+    }
+
+    public String getApp_Send() {
+        return App_Send;
+    }
+
+    public void setApp_Send(String App_Send) {
+        this.App_Send = App_Send;
+    }
+
+    public String getApp_Status() {
+        return App_Status;
+    }
+
+    public void setApp_Status(String App_Status) {
+        this.App_Status = App_Status;
+    }
+
+    public java.util.Date getApp_TimeFlag() {
+        return App_TimeFlag;
+    }
+
+    public void setApp_TimeFlag(java.util.Date App_TimeFlag) {
+        this.App_TimeFlag = App_TimeFlag;
     }
 
 }

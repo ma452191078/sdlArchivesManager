@@ -55,13 +55,7 @@ public class FragmentUpload extends Fragment {
         fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
 
-        fabSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(mainview.getContext(),"搜索",Toast.LENGTH_SHORT).show();
-            }
-        });
+        fabSearch.setVisibility(View.GONE);
 
 //        下拉刷新控件
         ptrFrame = (PtrClassicFrameLayout)mainview.findViewById(R.id.list_view);

@@ -87,6 +87,9 @@ public class CreateDatabase {
         application.addStringProperty("App_BankName2");   //支行名称
         application.addStringProperty("App_BankPhone");   //电话
         application.addStringProperty("App_BankInvoice");  //发票类型,专用发票,普通发票
+        application.addStringProperty("App_Send");      //0已发送,1未发送
+        application.addStringProperty("App_Status");    //审核状态
+        application.addDateProperty("App_TimeFlag");    //记录创建时间,
     }
 
 }

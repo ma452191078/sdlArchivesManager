@@ -19,7 +19,6 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
 
     private ImageView ivBack;
     private LinearLayout llBack;
-    private LinearLayout llAdd;
     private LinearLayout llStart;
     private TextView tvTittle;
 
@@ -29,14 +28,11 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_flowchart);
         SysApplication.getInstance().addActivity(this);
 
-        ivBack = (ImageView) findViewById(R.id.iv_menu);
+        llBack = (LinearLayout) findViewById(R.id.ll_back);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
-        llBack = (LinearLayout) findViewById(R.id.ll_next);
-        llAdd = (LinearLayout) findViewById(R.id.ll_add);
         llStart = (LinearLayout) findViewById(R.id.ll_start);
 
         tvTittle.setText(R.string.archives_flowchart);
-        llAdd.setVisibility(View.INVISIBLE);
         llBack.setOnClickListener(this);
         llStart.setOnClickListener(this);
 
@@ -44,7 +40,7 @@ public class ActivityFlowChart extends AppCompatActivity implements View.OnClick
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ll_next:
+            case R.id.ll_back:
                 ActivityFlowChart.this.finish();
                 break;
             case R.id.ll_start:

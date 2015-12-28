@@ -89,7 +89,16 @@ public class CreateDatabase {
         application.addStringProperty("App_BankInvoice");  //发票类型,专用发票,普通发票
         application.addStringProperty("App_Send");      //0已发送,1未发送
         application.addStringProperty("App_Status");    //审核状态
-        application.addDateProperty("App_TimeFlag");    //记录创建时间,
+        application.addDateProperty("App_TimeFlag");    //记录创建时间
+
+        Entity address = schema.addEntity("Address");
+        address.addIdProperty();
+        address.addStringProperty("Addr_Code");
+        address.addStringProperty("Addr_Name");
+        address.addStringProperty("Addr_UpCode");
+        address.addStringProperty("Addr_Level");
     }
+
+
 
 }

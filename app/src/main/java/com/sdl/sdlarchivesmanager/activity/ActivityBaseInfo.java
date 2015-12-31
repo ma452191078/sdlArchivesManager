@@ -97,14 +97,16 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.ll_back:
                 this.finish();
                 break;
             case R.id.ll_next:
                 goNextStep();
+                bundle.putString("timeflag", timeFlag.toString());
                 intent.setClass(ActivityBaseInfo.this, ActivityBankInfo.class);
-                startActivity(intent);
+                startActivity(intent,bundle);
                 break;
             case R.id.rb_jxs:
                 if (llLevel.getVisibility() == View.GONE)

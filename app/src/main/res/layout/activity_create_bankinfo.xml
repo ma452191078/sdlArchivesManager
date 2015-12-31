@@ -71,12 +71,13 @@
                     android:gravity="left"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/et_bankname"
+                    <TextView
+                        android:id="@+id/tv_bankname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:enabled="false"
-                        android:hint="@string/step_ev_bank_name" />
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/step_ev_bank_name" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -146,6 +147,7 @@
                             android:id="@+id/rb_ptfp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="@string/invoice_type_pt" />
                     </RadioGroup>
 
@@ -201,12 +203,13 @@
                     android:gravity="left"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/et_invoicebankname"
+                    <TextView
+                        android:id="@+id/tv_invoicebankname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:enabled="false"
-                        android:hint="@string/step_ev_invoice_bankname" />
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/step_ev_invoice_bankname" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -234,7 +237,6 @@
                         android:id="@+id/et_invoicebankname2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:enabled="false"
                         android:hint="@string/step_ev_invoice_bankname2" />
                 </LinearLayout>
             </LinearLayout>
@@ -264,6 +266,35 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:hint="@string/step_ev_bank_owner" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--对公账号电话-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/left_text_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/step_tv_invoice_phone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_invoicebankphone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/step_ev_inovice_phone" />
 
                 </LinearLayout>
             </LinearLayout>

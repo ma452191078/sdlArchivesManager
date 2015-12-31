@@ -84,9 +84,13 @@ public class CreateDatabase {
         application.addStringProperty("App_Licence"); //经销商协议书
         application.addStringProperty("App_BankNum");     //银行卡号
         application.addStringProperty("App_BankName");    //银行名称
-        application.addStringProperty("App_BankName2");   //支行名称
-        application.addStringProperty("App_BankPhone");   //电话
-        application.addStringProperty("App_BankInvoice");  //发票类型,专用发票,普通发票
+        application.addStringProperty("App_BankOwner");   //户主
+        application.addStringProperty("App_InvoiceType");  //发票类型,0专用发票,1普通发票
+        application.addStringProperty("App_InvoiceBankNum");    //对公账号
+        application.addStringProperty("App_InvoiceBankName");   //开户行
+        application.addStringProperty("App_InvoiceBankName2");   //支行
+        application.addStringProperty("App_InvoiceBankOwner");  //户主
+        application.addStringProperty("App_InvoiceBankPhone");   //电话
         application.addStringProperty("App_Send");      //0已发送,1未发送
         application.addStringProperty("App_Status");    //审核状态
         application.addDateProperty("App_TimeFlag").primaryKey();    //记录创建时间

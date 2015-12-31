@@ -25,9 +25,13 @@ public class Application {
     private String App_Licence;
     private String App_BankNum;
     private String App_BankName;
-    private String App_BankName2;
-    private String App_BankPhone;
-    private String App_BankInvoice;
+    private String App_BankOwner;
+    private String App_InvoiceType;
+    private String App_InvoiceBankNum;
+    private String App_InvoiceBankName;
+    private String App_InvoiceBankName2;
+    private String App_InvoiceBankOwner;
+    private String App_InvoiceBankPhone;
     private String App_Send;
     private String App_Status;
     private java.util.Date App_TimeFlag;
@@ -40,7 +44,7 @@ public class Application {
         this.App_TimeFlag = App_TimeFlag;
     }
 
-    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankName2, String App_BankPhone, String App_BankInvoice, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
         this.App_Name = App_Name;
         this.App_Owner = App_Owner;
@@ -60,9 +64,13 @@ public class Application {
         this.App_Licence = App_Licence;
         this.App_BankNum = App_BankNum;
         this.App_BankName = App_BankName;
-        this.App_BankName2 = App_BankName2;
-        this.App_BankPhone = App_BankPhone;
-        this.App_BankInvoice = App_BankInvoice;
+        this.App_BankOwner = App_BankOwner;
+        this.App_InvoiceType = App_InvoiceType;
+        this.App_InvoiceBankNum = App_InvoiceBankNum;
+        this.App_InvoiceBankName = App_InvoiceBankName;
+        this.App_InvoiceBankName2 = App_InvoiceBankName2;
+        this.App_InvoiceBankOwner = App_InvoiceBankOwner;
+        this.App_InvoiceBankPhone = App_InvoiceBankPhone;
         this.App_Send = App_Send;
         this.App_Status = App_Status;
         this.App_TimeFlag = App_TimeFlag;
@@ -220,28 +228,60 @@ public class Application {
         this.App_BankName = App_BankName;
     }
 
-    public String getApp_BankName2() {
-        return App_BankName2;
+    public String getApp_BankOwner() {
+        return App_BankOwner;
     }
 
-    public void setApp_BankName2(String App_BankName2) {
-        this.App_BankName2 = App_BankName2;
+    public void setApp_BankOwner(String App_BankOwner) {
+        this.App_BankOwner = App_BankOwner;
     }
 
-    public String getApp_BankPhone() {
-        return App_BankPhone;
+    public String getApp_InvoiceType() {
+        return App_InvoiceType;
     }
 
-    public void setApp_BankPhone(String App_BankPhone) {
-        this.App_BankPhone = App_BankPhone;
+    public void setApp_InvoiceType(String App_InvoiceType) {
+        this.App_InvoiceType = App_InvoiceType;
     }
 
-    public String getApp_BankInvoice() {
-        return App_BankInvoice;
+    public String getApp_InvoiceBankNum() {
+        return App_InvoiceBankNum;
     }
 
-    public void setApp_BankInvoice(String App_BankInvoice) {
-        this.App_BankInvoice = App_BankInvoice;
+    public void setApp_InvoiceBankNum(String App_InvoiceBankNum) {
+        this.App_InvoiceBankNum = App_InvoiceBankNum;
+    }
+
+    public String getApp_InvoiceBankName() {
+        return App_InvoiceBankName;
+    }
+
+    public void setApp_InvoiceBankName(String App_InvoiceBankName) {
+        this.App_InvoiceBankName = App_InvoiceBankName;
+    }
+
+    public String getApp_InvoiceBankName2() {
+        return App_InvoiceBankName2;
+    }
+
+    public void setApp_InvoiceBankName2(String App_InvoiceBankName2) {
+        this.App_InvoiceBankName2 = App_InvoiceBankName2;
+    }
+
+    public String getApp_InvoiceBankOwner() {
+        return App_InvoiceBankOwner;
+    }
+
+    public void setApp_InvoiceBankOwner(String App_InvoiceBankOwner) {
+        this.App_InvoiceBankOwner = App_InvoiceBankOwner;
+    }
+
+    public String getApp_InvoiceBankPhone() {
+        return App_InvoiceBankPhone;
+    }
+
+    public void setApp_InvoiceBankPhone(String App_InvoiceBankPhone) {
+        this.App_InvoiceBankPhone = App_InvoiceBankPhone;
     }
 
     public String getApp_Send() {

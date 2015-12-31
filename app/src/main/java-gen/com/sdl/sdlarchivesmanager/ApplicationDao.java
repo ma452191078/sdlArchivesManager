@@ -42,12 +42,16 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
         public final static Property App_Licence = new Property(16, String.class, "App_Licence", false, "APP__LICENCE");
         public final static Property App_BankNum = new Property(17, String.class, "App_BankNum", false, "APP__BANK_NUM");
         public final static Property App_BankName = new Property(18, String.class, "App_BankName", false, "APP__BANK_NAME");
-        public final static Property App_BankName2 = new Property(19, String.class, "App_BankName2", false, "APP__BANK_NAME2");
-        public final static Property App_BankPhone = new Property(20, String.class, "App_BankPhone", false, "APP__BANK_PHONE");
-        public final static Property App_BankInvoice = new Property(21, String.class, "App_BankInvoice", false, "APP__BANK_INVOICE");
-        public final static Property App_Send = new Property(22, String.class, "App_Send", false, "APP__SEND");
-        public final static Property App_Status = new Property(23, String.class, "App_Status", false, "APP__STATUS");
-        public final static Property App_TimeFlag = new Property(24, java.util.Date.class, "App_TimeFlag", true, "APP__TIME_FLAG");
+        public final static Property App_BankOwner = new Property(19, String.class, "App_BankOwner", false, "APP__BANK_OWNER");
+        public final static Property App_InvoiceType = new Property(20, String.class, "App_InvoiceType", false, "APP__INVOICE_TYPE");
+        public final static Property App_InvoiceBankNum = new Property(21, String.class, "App_InvoiceBankNum", false, "APP__INVOICE_BANK_NUM");
+        public final static Property App_InvoiceBankName = new Property(22, String.class, "App_InvoiceBankName", false, "APP__INVOICE_BANK_NAME");
+        public final static Property App_InvoiceBankName2 = new Property(23, String.class, "App_InvoiceBankName2", false, "APP__INVOICE_BANK_NAME2");
+        public final static Property App_InvoiceBankOwner = new Property(24, String.class, "App_InvoiceBankOwner", false, "APP__INVOICE_BANK_OWNER");
+        public final static Property App_InvoiceBankPhone = new Property(25, String.class, "App_InvoiceBankPhone", false, "APP__INVOICE_BANK_PHONE");
+        public final static Property App_Send = new Property(26, String.class, "App_Send", false, "APP__SEND");
+        public final static Property App_Status = new Property(27, String.class, "App_Status", false, "APP__STATUS");
+        public final static Property App_TimeFlag = new Property(28, java.util.Date.class, "App_TimeFlag", true, "APP__TIME_FLAG");
     };
 
 
@@ -82,12 +86,16 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
                 "\"APP__LICENCE\" TEXT," + // 16: App_Licence
                 "\"APP__BANK_NUM\" TEXT," + // 17: App_BankNum
                 "\"APP__BANK_NAME\" TEXT," + // 18: App_BankName
-                "\"APP__BANK_NAME2\" TEXT," + // 19: App_BankName2
-                "\"APP__BANK_PHONE\" TEXT," + // 20: App_BankPhone
-                "\"APP__BANK_INVOICE\" TEXT," + // 21: App_BankInvoice
-                "\"APP__SEND\" TEXT," + // 22: App_Send
-                "\"APP__STATUS\" TEXT," + // 23: App_Status
-                "\"APP__TIME_FLAG\" INTEGER PRIMARY KEY );"); // 24: App_TimeFlag
+                "\"APP__BANK_OWNER\" TEXT," + // 19: App_BankOwner
+                "\"APP__INVOICE_TYPE\" TEXT," + // 20: App_InvoiceType
+                "\"APP__INVOICE_BANK_NUM\" TEXT," + // 21: App_InvoiceBankNum
+                "\"APP__INVOICE_BANK_NAME\" TEXT," + // 22: App_InvoiceBankName
+                "\"APP__INVOICE_BANK_NAME2\" TEXT," + // 23: App_InvoiceBankName2
+                "\"APP__INVOICE_BANK_OWNER\" TEXT," + // 24: App_InvoiceBankOwner
+                "\"APP__INVOICE_BANK_PHONE\" TEXT," + // 25: App_InvoiceBankPhone
+                "\"APP__SEND\" TEXT," + // 26: App_Send
+                "\"APP__STATUS\" TEXT," + // 27: App_Status
+                "\"APP__TIME_FLAG\" INTEGER PRIMARY KEY );"); // 28: App_TimeFlag
     }
 
     /** Drops the underlying database table. */
@@ -196,34 +204,54 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
             stmt.bindString(19, App_BankName);
         }
  
-        String App_BankName2 = entity.getApp_BankName2();
-        if (App_BankName2 != null) {
-            stmt.bindString(20, App_BankName2);
+        String App_BankOwner = entity.getApp_BankOwner();
+        if (App_BankOwner != null) {
+            stmt.bindString(20, App_BankOwner);
         }
  
-        String App_BankPhone = entity.getApp_BankPhone();
-        if (App_BankPhone != null) {
-            stmt.bindString(21, App_BankPhone);
+        String App_InvoiceType = entity.getApp_InvoiceType();
+        if (App_InvoiceType != null) {
+            stmt.bindString(21, App_InvoiceType);
         }
  
-        String App_BankInvoice = entity.getApp_BankInvoice();
-        if (App_BankInvoice != null) {
-            stmt.bindString(22, App_BankInvoice);
+        String App_InvoiceBankNum = entity.getApp_InvoiceBankNum();
+        if (App_InvoiceBankNum != null) {
+            stmt.bindString(22, App_InvoiceBankNum);
+        }
+ 
+        String App_InvoiceBankName = entity.getApp_InvoiceBankName();
+        if (App_InvoiceBankName != null) {
+            stmt.bindString(23, App_InvoiceBankName);
+        }
+ 
+        String App_InvoiceBankName2 = entity.getApp_InvoiceBankName2();
+        if (App_InvoiceBankName2 != null) {
+            stmt.bindString(24, App_InvoiceBankName2);
+        }
+ 
+        String App_InvoiceBankOwner = entity.getApp_InvoiceBankOwner();
+        if (App_InvoiceBankOwner != null) {
+            stmt.bindString(25, App_InvoiceBankOwner);
+        }
+ 
+        String App_InvoiceBankPhone = entity.getApp_InvoiceBankPhone();
+        if (App_InvoiceBankPhone != null) {
+            stmt.bindString(26, App_InvoiceBankPhone);
         }
  
         String App_Send = entity.getApp_Send();
         if (App_Send != null) {
-            stmt.bindString(23, App_Send);
+            stmt.bindString(27, App_Send);
         }
  
         String App_Status = entity.getApp_Status();
         if (App_Status != null) {
-            stmt.bindString(24, App_Status);
+            stmt.bindString(28, App_Status);
         }
  
         java.util.Date App_TimeFlag = entity.getApp_TimeFlag();
         if (App_TimeFlag != null) {
-            stmt.bindLong(25, App_TimeFlag.getTime());
+            stmt.bindLong(29, App_TimeFlag.getTime());
         }
     }
 
@@ -256,12 +284,16 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // App_Licence
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // App_BankNum
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // App_BankName
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // App_BankName2
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // App_BankPhone
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // App_BankInvoice
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // App_Send
-            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // App_Status
-            cursor.isNull(offset + 24) ? null : new java.util.Date(cursor.getLong(offset + 24)) // App_TimeFlag
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // App_BankOwner
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // App_InvoiceType
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // App_InvoiceBankNum
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // App_InvoiceBankName
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // App_InvoiceBankName2
+            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // App_InvoiceBankOwner
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // App_InvoiceBankPhone
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // App_Send
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // App_Status
+            cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)) // App_TimeFlag
         );
         return entity;
     }
@@ -288,12 +320,16 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
         entity.setApp_Licence(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
         entity.setApp_BankNum(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setApp_BankName(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
-        entity.setApp_BankName2(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setApp_BankPhone(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
-        entity.setApp_BankInvoice(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
-        entity.setApp_Send(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
-        entity.setApp_Status(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
-        entity.setApp_TimeFlag(cursor.isNull(offset + 24) ? null : new java.util.Date(cursor.getLong(offset + 24)));
+        entity.setApp_BankOwner(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setApp_InvoiceType(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setApp_InvoiceBankNum(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setApp_InvoiceBankName(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setApp_InvoiceBankName2(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setApp_InvoiceBankOwner(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
+        entity.setApp_InvoiceBankPhone(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setApp_Send(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setApp_Status(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setApp_TimeFlag(cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)));
      }
     
     /** @inheritdoc */

@@ -194,7 +194,7 @@ public class DBHelper {
         }
     }
 
-    public void updateApplication(Date timeFlag, Application application){
+    public void updateApplication(Application application){
         applicationDao.update(application);
     }
 

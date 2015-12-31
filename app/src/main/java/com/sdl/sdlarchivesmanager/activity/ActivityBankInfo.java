@@ -12,11 +12,8 @@ import android.widget.TextView;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * create by majingyuan on 2015-12-05 20:31:29
@@ -25,9 +22,10 @@ import java.util.Date;
 public class ActivityBankInfo extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RESULT_BANK = 2000;
-    private Date timeFlag = null;
-    DBHelper dbHelper;
-    Application app = new Application();
+    private String timeFlag;
+    private DBHelper dbHelper;
+    private Application app = new Application();
+    private String strBankCode; //银行编号
 
     private LinearLayout llBack;
     private LinearLayout llNext;
@@ -54,22 +52,18 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
         dbHelper = DBHelper.getInstance(this);
         Bundle bundle = this.getIntent().getExtras();
 
-        if (bundle != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                timeFlag = sdf.parse(bundle.getString("timeflag"));
-                app = dbHelper.loadApplication(timeFlag);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        if (bundle != null) {
+
+            timeFlag = bundle.getString("timeflag");
+            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
         }
         createWidget();
         setWidget();
 
     }
 
-//    声明屏幕组件
-    protected void createWidget(){
+    //    声明屏幕组件
+    protected void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
@@ -85,27 +79,27 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
         etInvoicePhone = (EditText) findViewById(R.id.et_invoicebankphone);
     }
 
-//    设置屏幕组件属性
-    protected void setWidget(){
+    //    设置屏幕组件属性
+    protected void setWidget() {
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         tvTittle.setText(R.string.archives_bankinfo);
         tvBankName.setOnClickListener(this);
         tvInvoiceName.setOnClickListener(this);
 
-        if (app != null){
-            etBankNum.setText(app.getApp_BankNum());
-            tvBankName.setText(app.getApp_BankName());
-            etBankOwner.setText(app.getApp_BankOwner());
-            if (app.getApp_InvoiceType() == "0"){
-//                专用发票
-                rbInvoiceTypeZ.setChecked(true);
-
-            }else
-            {
-                rbInvoiceTypeP.setChecked(true);
-            }
-        }
+//        if (app != null){
+//            etBankNum.setText(app.getApp_BankNum());
+//            tvBankName.setText(app.getApp_BankName());
+//            etBankOwner.setText(app.getApp_BankOwner());
+//            if (app.getApp_InvoiceType() == "0"){
+////                专用发票
+//                rbInvoiceTypeZ.setChecked(true);
+//
+//            }else
+//            {
+//                rbInvoiceTypeP.setChecked(true);
+//            }
+//        }
     }
 
     @Override
@@ -115,10 +109,11 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent();
+        Intent intent;
 
         switch (v.getId()) {
             case R.id.ll_next:
+                goNextStep();
                 intent = null;
                 intent.setClass(ActivityBankInfo.this, ActivityLicence.class);
                 startActivity(intent);
@@ -135,6 +130,37 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
                 break;
             default:
                 break;
+        }
+    }
+
+    protected void goNextStep() {
+        if (app != null){
+
+            app.setApp_BankNum(etBankNum.getText().toString().trim());
+            app.setApp_BankName(tvBankName.getText().toString());
+            app.setApp_BankOwner(etBankOwner.getText().toString().trim());
+            if (rbInvoiceTypeZ.isChecked()){
+                app.setApp_InvoiceType("0");
+            }else {
+                app.setApp_InvoiceType("1");
+            }
+            app.setApp_InvoiceBankNum(etInvoiceNum.getText().toString().trim());
+            app.setApp_InvoiceBankName(tvInvoiceName.getText().toString());
+            app.setApp_InvoiceBankName2(etInvoiceName2.getText().toString().trim());
+            app.setApp_InvoiceBankOwner(etInvoiceOwner.getText().toString().trim());
+            app.setApp_InvoiceBankPhone(etInvoicePhone.getText().toString().trim());
+
+            dbHelper.updateApplication(app);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_BANK && resultCode == 2001) {
+            tvBankName.setText(data.getStringExtra("result"));
+            strBankCode = data.getStringExtra("bankcode");
         }
     }
 }

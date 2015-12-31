@@ -16,8 +16,6 @@ import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
-import java.util.Date;
-
 /**
  * Created by majingyuan on 15/12/5.
  * 创建经销商步骤1
@@ -42,7 +40,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
 
     private String strProvince,strCity,strCountry,strTown;
     private DBHelper dbHelper;
-    private Date timeFlag;
+    private String timeFlag;
 
 
     @Override
@@ -152,7 +150,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
 
     protected void  goNextStep(){
 //        获得界面数据
-        timeFlag = new GetDateUtil().getDate(System.currentTimeMillis());
+        timeFlag = new GetDateUtil().getNowDateTime();
         Application app = new Application();
 //        经销商类型,经销商0/种植大户1
         if (rbJxs.isSelected()){
@@ -189,7 +187,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         app.setApp_Country(strCountry);
         app.setApp_Town(strTown);
         app.setApp_Address(etAddress2.getText().toString().trim());
-        app.setApp_TimeFlag(timeFlag);
+        app.setApp_TimeFlag(new GetDateUtil().getDate(timeFlag));
 
 //        保存申请单
         dbHelper.addApplication(app);

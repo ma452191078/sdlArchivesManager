@@ -15,11 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/5.
@@ -45,21 +44,28 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_create_licence);
         SysApplication.getInstance().addActivity(this);
 
+        createWidget();
+        setWidget();
+//        初次载入显示选择提示
+        getPhoto();
+
+    }
+
 //        组件声明
+    protected void createWidget(){
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         ivPicture = (ImageView) findViewById(R.id.iv_picture);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
+    }
+
+//        添加监听
+    protected void setWidget(){
 
         tvTittle.setText(R.string.archives_licence);
-//        添加监听
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         ivPicture.setOnClickListener(this);
-//        初次载入显示选择提示
-        getPhoto();
-
-
     }
 
     @Override
@@ -102,10 +108,8 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
     //    照片名称,日期时间为名称
     private String getPhotoFileName() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".jpg";
+        String path = new GetDateUtil().getNowDateTime();
+        return path + ".jpg";
     }
 
     //    裁剪图片

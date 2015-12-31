@@ -1,7 +1,6 @@
 package com.sdl.sdlarchivesmanager.activity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,8 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
+
+import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/5.
@@ -27,12 +31,19 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
     private LinearLayout llLevel;
     private LinearLayout llUpLevel;
     private TextView tvTittle;
-    private TextView tvLocation;
-    private RadioButton rbJxs, rbZzdh;  //经销商和种植大户单选按钮
-    private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
+    private TextView tvUpLevel; //上级经销商
+    private EditText etClientName;  //经销商名称
+    private EditText etClientOwner; //经销商法人
+    private EditText etClientPhone; //电话
     private TextView tvAddress1;    //地区
     private EditText etAddress2;    //详细地址
-    private Typeface iconfont;
+    private RadioButton rbJxs, rbZzdh;  //经销商和种植大户单选按钮
+    private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
+
+    private String strProvince,strCity,strCountry,strTown;
+    private DBHelper dbHelper;
+    private Date timeFlag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +51,13 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_create_baseinfo);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         SysApplication.getInstance().addActivity(this);
-        iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
-
+        dbHelper = DBHelper.getInstance(this);
         createWidget();
         setWidget();
         setClick();
     }
 
+    /*控件声明*/
     private void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
@@ -58,6 +69,12 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         rbLevel1 = (RadioButton) findViewById(R.id.rb_level1);
         rbLevel2 = (RadioButton) findViewById(R.id.rb_level2);
         rbLevel3 = (RadioButton) findViewById(R.id.rb_level3);
+        tvUpLevel = (TextView) findViewById(R.id.tv_uplevel);
+        etClientName = (EditText) findViewById(R.id.et_clientname);
+        etClientOwner = (EditText) findViewById(R.id.et_clientowner); //经销商法人
+        etClientPhone = (EditText) findViewById(R.id.et_clientphone); //电话
+        tvAddress1 = (TextView) findViewById(R.id.tv_clientaddr);    //地区
+        etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);    //详细地址
         tvAddress1 = (TextView) findViewById(R.id.tv_clientaddr);
         etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);
     }
@@ -85,6 +102,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.ll_next:
+                goNextStep();
                 intent.setClass(ActivityBaseInfo.this, ActivityBankInfo.class);
                 startActivity(intent);
                 break;
@@ -122,6 +140,56 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_ADDRESS && resultCode == 1001) {
             tvAddress1.setText(data.getStringExtra("result"));
+            strProvince = data.getStringExtra("province");
+            strCity = data.getStringExtra("city");
+            strCountry = data.getStringExtra("country");
+            strTown = data.getStringExtra("town");
+
         }
+    }
+
+    protected void  goNextStep(){
+//        获得界面数据
+        timeFlag = new GetDateUtil().getDate(System.currentTimeMillis());
+        Application app = new Application();
+//        经销商类型,经销商0/种植大户1
+        if (rbJxs.isSelected()){
+            app.setApp_Type("0");
+        }else if (rbZzdh.isSelected()){
+            app.setApp_Type("1");
+        }else {
+            app.setApp_Type("");
+        }
+
+//        经销商层级,一级1/二级2/三级3
+        if (rbLevel1.isSelected()){
+            app.setApp_Level("1");
+        }else if (rbLevel2.isSelected()){
+            app.setApp_Level("2");
+        }else if (rbLevel3.isSelected()){
+            app.setApp_Level("3");
+        }else{
+            app.setApp_Level("");
+        }
+
+//        上级经销商
+        if (rbLevel2.isSelected() || rbLevel3.isSelected()){
+            app.setApp_Uplevel(tvUpLevel.getText().toString());
+        }else {
+            app.setApp_Uplevel("");
+        }
+
+        app.setApp_Name(etClientName.getText().toString().trim());
+        app.setApp_Owner(etClientOwner.getText().toString().trim());
+        app.setApp_Phone(etClientPhone.getText().toString().trim());
+        app.setApp_Province(strProvince);
+        app.setApp_City(strCity);
+        app.setApp_Country(strCountry);
+        app.setApp_Town(strTown);
+        app.setApp_Address(etAddress2.getText().toString().trim());
+        app.setApp_TimeFlag(timeFlag);
+
+//        保存申请单
+        dbHelper.addApplication(app);
     }
 }

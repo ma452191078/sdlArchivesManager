@@ -3,6 +3,7 @@ package com.sdl.sdlarchivesmanager.db;
 
 import android.content.Context;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.ApplicationDao;
 import com.sdl.sdlarchivesmanager.BankDao;
 import com.sdl.sdlarchivesmanager.ClientDao;
@@ -177,11 +178,53 @@ public class DBHelper {
                 .build();
         List<User> userList = query.list();
         if (userList.size() > 0) {
-            try {
-                userDao.updateInTx(userList);
-            }catch (Exception ex){
-
+            for (int i = 0; i < userList.size(); i++){
+                userList.get(i).setUser_Status(false);
             }
+            userDao.updateInTx(userList);
         }
+    }
+
+    public boolean addApplication(Application app){
+        try{
+            applicationDao.insertOrReplace(app);
+            return true;
+        }catch (Exception ex){
+            return false;
+        }
+    }
+
+    public void updateApplication(Date timeFlag, Application application){
+        applicationDao.update(application);
+    }
+
+    public boolean existApplication(Date timeFlag){
+        boolean status;
+        Query query = applicationDao.queryBuilder()
+                .where(ApplicationDao.Properties.App_TimeFlag.eq(timeFlag))
+                .orderAsc(ApplicationDao.Properties.App_TimeFlag)
+                .build();
+        List<Application> appList = query.list();
+        if (appList.size() > 0) {
+            status = true;
+        } else {
+            status = false;
+        }
+        QueryBuilder.LOG_SQL = true;
+        QueryBuilder.LOG_VALUES = true;
+        return status;
+    }
+
+    public Application loadApplication(Date timeFlag){
+        Application app = null;
+        Query query = applicationDao.queryBuilder()
+                .where(ApplicationDao.Properties.App_TimeFlag.eq(timeFlag))
+                .orderAsc(ApplicationDao.Properties.App_TimeFlag)
+                .build();
+        List<Application> appList = query.list();
+        if (appList.size() > 0) {
+            app = appList.get(0);
+        }
+        return app;
     }
 }

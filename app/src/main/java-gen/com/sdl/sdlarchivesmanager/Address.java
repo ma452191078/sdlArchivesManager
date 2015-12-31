@@ -15,8 +15,9 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long id) {
+    public Address(Long id, String Addr_Code) {
         this.id = id;
+        this.Addr_Code = Addr_Code;
     }
 
     public Address(Long id, String Addr_Code, String Addr_Name, String Addr_UpCode, String Addr_Level) {

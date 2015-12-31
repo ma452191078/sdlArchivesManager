@@ -14,7 +14,7 @@ import com.sdl.sdlarchivesmanager.Application;
 /** 
  * DAO for table "APPLICATION".
 */
-public class ApplicationDao extends AbstractDao<Application, Long> {
+public class ApplicationDao extends AbstractDao<Application, Void> {
 
     public static final String TABLENAME = "APPLICATION";
 
@@ -47,7 +47,7 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
         public final static Property App_BankInvoice = new Property(21, String.class, "App_BankInvoice", false, "APP__BANK_INVOICE");
         public final static Property App_Send = new Property(22, String.class, "App_Send", false, "APP__SEND");
         public final static Property App_Status = new Property(23, String.class, "App_Status", false, "APP__STATUS");
-        public final static Property App_TimeFlag = new Property(24, java.util.Date.class, "App_TimeFlag", false, "APP__TIME_FLAG");
+        public final static Property App_TimeFlag = new Property(24, java.util.Date.class, "App_TimeFlag", true, "APP__TIME_FLAG");
     };
 
 
@@ -63,7 +63,7 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"APPLICATION\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"APP__NAME\" TEXT," + // 1: App_Name
                 "\"APP__OWNER\" TEXT," + // 2: App_Owner
                 "\"APP__TYPE\" TEXT," + // 3: App_Type
@@ -87,7 +87,7 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
                 "\"APP__BANK_INVOICE\" TEXT," + // 21: App_BankInvoice
                 "\"APP__SEND\" TEXT," + // 22: App_Send
                 "\"APP__STATUS\" TEXT," + // 23: App_Status
-                "\"APP__TIME_FLAG\" INTEGER);"); // 24: App_TimeFlag
+                "\"APP__TIME_FLAG\" INTEGER PRIMARY KEY );"); // 24: App_TimeFlag
     }
 
     /** Drops the underlying database table. */
@@ -229,8 +229,8 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
 
     /** @inheritdoc */
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+    public Void readKey(Cursor cursor, int offset) {
+        return null;
     }    
 
     /** @inheritdoc */
@@ -298,19 +298,15 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
     
     /** @inheritdoc */
     @Override
-    protected Long updateKeyAfterInsert(Application entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
+    protected Void updateKeyAfterInsert(Application entity, long rowId) {
+        // Unsupported or missing PK type
+        return null;
     }
     
     /** @inheritdoc */
     @Override
-    public Long getKey(Application entity) {
-        if(entity != null) {
-            return entity.getId();
-        } else {
-            return null;
-        }
+    public Void getKey(Application entity) {
+        return null;
     }
 
     /** @inheritdoc */

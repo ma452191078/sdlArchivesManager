@@ -35,6 +35,7 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
     private String strProvince;
     private String strCity;
     private String strCountry;
+    private String strTown;
     private String[] sProvince = {"山东", "北京"};
 
 
@@ -83,6 +84,10 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
                 tvAddress.setText(adr);
                 Intent intent = new Intent();
                 intent.putExtra("result", adr);
+                intent.putExtra("province",strProvince);
+                intent.putExtra("city",strCity);
+                intent.putExtra("country",strCountry);
+                intent.putExtra("town",strTown);
                 setResult(1001, intent);
                 ActivityAddrList.this.finish();
             }

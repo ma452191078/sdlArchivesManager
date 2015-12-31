@@ -19,8 +19,9 @@ public class User {
     public User() {
     }
 
-    public User(Long id) {
+    public User(Long id, String User_Num) {
         this.id = id;
+        this.User_Num = User_Num;
     }
 
     public User(Long id, String User_Num, String User_Pass, String User_Name, String User_Regin, String User_Role, Boolean User_Status, java.util.Date User_Date) {

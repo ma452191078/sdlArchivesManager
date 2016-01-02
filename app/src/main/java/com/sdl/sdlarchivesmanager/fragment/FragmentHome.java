@@ -42,13 +42,6 @@ public class FragmentHome extends Fragment {
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
     private MainListAdapter adapter;
-//    private String[][] mStrings = {  {"营销中心审核", "农资店", "张某", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店1", "张某1", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店2", "张某2", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店3", "张某3", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店4", "张某4", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店5", "张某5", "山东省临沂市临沭县石门镇刘晓村"},
-//            {"营销中心审核", "农资店6", "张某6", "山东省临沂市临沭县石门镇刘晓村"}} ;
 
     private DBHelper dbHelper;
 

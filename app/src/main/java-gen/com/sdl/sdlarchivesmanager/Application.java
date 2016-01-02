@@ -39,9 +39,8 @@ public class Application {
     public Application() {
     }
 
-    public Application(Long id, java.util.Date App_TimeFlag) {
+    public Application(Long id) {
         this.id = id;
-        this.App_TimeFlag = App_TimeFlag;
     }
 
     public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_Send, String App_Status, java.util.Date App_TimeFlag) {

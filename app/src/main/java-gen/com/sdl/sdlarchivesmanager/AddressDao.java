@@ -14,7 +14,7 @@ import com.sdl.sdlarchivesmanager.Address;
 /** 
  * DAO for table "ADDRESS".
 */
-public class AddressDao extends AbstractDao<Address, Void> {
+public class AddressDao extends AbstractDao<Address, Long> {
 
     public static final String TABLENAME = "ADDRESS";
 
@@ -24,7 +24,7 @@ public class AddressDao extends AbstractDao<Address, Void> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Addr_Code = new Property(1, String.class, "Addr_Code", true, "ADDR__CODE");
+        public final static Property Addr_Code = new Property(1, String.class, "Addr_Code", false, "ADDR__CODE");
         public final static Property Addr_Name = new Property(2, String.class, "Addr_Name", false, "ADDR__NAME");
         public final static Property Addr_UpCode = new Property(3, String.class, "Addr_UpCode", false, "ADDR__UP_CODE");
         public final static Property Addr_Level = new Property(4, String.class, "Addr_Level", false, "ADDR__LEVEL");
@@ -44,7 +44,7 @@ public class AddressDao extends AbstractDao<Address, Void> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ADDRESS\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"ADDR__CODE\" TEXT PRIMARY KEY NOT NULL ," + // 1: Addr_Code
+                "\"ADDR__CODE\" TEXT," + // 1: Addr_Code
                 "\"ADDR__NAME\" TEXT," + // 2: Addr_Name
                 "\"ADDR__UP_CODE\" TEXT," + // 3: Addr_UpCode
                 "\"ADDR__LEVEL\" TEXT);"); // 4: Addr_Level
@@ -89,8 +89,8 @@ public class AddressDao extends AbstractDao<Address, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
@@ -118,15 +118,19 @@ public class AddressDao extends AbstractDao<Address, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(Address entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(Address entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(Address entity) {
-        return null;
+    public Long getKey(Address entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

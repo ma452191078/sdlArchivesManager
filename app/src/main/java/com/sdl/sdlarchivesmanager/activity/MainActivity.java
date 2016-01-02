@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity
                 userName = user.getUser_Name();
                 userNum = user.getUser_Num();
             }else {
-                userName = bundle.getString("UserName");
-                userNum = bundle.getString("UserNum");
+                userName = bundle.getString("username");
+                userNum = bundle.getString("usernum");
             }
 
             toolbar = (Toolbar) findViewById(R.id.toolbar);

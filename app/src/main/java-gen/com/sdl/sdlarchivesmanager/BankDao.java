@@ -14,7 +14,7 @@ import com.sdl.sdlarchivesmanager.Bank;
 /** 
  * DAO for table "BANK".
 */
-public class BankDao extends AbstractDao<Bank, Void> {
+public class BankDao extends AbstractDao<Bank, Long> {
 
     public static final String TABLENAME = "BANK";
 
@@ -24,8 +24,8 @@ public class BankDao extends AbstractDao<Bank, Void> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Bank_ClientNum = new Property(1, String.class, "Bank_ClientNum", true, "BANK__CLIENT_NUM");
-        public final static Property Bank_Num = new Property(2, String.class, "Bank_Num", true, "BANK__NUM");
+        public final static Property Bank_ClientNum = new Property(1, String.class, "Bank_ClientNum", false, "BANK__CLIENT_NUM");
+        public final static Property Bank_Num = new Property(2, String.class, "Bank_Num", false, "BANK__NUM");
         public final static Property Bank_Name = new Property(3, String.class, "Bank_Name", false, "BANK__NAME");
         public final static Property Bank_Name2 = new Property(4, String.class, "Bank_Name2", false, "BANK__NAME2");
         public final static Property Bank_Phone = new Property(5, String.class, "Bank_Phone", false, "BANK__PHONE");
@@ -46,8 +46,8 @@ public class BankDao extends AbstractDao<Bank, Void> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"BANK\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"BANK__CLIENT_NUM\" TEXT PRIMARY KEY NOT NULL ," + // 1: Bank_ClientNum
-                "\"BANK__NUM\" TEXT PRIMARY KEY NOT NULL ," + // 2: Bank_Num
+                "\"BANK__CLIENT_NUM\" TEXT," + // 1: Bank_ClientNum
+                "\"BANK__NUM\" TEXT," + // 2: Bank_Num
                 "\"BANK__NAME\" TEXT," + // 3: Bank_Name
                 "\"BANK__NAME2\" TEXT," + // 4: Bank_Name2
                 "\"BANK__PHONE\" TEXT," + // 5: Bank_Phone
@@ -103,8 +103,8 @@ public class BankDao extends AbstractDao<Bank, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
@@ -136,15 +136,19 @@ public class BankDao extends AbstractDao<Bank, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(Bank entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(Bank entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(Bank entity) {
-        return null;
+    public Long getKey(Bank entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

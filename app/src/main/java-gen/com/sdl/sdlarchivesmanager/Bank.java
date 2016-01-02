@@ -17,10 +17,8 @@ public class Bank {
     public Bank() {
     }
 
-    public Bank(Long id, String Bank_ClientNum, String Bank_Num) {
+    public Bank(Long id) {
         this.id = id;
-        this.Bank_ClientNum = Bank_ClientNum;
-        this.Bank_Num = Bank_Num;
     }
 
     public Bank(Long id, String Bank_ClientNum, String Bank_Num, String Bank_Name, String Bank_Name2, String Bank_Phone, String Bank_Invoice) {

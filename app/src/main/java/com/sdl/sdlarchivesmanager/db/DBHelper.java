@@ -227,4 +227,14 @@ public class DBHelper {
         }
         return app;
     }
+
+    public List<Application> loadAllApplication(){
+        List<Application> appList = applicationDao.loadAll();
+        return appList;
+    }
+
+    public long loadApplicationSize(){
+        long size = applicationDao.count();
+        return size;
+    }
 }

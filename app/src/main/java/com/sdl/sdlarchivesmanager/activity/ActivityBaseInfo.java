@@ -188,6 +188,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         app.setApp_Town(strTown);
         app.setApp_Address(etAddress2.getText().toString().trim());
         app.setApp_TimeFlag(new GetDateUtil().getDate(timeFlag));
+        app.setApp_Send("2");   //资料尚未建立完整,不允许上传
 
 //        保存申请单
         dbHelper.addApplication(app);

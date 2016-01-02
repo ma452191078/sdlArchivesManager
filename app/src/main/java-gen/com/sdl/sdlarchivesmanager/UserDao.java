@@ -14,7 +14,7 @@ import com.sdl.sdlarchivesmanager.User;
 /** 
  * DAO for table "USER".
 */
-public class UserDao extends AbstractDao<User, Void> {
+public class UserDao extends AbstractDao<User, Long> {
 
     public static final String TABLENAME = "USER";
 
@@ -24,7 +24,7 @@ public class UserDao extends AbstractDao<User, Void> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property User_Num = new Property(1, String.class, "User_Num", true, "USER__NUM");
+        public final static Property User_Num = new Property(1, String.class, "User_Num", false, "USER__NUM");
         public final static Property User_Pass = new Property(2, String.class, "User_Pass", false, "USER__PASS");
         public final static Property User_Name = new Property(3, String.class, "User_Name", false, "USER__NAME");
         public final static Property User_Regin = new Property(4, String.class, "User_Regin", false, "USER__REGIN");
@@ -47,7 +47,7 @@ public class UserDao extends AbstractDao<User, Void> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USER__NUM\" TEXT PRIMARY KEY NOT NULL ," + // 1: User_Num
+                "\"USER__NUM\" TEXT NOT NULL ," + // 1: User_Num
                 "\"USER__PASS\" TEXT," + // 2: User_Pass
                 "\"USER__NAME\" TEXT," + // 3: User_Name
                 "\"USER__REGIN\" TEXT," + // 4: User_Regin
@@ -106,8 +106,8 @@ public class UserDao extends AbstractDao<User, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
@@ -141,15 +141,19 @@ public class UserDao extends AbstractDao<User, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(User entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(User entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(User entity) {
-        return null;
+    public Long getKey(User entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

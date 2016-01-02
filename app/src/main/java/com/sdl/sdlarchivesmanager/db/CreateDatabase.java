@@ -23,8 +23,8 @@ public class CreateDatabase {
 //        用户表
         Entity user = schema.addEntity("User");
         //user.setTableName("USER");  //表名
-        user.addIdProperty().autoincrement().primaryKey();   //ID
-        user.addStringProperty("User_Num").notNull().primaryKey();  //业务员编号
+        user.addIdProperty().autoincrement();   //ID
+        user.addStringProperty("User_Num").notNull();  //业务员编号
         user.addStringProperty("User_Pass");    //密码
         user.addStringProperty("User_Name"); //业务员姓名
         user.addStringProperty("User_Regin");    //业务员区域
@@ -55,9 +55,9 @@ public class CreateDatabase {
 
 //        银行信息
         Entity bank = schema.addEntity("Bank");
-        bank.addIdProperty().autoincrement().primaryKey();
-        bank.addStringProperty("Bank_ClientNum").primaryKey();   //经销商编号
-        bank.addStringProperty("Bank_Num").primaryKey();     //银行卡号
+        bank.addIdProperty().autoincrement();
+        bank.addStringProperty("Bank_ClientNum");   //经销商编号
+        bank.addStringProperty("Bank_Num");     //银行卡号
         bank.addStringProperty("Bank_Name");    //银行名称
         bank.addStringProperty("Bank_Name2");   //支行名称
         bank.addStringProperty("Bank_Phone");   //电话
@@ -91,13 +91,13 @@ public class CreateDatabase {
         application.addStringProperty("App_InvoiceBankName2");   //支行
         application.addStringProperty("App_InvoiceBankOwner");  //户主
         application.addStringProperty("App_InvoiceBankPhone");   //电话
-        application.addStringProperty("App_Send");      //0已发送,1未发送
+        application.addStringProperty("App_Send");      //0已发送,1未发送,2资料不完整
         application.addStringProperty("App_Status");    //审核状态
-        application.addDateProperty("App_TimeFlag").primaryKey();    //记录创建时间
+        application.addDateProperty("App_TimeFlag");    //记录创建时间
 
         Entity address = schema.addEntity("Address");
         address.addIdProperty().primaryKey().autoincrement();
-        address.addStringProperty("Addr_Code").primaryKey();
+        address.addStringProperty("Addr_Code");
         address.addStringProperty("Addr_Name");
         address.addStringProperty("Addr_UpCode");
         address.addStringProperty("Addr_Level");

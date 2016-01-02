@@ -14,7 +14,7 @@ import com.sdl.sdlarchivesmanager.Application;
 /** 
  * DAO for table "APPLICATION".
 */
-public class ApplicationDao extends AbstractDao<Application, Void> {
+public class ApplicationDao extends AbstractDao<Application, Long> {
 
     public static final String TABLENAME = "APPLICATION";
 
@@ -51,7 +51,7 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
         public final static Property App_InvoiceBankPhone = new Property(25, String.class, "App_InvoiceBankPhone", false, "APP__INVOICE_BANK_PHONE");
         public final static Property App_Send = new Property(26, String.class, "App_Send", false, "APP__SEND");
         public final static Property App_Status = new Property(27, String.class, "App_Status", false, "APP__STATUS");
-        public final static Property App_TimeFlag = new Property(28, java.util.Date.class, "App_TimeFlag", true, "APP__TIME_FLAG");
+        public final static Property App_TimeFlag = new Property(28, java.util.Date.class, "App_TimeFlag", false, "APP__TIME_FLAG");
     };
 
 
@@ -95,7 +95,7 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
                 "\"APP__INVOICE_BANK_PHONE\" TEXT," + // 25: App_InvoiceBankPhone
                 "\"APP__SEND\" TEXT," + // 26: App_Send
                 "\"APP__STATUS\" TEXT," + // 27: App_Status
-                "\"APP__TIME_FLAG\" INTEGER PRIMARY KEY );"); // 28: App_TimeFlag
+                "\"APP__TIME_FLAG\" INTEGER);"); // 28: App_TimeFlag
     }
 
     /** Drops the underlying database table. */
@@ -257,8 +257,8 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
@@ -334,15 +334,19 @@ public class ApplicationDao extends AbstractDao<Application, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(Application entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(Application entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(Application entity) {
-        return null;
+    public Long getKey(Application entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

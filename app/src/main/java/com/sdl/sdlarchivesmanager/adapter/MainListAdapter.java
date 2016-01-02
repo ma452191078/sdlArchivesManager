@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.bean.BeanAudit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class MainListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<BeanAudit> dataArray = new ArrayList<BeanAudit>();
+    private List<Application> dataArray = new ArrayList<Application>();
 
-    public MainListAdapter(Activity activity, List<BeanAudit> mListItems) {
+    public MainListAdapter(Activity activity, List<Application> mListItems) {
 
         inflater = activity.getLayoutInflater();
         dataArray = mListItems;
@@ -52,21 +52,25 @@ public class MainListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_main_list_item,null);
         }
         convertView.setTag(position);
-        BeanAudit audit = (BeanAudit) getItem(position);
+        Application application = (Application) getItem(position);
 
         TextView tvStatus = (TextView) convertView.findViewById(R.id.tv_status);
-        tvStatus.setText(audit.getStatus().toString());
+        if (application.getApp_Send().toString() == "0"){
+            tvStatus.setText(application.getApp_Status().toString());
+        }else if (application.getApp_Send().toString() == "1"){
+            tvStatus.setText("未上传");
+        }else if (application.getApp_Send().toString() == "2"){
+            tvStatus.setText("编辑未完成,无法上传");
+        }
 
         TextView tvClientName = (TextView) convertView.findViewById(R.id.tv_clientname);
-        tvClientName.setText(audit.getClientName().toString());
+        tvClientName.setText(application.getApp_Name().toString());
 
         TextView tvClientAddress = (TextView) convertView.findViewById(R.id.tv_clientaddr);
-        tvClientAddress.setText(audit.getClientAddress().toString());
+        tvClientAddress.setText(application.getApp_Address());
 
         TextView tvClientMan = (TextView) convertView.findViewById(R.id.tv_clientman);
-        tvClientMan.setText(audit.getClientOwner().toString());
-
-
+        tvClientMan.setText(application.getApp_Owner().toString());
 
         return convertView;
     }

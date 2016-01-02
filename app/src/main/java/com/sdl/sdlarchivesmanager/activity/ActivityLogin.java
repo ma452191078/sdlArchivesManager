@@ -157,12 +157,12 @@ public class ActivityLogin extends AppCompatActivity {
             loginUser.setUser_Date(lastLoginDate);
             loginUser.setUser_Status(true);
             login = dBManager.addUser(loginUser);
-
+            dBManager.setOtherUserFalse(loginUser.getUser_Num());
         }
 
         if (login) {
-            bundle.putString("userNum", usernum);
-            bundle.putString("userName", loginUser.getUser_Name());
+            bundle.putString("usernum", usernum);
+            bundle.putString("username", loginUser.getUser_Name());
 
             intent.setClass(ActivityLogin.this, MainActivity.class);
 

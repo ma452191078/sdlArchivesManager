@@ -67,7 +67,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
-        etBankNum = (EditText) findViewById(R.id.et_bankname);
+        etBankNum = (EditText) findViewById(R.id.et_banknumber);
         tvBankName = (TextView) findViewById(R.id.tv_bankname);
         etBankOwner = (EditText) findViewById(R.id.et_bankowner);
         rbInvoiceTypeZ = (RadioButton) findViewById(R.id.rb_zyfp);

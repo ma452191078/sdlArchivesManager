@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,12 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.util.FilePath;
+import com.sdl.sdlarchivesmanager.util.GetDateUtil;
+import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/6.
@@ -33,31 +34,55 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
     private TextView tvTittle;
 
     private CharSequence[] items;   //提示框文本,数组形式,可以自定义
-    private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
-    private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-    private static final int PHOTO_REQUEST_CUT = 3;// 结果
-    private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
-            getPhotoFileName());    //照片文件
+//    private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
+//    private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
+//    private static final int PHOTO_REQUEST_CUT = 3;// 结果
+//    private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
+//            getPhotoFileName());    //照片文件
+
+    private File tempFile = new FilePath().getPhotoName();
+    private String imgUri;
+    private String timeFlag;
+    private DBHelper dbHelper;
+    private Application app;
+    private PhotoUtil photoUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_contract);
         SysApplication.getInstance().addActivity(this);
+        dbHelper = DBHelper.getInstance(this);
+        photoUtil = new PhotoUtil(ActivityContract.this);
+
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            timeFlag = bundle.getString("timeflag");
+            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
+        }
+
 //        组件声明
+        createWidget();
+//        初次载入显示选择提示
+        setWidget();
+        getPhoto();
+    }
+
+    //        组件声明
+    protected void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         ivPicture = (ImageView) findViewById(R.id.iv_picture);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
+    }
 
+    //        添加监听
+    protected void setWidget() {
         tvTittle.setText(R.string.archives_contract);
-//        添加监听
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         ivPicture.setOnClickListener(this);
 
-//        初次载入显示选择提示
-        getPhoto();
     }
 
     @Override
@@ -67,9 +92,12 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.ll_next:
+                saveApp();
                 Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("timeflag", timeFlag);
                 intent.setClass(ActivityContract.this, ActivityConfirm.class);
-                startActivity(intent);
+                startActivity(intent,bundle);
                 break;
             case R.id.iv_picture:
                 getPhoto();
@@ -79,32 +107,38 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
 
     }
 
-    //    启动拍照并返回照片
-    public void getCameraPhoto() {
-
-        Intent cameraintent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-//      指定调用相机拍照后照片的储存路径
-        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(tempFile));
-        startActivityForResult(cameraintent,
-                PHOTO_REQUEST_CAMERA);
+    protected void saveApp(){
+        if (imgUri != null){
+            app.setApp_Contract(imgUri);
+            dbHelper.updateApplication(app);
+        }
     }
+//    //    启动拍照并返回照片
+//    public void getCameraPhoto() {
+//
+//        Intent cameraintent = new Intent(
+//                MediaStore.ACTION_IMAGE_CAPTURE);
+////      指定调用相机拍照后照片的储存路径
+//        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                Uri.fromFile(tempFile));
+//        startActivityForResult(cameraintent,
+//                PHOTO_REQUEST_CAMERA);
+//    }
+//
+//    //    启动图库获取照片
+//    public void getGalleryPhoto() {
+//        Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+//        getAlbum.setType("image/*");
+//        startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
+//    }
 
-    //    启动图库获取照片
-    public void getGalleryPhoto() {
-        Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-        getAlbum.setType("image/*");
-        startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
-    }
-
-    //    照片名称,日期时间为名称
-    private String getPhotoFileName() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".jpg";
-    }
+//    //    照片名称,日期时间为名称
+//    private String getPhotoFileName() {
+//        Date date = new Date(System.currentTimeMillis());
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(
+//                "'IMG'_yyyyMMdd_HHmmss");
+//        return dateFormat.format(date) + ".jpg";
+//    }
 
     private void getPhoto() {
 
@@ -118,10 +152,10 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        getCameraPhoto();
+                        photoUtil.getCameraPhoto();
                         break;
                     case 1:
-                        getGalleryPhoto();
+                        photoUtil.getGalleryPhoto();
                         break;
                     default:
                         break;
@@ -137,10 +171,10 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case PHOTO_REQUEST_CAMERA:// 当选择拍照时调用
+                case PhotoUtil.PHOTO_REQUEST_CAMERA:// 当选择拍照时调用
                     setPhoto(Uri.fromFile(tempFile));
                     break;
-                case PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
+                case PhotoUtil.PHOTO_REQUEST_GALLERY:// 当选择从本地获取图片时
                     // 做非空判断，当我们觉得不满意想重新剪裁的时候便不会报异常，下同
                     if (data != null) {
 
@@ -149,7 +183,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(ActivityContract.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case PHOTO_REQUEST_CUT:// 返回的结果
+                case PhotoUtil.PHOTO_REQUEST_CUT:// 返回的结果
                     if (data != null)
                         setPhoto(data.getData());
                     break;
@@ -160,5 +194,6 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
 
     private void setPhoto(Uri uri) {
         ivPicture.setImageURI(uri);
+        imgUri = uri.toString();
     }
 }

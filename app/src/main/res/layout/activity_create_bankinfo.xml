@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--银行信息-->
+
     <include
         android:id="@+id/in_head"
         layout="@layout/activity_head2" />

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--经销商协议书-->
     <include
         android:id="@+id/in_head"
         layout="@layout/activity_head2" />

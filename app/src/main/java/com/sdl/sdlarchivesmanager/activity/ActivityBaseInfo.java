@@ -101,7 +101,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.ll_next:
-                goNextStep();
+                saveApp();
                 bundle.putString("timeflag", timeFlag.toString());
                 intent.setClass(ActivityBaseInfo.this, ActivityBankInfo.class);
                 startActivity(intent,bundle);
@@ -148,7 +148,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    protected void  goNextStep(){
+    protected void  saveApp(){
 //        获得界面数据
         timeFlag = new GetDateUtil().getNowDateTime();
         Application app = new Application();

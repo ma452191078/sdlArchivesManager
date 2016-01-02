@@ -15,12 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/6.
@@ -42,6 +43,12 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
             getPhotoFileName());    //照片文件
 
+    private String timeFlag;
+    private DBHelper dbHelper;
+    private Application app;
+    private String imgUriF;
+    private String imgUriB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +56,26 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         SysApplication.getInstance().addActivity(this);
 
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null){
+            timeFlag = bundle.getString("timeflag");
+            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
+        }
+        createWidget();
+        setWidget();
+    }
+
+//    初始化控件
+    protected void createWidget(){
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
         ivCardF = (ImageView) findViewById(R.id.iv_idcardf);
         ivCardB = (ImageView) findViewById(R.id.iv_idcardb);
+    }
 
+//    设置属性
+    protected void setWidget(){
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         ivCardF.setOnClickListener(this);
@@ -65,12 +86,14 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
+        Intent intent = new Intent();
+
         switch (v.getId()) {
             case R.id.ll_back:
                 this.finish();
                 break;
             case R.id.ll_next:
-                Intent intent = new Intent();
+                saveApp();
                 intent.setClass(ActivityIDCard.this, ActivityContract.class);
                 startActivity(intent);
                 break;
@@ -85,6 +108,13 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    private void saveApp() {
+
+        app.setApp_IdCardF(imgUriF);
+        app.setApp_IdCardB(imgUriB);
+        dbHelper.updateApplication(app);
     }
 
     //    启动拍照并返回照片
@@ -108,10 +138,8 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
 
     //    照片名称,日期时间为名称
     private String getPhotoFileName() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + ".jpg";
+        String path = new GetDateUtil().getNowDateTime();
+        return path + ".jpg";
     }
 
     private void getPhoto() {
@@ -170,8 +198,11 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     private void setPhoto(Uri uri) {
         if (imageItem == 0) {
             ivCardF.setImageURI(uri);
+            imgUriF = uri.toString();
         } else if (imageItem == 1) {
             ivCardB.setImageURI(uri);
+            imgUriB = uri.toString();
         }
+
     }
 }

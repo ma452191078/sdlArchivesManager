@@ -109,20 +109,20 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Intent intent = new Intent();
 
         switch (v.getId()) {
             case R.id.ll_next:
                 goNextStep();
-                intent = null;
+                Bundle bundle = new Bundle();
+                bundle.putString("timeflag", timeFlag);
                 intent.setClass(ActivityBankInfo.this, ActivityLicence.class);
-                startActivity(intent);
+                startActivity(intent, bundle);
                 break;
             case R.id.ll_back:
                 this.finish();
                 break;
             case R.id.tv_bankname:
-                intent = null;
                 intent.setClass(ActivityBankInfo.this, ActivityAddrList.class);
                 startActivityForResult(intent, RESULT_BANK);
                 break;
@@ -134,14 +134,14 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
     }
 
     protected void goNextStep() {
-        if (app != null){
+        if (app != null) {
 
             app.setApp_BankNum(etBankNum.getText().toString().trim());
             app.setApp_BankName(tvBankName.getText().toString());
             app.setApp_BankOwner(etBankOwner.getText().toString().trim());
-            if (rbInvoiceTypeZ.isChecked()){
+            if (rbInvoiceTypeZ.isChecked()) {
                 app.setApp_InvoiceType("0");
-            }else {
+            } else {
                 app.setApp_InvoiceType("1");
             }
             app.setApp_InvoiceBankNum(etInvoiceNum.getText().toString().trim());

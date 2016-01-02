@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
@@ -35,14 +37,23 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
     private static final int PHOTO_REQUEST_CUT = 3;// 结果
-    private File tempFile = new File(Environment.getExternalStorageDirectory()+ "/DCIM/Camera/",
+    private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
             getPhotoFileName());    //照片文件
+    private String imgUri;
+    private String timeFlag;
+    private DBHelper dbHelper;
+    private Application app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_licence);
         SysApplication.getInstance().addActivity(this);
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            timeFlag = bundle.getString("timeflag");
+            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
+        }
 
         createWidget();
         setWidget();
@@ -51,16 +62,16 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
     }
 
-//        组件声明
-    protected void createWidget(){
+    //        组件声明
+    protected void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         ivPicture = (ImageView) findViewById(R.id.iv_picture);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
     }
 
-//        添加监听
-    protected void setWidget(){
+    //        添加监听
+    protected void setWidget() {
 
         tvTittle.setText(R.string.archives_licence);
         llBack.setOnClickListener(this);
@@ -75,9 +86,12 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
+                saveApp();
                 Intent intent = new Intent();
-                intent.setClass(ActivityLicence.this,ActivityIDCard.class);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("timeflag", timeFlag);
+                intent.setClass(ActivityLicence.this, ActivityIDCard.class);
+                startActivity(intent, bundle);
                 break;
             case R.id.iv_picture:
                 getPhoto();
@@ -85,6 +99,13 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 
+    }
+
+    protected void saveApp() {
+        if (imgUri != null) {
+            app.setApp_Licence(imgUri);
+            dbHelper.updateApplication(app);
+        }
     }
 
     //    启动拍照并返回照片
@@ -184,7 +205,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void setPhoto(Uri uri){
+    private void setPhoto(Uri uri) {
 //        try{
 //            Bitmap bmp = MediaStore.Images.Media.getBitmap(ActivityLicence.this.getContentResolver(),
 //                    uri);
@@ -194,5 +215,6 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 //        }
 
         ivPicture.setImageURI(uri);
+        imgUri = uri.toString();
     }
 }

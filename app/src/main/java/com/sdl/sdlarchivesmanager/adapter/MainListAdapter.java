@@ -55,22 +55,24 @@ public class MainListAdapter extends BaseAdapter {
         Application application = (Application) getItem(position);
 
         TextView tvStatus = (TextView) convertView.findViewById(R.id.tv_status);
-        if (application.getApp_Send().toString() == "0"){
-            tvStatus.setText(application.getApp_Status().toString());
-        }else if (application.getApp_Send().toString() == "1"){
+        if (application.getApp_Send().equals("0")){
+            tvStatus.setText(application.getApp_Status());
+        }else if (application.getApp_Send().equals("1")){
             tvStatus.setText("未上传");
-        }else if (application.getApp_Send().toString() == "2"){
+        }else if (application.getApp_Send().equals("2")){
             tvStatus.setText("编辑未完成,无法上传");
+        }else{
+            tvStatus.setText("");
         }
 
         TextView tvClientName = (TextView) convertView.findViewById(R.id.tv_clientname);
-        tvClientName.setText(application.getApp_Name().toString());
+        tvClientName.setText(application.getApp_Name());
 
         TextView tvClientAddress = (TextView) convertView.findViewById(R.id.tv_clientaddr);
         tvClientAddress.setText(application.getApp_Address());
 
         TextView tvClientMan = (TextView) convertView.findViewById(R.id.tv_clientman);
-        tvClientMan.setText(application.getApp_Owner().toString());
+        tvClientMan.setText(application.getApp_Owner());
 
         return convertView;
     }

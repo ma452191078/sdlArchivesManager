@@ -97,7 +97,12 @@ public class FragmentHome extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                Application application = (Application) parent.getAdapter().getItem(position);
+                bundle.putLong("id", application.getId());
+                bundle.putString("source", "home");
                 intent.setClass(mainview.getContext(), ActivityClientInfo.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -109,14 +114,14 @@ public class FragmentHome extends Fragment {
 
     private void setListViewSource() {
 
-        listItems = dbHelper.loadAllApplication();
+        listItems = dbHelper.loadApplicationBySend("");
         adapter = new MainListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
     }
 
     protected void updateListViewSource() {
 
-        listItems = dbHelper.loadAllApplication();
+        listItems = dbHelper.loadApplicationBySend("");
         adapter = new MainListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

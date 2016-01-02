@@ -29,6 +29,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
 
     private LinearLayout llBack;
     private LinearLayout llNext;
+    private LinearLayout llInvoice;
     private TextView tvTittle;
     private EditText etBankNum;     //银行卡号
     private TextView tvBankName;    //开户行
@@ -66,6 +67,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
     protected void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
+        llInvoice = (LinearLayout) findViewById(R.id.ll_invoice);
         tvTittle = (TextView) findViewById(R.id.tv_tittle);
         etBankNum = (EditText) findViewById(R.id.et_banknumber);
         tvBankName = (TextView) findViewById(R.id.tv_bankname);
@@ -86,20 +88,8 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
         tvTittle.setText(R.string.archives_bankinfo);
         tvBankName.setOnClickListener(this);
         tvInvoiceName.setOnClickListener(this);
-
-//        if (app != null){
-//            etBankNum.setText(app.getApp_BankNum());
-//            tvBankName.setText(app.getApp_BankName());
-//            etBankOwner.setText(app.getApp_BankOwner());
-//            if (app.getApp_InvoiceType() == "0"){
-////                专用发票
-//                rbInvoiceTypeZ.setChecked(true);
-//
-//            }else
-//            {
-//                rbInvoiceTypeP.setChecked(true);
-//            }
-//        }
+        rbInvoiceTypeZ.setOnClickListener(this);
+        rbInvoiceTypeP.setOnClickListener(this);
     }
 
     @Override
@@ -115,9 +105,10 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
             case R.id.ll_next:
                 goNextStep();
                 Bundle bundle = new Bundle();
-                bundle.putString("timeflag", timeFlag);
+                bundle.putLong("id", app.getId());
                 intent.setClass(ActivityBankInfo.this, ActivityLicence.class);
-                startActivity(intent, bundle);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.ll_back:
                 this.finish();
@@ -127,6 +118,12 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
                 startActivityForResult(intent, RESULT_BANK);
                 break;
             case R.id.tv_invoicebankname:
+                break;
+            case R.id.rb_zyfp:
+                llInvoice.setVisibility(View.VISIBLE);
+                break;
+            case R.id.rb_ptfp:
+                llInvoice.setVisibility(View.GONE);
                 break;
             default:
                 break;
@@ -141,15 +138,14 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
             app.setApp_BankOwner(etBankOwner.getText().toString().trim());
             if (rbInvoiceTypeZ.isChecked()) {
                 app.setApp_InvoiceType("0");
+                app.setApp_InvoiceBankNum(etInvoiceNum.getText().toString().trim());
+                app.setApp_InvoiceBankName(tvInvoiceName.getText().toString());
+                app.setApp_InvoiceBankName2(etInvoiceName2.getText().toString().trim());
+                app.setApp_InvoiceBankOwner(etInvoiceOwner.getText().toString().trim());
+                app.setApp_InvoiceBankPhone(etInvoicePhone.getText().toString().trim());
             } else {
                 app.setApp_InvoiceType("1");
             }
-            app.setApp_InvoiceBankNum(etInvoiceNum.getText().toString().trim());
-            app.setApp_InvoiceBankName(tvInvoiceName.getText().toString());
-            app.setApp_InvoiceBankName2(etInvoiceName2.getText().toString().trim());
-            app.setApp_InvoiceBankOwner(etInvoiceOwner.getText().toString().trim());
-            app.setApp_InvoiceBankPhone(etInvoicePhone.getText().toString().trim());
-
             dbHelper.updateApplication(app);
         }
 

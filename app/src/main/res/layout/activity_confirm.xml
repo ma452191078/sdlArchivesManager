@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_status"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
@@ -337,80 +338,106 @@
                             android:text="增值税专用发票" />
                     </LinearLayout>
 
-                    <!--对公账户-->
                     <LinearLayout
+                        android:id="@+id/ll_invoice"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_banknum" />
-
-                        <TextView
-                            android:id="@+id/tv_invoicenum"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <!--对公账户-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1029302930" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--开户行-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_banknum" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_bankname" />
+                            <TextView
+                                android:id="@+id/tv_invoicenum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1029302930" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicename"
+                        <!--开户行-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="中国银行" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--支行名称-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_bankname" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_bankname2" />
+                            <TextView
+                                android:id="@+id/tv_invoicename"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="中国银行" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicename2"
+                        <!--支行名称-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="临沭支行" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--电话-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_bankname2" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_phone" />
+                            <TextView
+                                android:id="@+id/tv_invoicename2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="临沭支行" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicephone"
+                        <!--户主-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="临沭支行" />
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_bankowner" />
+
+                            <TextView
+                                android:id="@+id/tv_invoiceowner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="户主" />
+                        </LinearLayout>
+
+                        <!--电话-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_phone" />
+
+                            <TextView
+                                android:id="@+id/tv_invoicephone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="临沭支行" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

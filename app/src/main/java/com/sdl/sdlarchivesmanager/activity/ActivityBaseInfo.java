@@ -104,7 +104,8 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
                 saveApp();
                 bundle.putString("timeflag", timeFlag.toString());
                 intent.setClass(ActivityBaseInfo.this, ActivityBankInfo.class);
-                startActivity(intent,bundle);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.rb_jxs:
                 if (llLevel.getVisibility() == View.GONE)

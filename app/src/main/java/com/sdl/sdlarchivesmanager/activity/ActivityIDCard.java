@@ -17,7 +17,6 @@ import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.FilePath;
-import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
@@ -37,14 +36,9 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
 
 
     private CharSequence[] items;   //提示框文本,数组形式,可以自定义
-//    private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
-//    private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-//    private static final int PHOTO_REQUEST_CUT = 3;// 结果
-//    private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
-//            getPhotoFileName());    //照片文件
     private File tempFile = new FilePath().getPhotoName();
 
-    private String timeFlag;
+    private long id;
     private DBHelper dbHelper;
     private Application app;
     private String imgUriF;
@@ -63,8 +57,8 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null){
-            timeFlag = bundle.getString("timeflag");
-            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
+            id = bundle.getLong("id");
+            app = dbHelper.loadApplicationByID(id);
         }
         createWidget();
         setWidget();
@@ -99,7 +93,10 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.ll_next:
                 saveApp();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
                 intent.setClass(ActivityIDCard.this, ActivityContract.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.iv_idcardf:
@@ -121,31 +118,6 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
         app.setApp_IdCardB(imgUriB);
         dbHelper.updateApplication(app);
     }
-
-//    //    启动拍照并返回照片
-//    public void getCameraPhoto() {
-//
-//        Intent cameraintent = new Intent(
-//                MediaStore.ACTION_IMAGE_CAPTURE);
-//        //        // 指定调用相机拍照后照片的储存路径
-//        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.fromFile(tempFile));
-//        startActivityForResult(cameraintent,
-//                PHOTO_REQUEST_CAMERA);
-//    }
-//
-//    //    启动图库获取照片
-//    public void getGalleryPhoto() {
-//        Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-//        getAlbum.setType("image/*");
-//        startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
-//    }
-
-//    //    照片名称,日期时间为名称
-//    private String getPhotoFileName() {
-//        String path = new GetDateUtil().getNowDateTime();
-//        return path + ".jpg";
-//    }
 
     private void getPhoto() {
 

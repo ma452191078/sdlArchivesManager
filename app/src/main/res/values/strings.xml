@@ -50,10 +50,12 @@
     <string name="step_tv_invoice_banknum">对公账号:</string>
     <string name="step_tv_invoice_bankname">开户行:</string>
     <string name="step_tv_invoice_bankname2">支行名称:</string>
+    <string name="step_tv_invoice_bankowner">户主:</string>
     <string name="step_tv_invoice_phone">电话:</string>
     <string name="step_ev_invoice_banknum">输入对公账号</string>
     <string name="step_ev_invoice_bankname">点击选择开户行</string>
     <string name="step_ev_invoice_bankname2">输入支行名称</string>
+    <string name="step_ev_invoice_bankowner">输入户主</string>
     <string name="step_ev_inovice_phone">输入电话</string>
     <string name="invoice_type_zy">增值税专用发票</string>
     <string name="invoice_type_pt">普通发票</string>

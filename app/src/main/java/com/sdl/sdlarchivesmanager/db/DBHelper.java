@@ -228,13 +228,55 @@ public class DBHelper {
         return app;
     }
 
+    public Application loadApplicationByID(long id){
+        return applicationDao.load(id);
+    }
+
     public List<Application> loadAllApplication(){
         List<Application> appList = applicationDao.loadAll();
+        return appList;
+    }
+
+    public List<Application> loadApplicationBySend(String send){
+        Application app = null;
+        List<Application> appList = null;
+        if (send.equals("")){
+            appList = loadAllApplication();
+        }else {
+            Query query = applicationDao.queryBuilder()
+                    .where(ApplicationDao.Properties.App_Send.eq(send))
+                    .orderAsc(ApplicationDao.Properties.App_TimeFlag)
+                    .build();
+            appList = query.list();
+        }
+
+
         return appList;
     }
 
     public long loadApplicationSize(){
         long size = applicationDao.count();
         return size;
+    }
+
+    public String loadApplicationStatus(String send){
+        String status = null;
+        switch (send){
+            case "0":
+                break;
+            case "1":
+                status = "未上传";
+                break;
+            case "2":
+                status = "编辑未完成,无法上传";
+                break;
+            default:
+                break;
+        }
+        return status;
+    }
+
+    public void deleteAllApplication(){
+        applicationDao.deleteAll();
     }
 }

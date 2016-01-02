@@ -1,9 +1,19 @@
 package com.sdl.sdlarchivesmanager.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.sdl.sdlarchivesmanager.R;
 
 import java.io.File;
 
@@ -61,4 +71,45 @@ public class PhotoUtil {
         photoActivity.startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
 
+    /**
+     * 压缩图片
+     */
+    public Bitmap createThumbnail(String filepath, int i) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = i;
+        return BitmapFactory.decodeFile(filepath, options);
+    }
+
+    /**
+     * 点击图片放大查看
+     */
+    public void getBigPicture(Bitmap b, Activity activity) {
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        View imgEntryView = inflater.inflate(R.layout.dialog_photo_entry, null); // 加载自定义的布局文件
+        final AlertDialog dialog = new AlertDialog.Builder(activity).create();
+        ImageView img = (ImageView) imgEntryView.findViewById(R.id.large_image);
+        if (b != null) {
+            Display display = activity.getWindowManager()
+                    .getDefaultDisplay();
+            int scaleWidth = display.getWidth();
+            int height = b.getHeight();// 图片的真实高度
+            int width = b.getWidth();// 图片的真实宽度
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) img.getLayoutParams();
+            lp.width = scaleWidth;// 调整宽度
+            lp.height = (height * scaleWidth) / width;// 调整高度
+            img.setLayoutParams(lp);
+            img.setImageBitmap(b);
+            dialog.setView(imgEntryView); // 自定义dialog
+            dialog.show();
+        }
+        // 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
+        imgEntryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View paramView) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                }
+            }
+        });
+    }
 }

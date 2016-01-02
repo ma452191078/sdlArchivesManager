@@ -16,7 +16,6 @@ import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.FilePath;
-import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
@@ -34,14 +33,9 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     private TextView tvTittle;
 
     private CharSequence[] items;   //提示框文本,数组形式,可以自定义
-    private static final int PHOTO_REQUEST_CAMERA = 1;// 拍照
-    private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-    private static final int PHOTO_REQUEST_CUT = 3;// 结果
-//    private File tempFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera/",
-//            getPhotoFileName());    //照片文件
     private File tempFile = new FilePath().getPhotoName();
     private String imgUri;
-    private String timeFlag;
+    private long id;
     private DBHelper dbHelper;
     private Application app;
     private PhotoUtil photoUtil;
@@ -56,8 +50,8 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            timeFlag = bundle.getString("timeflag");
-            app = dbHelper.loadApplication(new GetDateUtil().getDate(timeFlag));
+            id = bundle.getLong("id", id);
+            app = dbHelper.loadApplicationByID(id);
         }
 
         createWidget();
@@ -94,9 +88,10 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
                 saveApp();
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString("timeflag", timeFlag);
+                bundle.putLong("id", id);
                 intent.setClass(ActivityLicence.this, ActivityIDCard.class);
-                startActivity(intent, bundle);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.iv_picture:
                 getPhoto();
@@ -112,50 +107,6 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
             dbHelper.updateApplication(app);
         }
     }
-
-//    //    启动拍照并返回照片
-//    public void getCameraPhoto() {
-//
-//        Intent cameraintent = new Intent(
-//                MediaStore.ACTION_IMAGE_CAPTURE);
-////      指定调用相机拍照后照片的储存路径
-//        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.fromFile(tempFile));
-//        startActivityForResult(cameraintent,
-//                PHOTO_REQUEST_CAMERA);
-//    }
-//
-//    //    启动图库获取照片
-//    public void getGalleryPhoto() {
-//        Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-//        getAlbum.setType("image/*");
-//        startActivityForResult(getAlbum, PHOTO_REQUEST_GALLERY);
-//    }
-
-//    //    照片名称,日期时间为名称
-//    private String getPhotoFileName() {
-//        String path = new GetDateUtil().getNowDateTime();
-//        return path + ".jpg";
-//    }
-
-    //    裁剪图片
-//    private void startPhotoZoom(Uri uri) {
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(uri, "image/*");
-//        // crop为true是设置在开启的intent中设置显示的view可以剪裁
-//        intent.putExtra("crop", "true");
-//
-//        // aspectX aspectY 是宽高的比例
-////        intent.putExtra("aspectX", 4);
-////        intent.putExtra("aspectY", 3);
-//
-//        // outputX,outputY 是剪裁图片的宽高
-//        intent.putExtra("outputX", 400);
-//        intent.putExtra("outputY", 300);
-//        intent.putExtra("return-data", true);
-//        intent.putExtra("noFaceDetection", true);
-//        startActivityForResult(intent, PHOTO_REQUEST_CUT);
-//    }
 
     private void getPhoto() {
 
@@ -211,13 +162,6 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setPhoto(Uri uri) {
-//        try{
-//            Bitmap bmp = MediaStore.Images.Media.getBitmap(ActivityLicence.this.getContentResolver(),
-//                    uri);
-//            ivPicture.setImageBitmap(bmp);
-//        }catch (IOException e){
-//            Toast.makeText(ActivityLicence.this,e.toString(),Toast.LENGTH_LONG).show();
-//        }
 
         ivPicture.setImageURI(uri);
         imgUri = uri.toString();

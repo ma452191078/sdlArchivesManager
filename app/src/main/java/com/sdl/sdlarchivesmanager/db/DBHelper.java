@@ -6,6 +6,7 @@ import android.content.Context;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.ApplicationDao;
 import com.sdl.sdlarchivesmanager.BankDao;
+import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.ClientDao;
 import com.sdl.sdlarchivesmanager.DaoSession;
 import com.sdl.sdlarchivesmanager.User;
@@ -278,5 +279,9 @@ public class DBHelper {
 
     public void deleteAllApplication(){
         applicationDao.deleteAll();
+    }
+
+    public List<Client> loadAllClient(){
+        return clientDao.loadAll();
     }
 }

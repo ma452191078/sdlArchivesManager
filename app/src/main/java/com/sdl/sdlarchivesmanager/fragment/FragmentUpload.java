@@ -1,6 +1,5 @@
 package com.sdl.sdlarchivesmanager.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
-import com.sdl.sdlarchivesmanager.adapter.ClientListAdapter;
-import com.sdl.sdlarchivesmanager.bean.BeanAudit;
+import com.sdl.sdlarchivesmanager.activity.ActivityConfirm;
+import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,21 +35,18 @@ public class FragmentUpload extends Fragment {
     }
 
     private View mainview;
-    private String[][] mStrings = {  {"农资店", "张一","0","1", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店1", "张21","0","2", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店2", "张3","0","3", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店3", "张4","1","", "山东省临沂市临沭县石门镇刘晓村"}} ;
-
     private FloatingActionButton fabSearch;
-    private List<BeanAudit> listItems = new ArrayList<BeanAudit>();
+    private List<Application> listItems = new ArrayList<Application>();
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
-    private ClientListAdapter adapter;
+    private MainListAdapter adapter;
+    private DBHelper dbHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainview = inflater.inflate(R.layout.activity_client_list, null);
+        dbHelper = DBHelper.getInstance(getContext());
 
         fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
@@ -71,7 +67,7 @@ public class FragmentUpload extends Fragment {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                updateData(mainview.getContext());
+                updateListViewSource();
             }
         });
 
@@ -82,30 +78,33 @@ public class FragmentUpload extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityFlowChart.class);
+                Bundle bundle = new Bundle();
+                Application application = (Application) parent.getAdapter().getItem(position);
+                bundle.putLong("id", application.getId());
+                bundle.putString("source", "upload");
+                intent.setClass(mainview.getContext(), ActivityConfirm.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        BeanAudit audit ;
 
-        for (int i = 0; i < mStrings.length; i++){
-            audit = new BeanAudit();
-            audit.setClientName(mStrings[i][0]);
-            audit.setClientOwner(mStrings[i][1]);
-            audit.setClientType(mStrings[i][2]);
-            audit.setClientLevel(mStrings[i][3]);
-            audit.setClientAddress(mStrings[i][4]);
-            listItems.add(audit);
-        }
-        adapter = new ClientListAdapter(getActivity(), listItems);
-        listView.setAdapter(adapter);
+        setListViewSource();
 
         return mainview;
     }
+    private void setListViewSource() {
 
-    protected void updateData(Context context) {
+        listItems = dbHelper.loadApplicationBySend("1");
+        adapter = new MainListAdapter(getActivity(), listItems);
+        listView.setAdapter(adapter);
+    }
 
-        Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
+    protected void updateListViewSource() {
+
+        listItems = dbHelper.loadApplicationBySend("1");
+        adapter = new MainListAdapter(getActivity(), listItems);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         ptrFrame.refreshComplete();
     }
 }

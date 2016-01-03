@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.bean.BeanAudit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class ClientListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<BeanAudit> dataArray = new ArrayList<BeanAudit>();
+    private List<Client> dataArray = new ArrayList<Client>();
 
-    public ClientListAdapter(Activity activity, List<BeanAudit> mListItems) {
+    public ClientListAdapter(Activity activity, List<Client> mListItems) {
 
         inflater = activity.getLayoutInflater();
         dataArray = mListItems;
@@ -52,38 +52,24 @@ public class ClientListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_client_list_item,null);
         }
         convertView.setTag(position);
-        BeanAudit audit = (BeanAudit) getItem(position);
+        Client client = (Client) getItem(position);
 
         TextView tvClientName = (TextView) convertView.findViewById(R.id.tv_clientname);
-        tvClientName.setText(audit.getClientName().toString());
+        tvClientName.setText(client.getClient_Name());
 
         TextView tvClientOwner = (TextView) convertView.findViewById(R.id.tv_clientowner);
-        tvClientOwner.setText(audit.getClientOwner().toString());
+        tvClientOwner.setText(client.getClient_Owner());
 
         TextView tvClientAddress = (TextView) convertView.findViewById(R.id.tv_clientaddr);
-        tvClientAddress.setText(audit.getClientAddress().toString());
+        tvClientAddress.setText(client.getClient_Address());
 
         TextView tvClientLevel = (TextView) convertView.findViewById(R.id.tv_clientlevel);
-        if (audit.getClientType().toString().equals("1")){
+        if (client.getClient_Type().equals("种植大户")){
             tvClientLevel.setText("种植大户");
-        }else {
-            switch (audit.getClientLevel().toString()){
-                case "1":
-                    tvClientLevel.setText("一级商");
-                    break;
-                case "2":
-                    tvClientLevel.setText("二级商");
-                    break;
-                case "3":
-                    tvClientLevel.setText("三级商");
-                    break;
-                default:
-                    tvClientLevel.setText("");
-                    break;
-            }
+        }else
+        {
+            tvClientLevel.setText(client.getClient_Level());
         }
-
-
 
 
         return convertView;

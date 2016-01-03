@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -337,295 +338,303 @@
                             android:text="增值税专用发票" />
                     </LinearLayout>
 
-                    <!--对公账户-->
                     <LinearLayout
+                        android:id="@+id/ll_invoice"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_banknum" />
 
-                        <TextView
-                            android:id="@+id/tv_invoicenum"
+                        <!--对公账户-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1029302930" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--开户行-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_banknum" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_bankname" />
+                            <TextView
+                                android:id="@+id/tv_invoicenum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1029302930" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicename"
+                        <!--开户行-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="中国银行" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--支行名称-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_bankname" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_bankname2" />
+                            <TextView
+                                android:id="@+id/tv_invoicename"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="中国银行" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicename2"
+                        <!--支行名称-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="临沭支行" />
-                    </LinearLayout>
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <!--电话-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/confirm_text_height"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_bankname2" />
 
-                        <TextView
-                            android:layout_width="@dimen/left_text_width"
-                            android:layout_height="wrap_content"
-                            android:text="@string/step_tv_invoice_phone" />
+                            <TextView
+                                android:id="@+id/tv_invoicename2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="临沭支行" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_invoicephone"
+                        <!--电话-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="临沭支行" />
+                            android:layout_height="@dimen/confirm_text_height"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="@dimen/left_text_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/step_tv_invoice_phone" />
+
+                            <TextView
+                                android:id="@+id/tv_invoicephone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="临沭支行" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <!--&lt;!&ndash;营业执照&ndash;&gt;-->
             <!--<LinearLayout-->
-                <!--android:id="@+id/ll_contract"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:background="@color/colorWhite"-->
-                <!--android:elevation="5dp"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="visible">-->
+            <!--android:id="@+id/ll_contract"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@color/colorWhite"-->
+            <!--android:elevation="5dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="visible">-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="10dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-                    <!--<View-->
-                        <!--android:layout_width="10dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:background="@color/colorTitleBlue" />-->
+            <!--<View-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="@color/colorTitleBlue" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:text="营业执照"-->
-                        <!--android:textSize="@dimen/editview_textsize" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="营业执照"-->
+            <!--android:textSize="@dimen/editview_textsize" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:background="@color/colorGray" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@color/colorGray" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:orientation="vertical">-->
-                    <!--&lt;!&ndash;营业执照&ndash;&gt;-->
-                    <!--<ImageView-->
-                        <!--android:id="@+id/iv_contract"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="160dp"-->
-                        <!--android:background="@color/colorGray"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!--android:src="@mipmap/picture" />-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:orientation="vertical">-->
+            <!--&lt;!&ndash;营业执照&ndash;&gt;-->
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_contract"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="160dp"-->
+            <!--android:background="@color/colorGray"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/picture" />-->
 
-                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
             <!--</LinearLayout>-->
 
             <!--&lt;!&ndash;身份证&ndash;&gt;-->
             <!--<LinearLayout-->
-                <!--android:id="@+id/ll_idcard"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:background="@color/colorWhite"-->
-                <!--android:elevation="5dp"-->
-                <!--android:orientation="vertical">-->
+            <!--android:id="@+id/ll_idcard"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@color/colorWhite"-->
+            <!--android:elevation="5dp"-->
+            <!--android:orientation="vertical">-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="10dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-                    <!--<View-->
-                        <!--android:layout_width="10dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:background="@color/colorTitleBlue" />-->
+            <!--<View-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="@color/colorTitleBlue" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:text="身份证"-->
-                        <!--android:textSize="@dimen/editview_textsize" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="身份证"-->
+            <!--android:textSize="@dimen/editview_textsize" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:background="@color/colorGray" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@color/colorGray" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:orientation="horizontal">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:orientation="horizontal">-->
 
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_marginRight="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical">-->
-                        <!--&lt;!&ndash;正面&ndash;&gt;-->
-                        <!--<ImageView-->
-                            <!--android:id="@+id/iv_idcardf"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="120dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@color/colorGray"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@mipmap/picture" />-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginRight="2dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
+            <!--&lt;!&ndash;正面&ndash;&gt;-->
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_idcardf"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="120dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@color/colorGray"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/picture" />-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="正面" />-->
-                    <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="正面" />-->
+            <!--</LinearLayout>-->
 
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_marginLeft="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical">-->
-                        <!--&lt;!&ndash;反面&ndash;&gt;-->
-                        <!--<ImageView-->
-                            <!--android:id="@+id/iv_idcardb"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="120dp"-->
-                            <!--android:layout_marginBottom="10dp"-->
-                            <!--android:background="@color/colorGray"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@mipmap/picture" />-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="2dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical">-->
+            <!--&lt;!&ndash;反面&ndash;&gt;-->
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_idcardb"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="120dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@color/colorGray"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/picture" />-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="反面" />-->
-                    <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="反面" />-->
+            <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
             <!--</LinearLayout>-->
 
 
             <!--&lt;!&ndash;营业执照&ndash;&gt;-->
             <!--<LinearLayout-->
-                <!--android:id="@+id/ll_licence"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:background="@color/colorWhite"-->
-                <!--android:elevation="5dp"-->
-                <!--android:orientation="vertical">-->
+            <!--android:id="@+id/ll_licence"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@color/colorWhite"-->
+            <!--android:elevation="5dp"-->
+            <!--android:orientation="vertical">-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="10dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-                    <!--<View-->
-                        <!--android:layout_width="10dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:background="@color/colorTitleBlue" />-->
+            <!--<View-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="@color/colorTitleBlue" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="5dp"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--android:text="经销商协议书"-->
-                        <!--android:textSize="@dimen/editview_textsize" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="经销商协议书"-->
+            <!--android:textSize="@dimen/editview_textsize" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:background="@color/colorGray" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@color/colorGray" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:orientation="vertical">-->
-                    <!--&lt;!&ndash;营业执照&ndash;&gt;-->
-                    <!--<ImageView-->
-                        <!--android:id="@+id/iv_licence"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="160dp"-->
-                        <!--android:background="@color/colorGray"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!--android:src="@mipmap/picture" />-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:orientation="vertical">-->
+            <!--&lt;!&ndash;营业执照&ndash;&gt;-->
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_licence"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="160dp"-->
+            <!--android:background="@color/colorGray"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@mipmap/picture" />-->
 
-                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
             <!--</LinearLayout>-->
         </LinearLayout>
     </ScrollView>

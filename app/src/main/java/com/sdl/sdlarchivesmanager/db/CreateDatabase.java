@@ -51,7 +51,7 @@ public class CreateDatabase {
         client.addStringProperty("Client_Contract");    //营业执照
         client.addStringProperty("Client_IdCardF"); //身份证正面
         client.addStringProperty("Client_IdCardB"); //身份证反面
-        client.addStringProperty("Client_Licence"); //经销商协议书
+        client.addStringProperty("Client_Licence"); //经销商协议书```
 
 //        银行信息
         Entity bank = schema.addEntity("Bank");

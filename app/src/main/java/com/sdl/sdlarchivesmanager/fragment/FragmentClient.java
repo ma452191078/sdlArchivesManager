@@ -12,10 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
+import com.sdl.sdlarchivesmanager.activity.ActivityClientInfo;
 import com.sdl.sdlarchivesmanager.adapter.ClientListAdapter;
-import com.sdl.sdlarchivesmanager.bean.BeanAudit;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,38 +37,52 @@ public class FragmentClient extends Fragment {
     }
 
     private View mainview;
-    private String[][] mStrings = {  {"农资店", "张一","0","1", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店1", "张21","0","2", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店2", "张3","0","3", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店3", "张4","1","", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店4", "张5","0","1", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店5", "张6","1","", "山东省临沂市临沭县石门镇刘晓村"},
-            {"农资店6", "张7","","", "山东省临沂市临沭县石门镇刘晓村"}} ;
 
     private FloatingActionButton fabSearch;
-    private List<BeanAudit> listItems = new ArrayList<BeanAudit>();
+    private List<Client> listClient = new ArrayList<Client>();
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
     private ClientListAdapter adapter;
+    private DBHelper dbHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainview = inflater.inflate(R.layout.activity_client_list, null);
+        dbHelper = DBHelper.getInstance(getContext());
 
         fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
-
-        fabSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(mainview.getContext(),"搜索",Toast.LENGTH_SHORT).show();
-            }
-        });
+        fabSearch.setVisibility(View.GONE);
+//        fabSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Toast.makeText(mainview.getContext(),"搜索",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        下拉刷新控件
-        ptrFrame = (PtrClassicFrameLayout)mainview.findViewById(R.id.list_view);
+        setPtrFrame();
+
+//        列表项目
+        setListView();
+        setListViewSource();
+
+        return mainview;
+    }
+
+    protected void updateData(Context context) {
+
+        Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
+        ptrFrame.refreshComplete();
+    }
+
+    /**
+     * 设置下拉刷新组件
+     * */
+    private void setPtrFrame(){
+        ptrFrame = (PtrClassicFrameLayout) mainview.findViewById(R.id.list_view);
         ptrFrame.disableWhenHorizontalMove(true);
         ptrFrame.setLastUpdateTimeRelateObject(this);
         ptrFrame.setPtrHandler(new PtrHandler() {
@@ -80,41 +95,47 @@ public class FragmentClient extends Fragment {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                updateData(mainview.getContext());
+                updateListViewSource(mainview.getContext());
             }
         });
+    }
 
-//        列表项目
+    /**
+     * 设置申请单列表
+     * */
+    private void setListView(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityFlowChart.class);
+                Bundle bundle = new Bundle();
+                Client client = (Client) parent.getAdapter().getItem(position);
+                bundle.putLong("id", client.getId());
+                bundle.putString("source", "client");
+                intent.setClass(mainview.getContext(), ActivityClientInfo.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        BeanAudit audit ;
 
-        for (int i = 0; i < mStrings.length; i++){
-            audit = new BeanAudit();
-            audit.setClientName(mStrings[i][0]);
-            audit.setClientOwner(mStrings[i][1]);
-            audit.setClientType(mStrings[i][2]);
-            audit.setClientLevel(mStrings[i][3]);
-            audit.setClientAddress(mStrings[i][4]);
-            listItems.add(audit);
-        }
-        adapter = new ClientListAdapter(getActivity(), listItems);
-        listView.setAdapter(adapter);
-
-        return mainview;
     }
 
-    protected void updateData(Context context) {
+    private void setListViewSource() {
 
-        Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
+        listClient = dbHelper.loadAllClient();
+        adapter = new ClientListAdapter(getActivity(), listClient);
+        listView.setAdapter(adapter);
+    }
+
+    protected void updateListViewSource(Context context) {
+
+        listClient = dbHelper.loadAllClient();
+        adapter = new ClientListAdapter(getActivity(), listClient);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         ptrFrame.refreshComplete();
+        Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
     }
 }

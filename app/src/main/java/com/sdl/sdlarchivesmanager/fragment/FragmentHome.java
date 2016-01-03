@@ -1,5 +1,6 @@
 package com.sdl.sdlarchivesmanager.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
@@ -42,7 +44,6 @@ public class FragmentHome extends Fragment {
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
     private MainListAdapter adapter;
-
     private DBHelper dbHelper;
 
 
@@ -55,6 +56,7 @@ public class FragmentHome extends Fragment {
         fabAdd = (FloatingActionButton) mainview.findViewById(R.id.fab);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
 
+        //添加按钮
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +68,19 @@ public class FragmentHome extends Fragment {
         });
 
 //        下拉刷新控件
+        setPtrFrame();
+
+//        列表项目
+        setListView();
+        setListViewSource();
+
+        return mainview;
+    }
+
+    /**
+    * 设置下拉刷新组件
+    * */
+    private void setPtrFrame(){
         ptrFrame = (PtrClassicFrameLayout) mainview.findViewById(R.id.list_view);
         ptrFrame.disableWhenHorizontalMove(true);
         ptrFrame.setLastUpdateTimeRelateObject(this);
@@ -79,11 +94,15 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                updateListViewSource();
+                updateListViewSource(mainview.getContext());
             }
         });
+    }
 
-//        列表项目
+    /**
+     * 设置申请单列表
+     * */
+    private void setListView(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -100,9 +119,6 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        setListViewSource();
-
-        return mainview;
     }
 
     private void setListViewSource() {
@@ -112,13 +128,14 @@ public class FragmentHome extends Fragment {
         listView.setAdapter(adapter);
     }
 
-    protected void updateListViewSource() {
+    protected void updateListViewSource(Context context) {
 
         listItems = dbHelper.loadApplicationBySend("");
         adapter = new MainListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         ptrFrame.refreshComplete();
+        Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
     }
 
 }

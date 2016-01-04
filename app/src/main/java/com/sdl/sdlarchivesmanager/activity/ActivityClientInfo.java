@@ -123,7 +123,7 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void onClick(View v) {
-        
+
         switch (v.getId()) {
             case R.id.ll_back:
                 this.finish();

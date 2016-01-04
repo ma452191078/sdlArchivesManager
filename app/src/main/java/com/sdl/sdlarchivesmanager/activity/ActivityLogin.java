@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,14 +16,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.DaoMaster;
 import com.sdl.sdlarchivesmanager.DaoSession;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
-import com.sdl.sdlarchivesmanager.util.SharePreferenceUtil;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.http.NormalPostRequest;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 import com.sdl.sdlarchivesmanager.util.UpdateManager;
 import com.sdl.sdlarchivesmanager.util.sdlClient;
@@ -31,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by majingyuan on 15/12/20.
@@ -44,7 +52,6 @@ public class ActivityLogin extends AppCompatActivity {
     private Button btLogin;
     private String userName, userPass, userId;
 
-    private RequestParams params;
     private static final String baseurl = "HttpLoginAction!salesLogin?";
     private boolean newtworstatus = true;
     private UpdateManager mUpdateManager;
@@ -52,6 +59,7 @@ public class ActivityLogin extends AppCompatActivity {
     private static String newVerName = "archive.apk";
 
     private DBHelper dBManager;
+    private RequestParams params = new RequestParams();
 
 
     @Override
@@ -72,7 +80,9 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 userId = etUserName.getText().toString();
                 userPass = etUserPass.getText().toString();
-                setLoginLocal(userId, userPass);
+//                    setLoginLocal(userId, userPass);
+//                getloginstatus(userName, userPass);
+                loadLoginStatus(userId, userPass);
             }
         });
 
@@ -80,7 +90,7 @@ public class ActivityLogin extends AppCompatActivity {
         etUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT){
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     etUserPass.setFocusable(true);
                     etUserPass.setFocusableInTouchMode(true);
                     etUserPass.clearFocus();
@@ -104,8 +114,9 @@ public class ActivityLogin extends AppCompatActivity {
                     }
                     userId = etUserName.getText().toString();
                     userPass = etUserPass.getText().toString();
-                    setLoginLocal(userId, userPass);
+//                    setLoginLocal(userId, userPass);
 //                    getloginstatus(userName, userPass);
+                    loadLoginStatus(userId, userPass);
                     return true;
                 }
                 return false;
@@ -176,75 +187,62 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
-    protected void getloginstatus(String username2, String pwd2) {
-        // TODO Auto-generated method stub
-        params = new RequestParams();
-        params.put("username", userName);
-        params.put("password", userPass);
-        sdlClient.post(baseurl, params, new JsonHttpResponseHandler()
+    protected void loadLoginStatus(final String userNum1, String userPass1) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("username", userNum1);
+        params.put("password", userPass1);
+        String url = new sdlClient().getUrl(baseurl);
+        Request<JSONObject> userRequest = new NormalPostRequest(url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            String strShow = response.getString("flag");
+                            if (strShow.equals("用户名或密码错误")){
+                                Toast.makeText(getApplicationContext(),strShow,Toast.LENGTH_LONG);
+                            }else {
+                                boolean login = false;
+                                Bundle bundle = new Bundle();
+                                Intent intent = new Intent();
 
-        {
+                                User loginUser = new User();
+                                Date lastLoginDate = new Date(System.currentTimeMillis());
+                                loginUser.setUser_Num(response.getString("personAccount"));
+                                loginUser.setUser_Name(response.getString("personName"));
+                                loginUser.setUser_Date(lastLoginDate);
+                                loginUser.setUser_Status(true);
 
-            public void onSuccess(int arg0, PreferenceActivity.Header[] arg1, JSONObject arg2) {
-                //解析JSON
-                String strdata = arg2.toString();
-                Intent intent = new Intent();
-                Bundle args = new Bundle();
-                try {
+                                if (dBManager.existUser(userNum1)) {
+                                    loginUser.setId(dBManager.loadUserByNum(userNum1).getId());
+                                    login = dBManager.updateUser(loginUser);
+                                    dBManager.setOtherUserFalse(loginUser.getUser_Num());
+                                } else {
+                                    login = dBManager.addUser(loginUser);
+                                    dBManager.setOtherUserFalse(loginUser.getUser_Num());
+                                }
 
-                    String flag = arg2.getString("flag");
-                    SharePreferenceUtil.setPrefString(ActivityLogin.this, "flag", flag);
+                                if (login) {
+                                    bundle.putString("usernum", userNum1);
+                                    bundle.putString("username", loginUser.getUser_Name());
+                                    intent.setClass(ActivityLogin.this, MainActivity.class);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    ActivityLogin.this.finish();
+                                }
 
-                    if (flag.equals("账户或密码错误")) {
-                        //提示密码错误
-                        Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        JSONObject user = arg2.getJSONObject("user");
-                        String pname = user.getString("personName");
-                        String pid = user.getString("personAccount");
-                        String role = user.getString("role");
-                        String dep_id = user.getString("deptId");
-
-                        Date lastLoginDate = new Date(System.currentTimeMillis() - ((long) (Math.random() * 1000 * 60 * 60 * 24 * 365)));
-                        User loginUser = new User();
-                        loginUser.setUser_Name(pname);
-                        loginUser.setUser_Pass(userPass);
-                        loginUser.setUser_Num(pid);
-                        loginUser.setUser_Date(lastLoginDate);
-                        if (dBManager.existUser(pid)) {
-                            dBManager.updateUser(loginUser);
-                            dBManager.setOtherUserFalse(loginUser.getUser_Num());
-                        } else {
-                            if (dBManager.addUser(loginUser)) {
-                                args.putString("userName", pname);
-                                args.putString("userNum", pid);
-
-                                intent.setClass(ActivityLogin.this, MainActivity.class);
-
-                                intent.putExtras(args);
-                                startActivity(intent);
-                                ActivityLogin.this.finish();
-                            } else {
-                                Toast.makeText(ActivityLogin.this, "写入用户数据失败", Toast.LENGTH_SHORT).show();
                             }
+                        }catch (Exception ex){
+                            Log.d("TAG", ex.toString());
                         }
-
                     }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
             }
-
-            public void onFailure(int statusCode, PreferenceActivity.Header[] headers,
-                                  Throwable throwable, JSONObject errorResponse) {
-                // TODO Auto-generated method stub
-                Toast.makeText(getApplicationContext(), "登录超时，请检查您的网络连接。", Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        }, params);
+        requestQueue.add(userRequest);
     }
 
     //得到服务器上的版本
@@ -277,8 +275,6 @@ public class ActivityLogin extends AppCompatActivity {
                             //继续进行
                         }
                     }
-
-
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

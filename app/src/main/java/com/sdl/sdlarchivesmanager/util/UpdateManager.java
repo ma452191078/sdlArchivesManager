@@ -28,6 +28,7 @@ import java.net.URL;
 
 /**
  * Created by majingyuan on 15/12/20.
+ * 更新类
  */
 public class UpdateManager {
 

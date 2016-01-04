@@ -94,14 +94,14 @@ public class FragmentUpload extends Fragment {
     }
     private void setListViewSource() {
 
-        listItems = dbHelper.loadApplicationBySend("1");
+        listItems = dbHelper.loadApplicationBySendNot("0");
         adapter = new MainListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
     }
 
     protected void updateListViewSource() {
 
-        listItems = dbHelper.loadApplicationBySend("1");
+        listItems = dbHelper.loadApplicationBySendNot("0");
         adapter = new MainListAdapter(getActivity(), listItems);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

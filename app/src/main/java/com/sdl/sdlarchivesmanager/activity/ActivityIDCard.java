@@ -19,6 +19,7 @@ import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.FilePath;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
+import com.sdl.sdlarchivesmanager.util.UriUtil;
 
 import java.io.File;
 
@@ -44,6 +45,7 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     private String imgUriF;
     private String imgUriB;
     private PhotoUtil photoUtil;
+    private String fileContract;
 
 
     @Override
@@ -173,11 +175,13 @@ public class ActivityIDCard extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setPhoto(Uri uri) {
+
+        fileContract = new UriUtil().UriToFile(getApplicationContext(),uri);
         if (imageItem == 0) {
-            ivCardF.setImageURI(uri);
+            ivCardF.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
             imgUriF = uri.toString();
         } else if (imageItem == 1) {
-            ivCardB.setImageURI(uri);
+            ivCardB.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
             imgUriB = uri.toString();
         }
 

@@ -250,8 +250,21 @@ public class DBHelper {
                     .build();
             appList = query.list();
         }
+        return appList;
+    }
 
-
+    public List<Application> loadApplicationBySendNot(String send){
+        Application app = null;
+        List<Application> appList = null;
+        if (send.equals("")){
+            appList = loadAllApplication();
+        }else {
+            Query query = applicationDao.queryBuilder()
+                    .where(ApplicationDao.Properties.App_Send.notEq(send))
+                    .orderAsc(ApplicationDao.Properties.App_TimeFlag)
+                    .build();
+            appList = query.list();
+        }
         return appList;
     }
 

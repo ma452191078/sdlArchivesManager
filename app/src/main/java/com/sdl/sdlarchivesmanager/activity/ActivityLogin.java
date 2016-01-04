@@ -80,9 +80,9 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 userId = etUserName.getText().toString();
                 userPass = etUserPass.getText().toString();
-//                    setLoginLocal(userId, userPass);
+                setLoginLocal(userId, userPass);
 //                getloginstatus(userName, userPass);
-                loadLoginStatus(userId, userPass);
+//                loadLoginStatus(userId, userPass);
             }
         });
 
@@ -114,9 +114,9 @@ public class ActivityLogin extends AppCompatActivity {
                     }
                     userId = etUserName.getText().toString();
                     userPass = etUserPass.getText().toString();
-//                    setLoginLocal(userId, userPass);
+                    setLoginLocal(userId, userPass);
 //                    getloginstatus(userName, userPass);
-                    loadLoginStatus(userId, userPass);
+//                    loadLoginStatus(userId, userPass);
                     return true;
                 }
                 return false;
@@ -189,7 +189,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     protected void loadLoginStatus(final String userNum1, String userPass1) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        Map<String, String> params = new HashMap<String,String>();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("username", userNum1);
         params.put("password", userPass1);
         String url = new sdlClient().getUrl(baseurl);
@@ -197,11 +197,11 @@ public class ActivityLogin extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try{
+                        try {
                             String strShow = response.getString("flag");
-                            if (strShow.equals("用户名或密码错误")){
-                                Toast.makeText(getApplicationContext(),strShow,Toast.LENGTH_LONG);
-                            }else {
+                            if (strShow.equals("用户名或密码错误")) {
+                                Toast.makeText(getApplicationContext(), strShow, Toast.LENGTH_LONG);
+                            } else {
                                 boolean login = false;
                                 Bundle bundle = new Bundle();
                                 Intent intent = new Intent();
@@ -232,7 +232,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 }
 
                             }
-                        }catch (Exception ex){
+                        } catch (Exception ex) {
                             Log.d("TAG", ex.toString());
                         }
                     }

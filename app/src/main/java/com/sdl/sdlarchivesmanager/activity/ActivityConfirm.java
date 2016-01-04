@@ -106,7 +106,6 @@ public class ActivityConfirm extends AppCompatActivity implements View.OnClickLi
         ivIDCardF = (ImageView) findViewById(R.id.iv_idcardf);     //身份证正面
         ivIDCardB = (ImageView) findViewById(R.id.iv_idcardb);    //身份证背面
         ivLicence = (ImageView) findViewById(R.id.iv_licence);    //营业执照
-
     }
 
     //    属性设置
@@ -115,6 +114,10 @@ public class ActivityConfirm extends AppCompatActivity implements View.OnClickLi
         tvNext.setText("提交");
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
+
+        if(strSource.equals("home")){
+            llNext.setVisibility(View.INVISIBLE);
+        }
 
         tvStatus.setText("请确认信息后提交");
         tvClientType.setText(app.getApp_Type());
@@ -158,6 +161,7 @@ public class ActivityConfirm extends AppCompatActivity implements View.OnClickLi
     private void saveApp(){
         app.setApp_Send("1");
         app.setApp_Status("未上传");   //已确认,未上传
+        dbHelper.updateApplication(app);
     }
 
     @Override

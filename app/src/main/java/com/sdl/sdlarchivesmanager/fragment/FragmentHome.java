@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityClientInfo;
+import com.sdl.sdlarchivesmanager.activity.ActivityConfirm;
 import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
 import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
@@ -113,7 +113,7 @@ public class FragmentHome extends Fragment {
                 Application application = (Application) parent.getAdapter().getItem(position);
                 bundle.putLong("id", application.getId());
                 bundle.putString("source", "home");
-                intent.setClass(mainview.getContext(), ActivityClientInfo.class);
+                intent.setClass(mainview.getContext(), ActivityConfirm.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

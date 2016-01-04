@@ -18,6 +18,7 @@ import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.FilePath;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
+import com.sdl.sdlarchivesmanager.util.UriUtil;
 
 import java.io.File;
 
@@ -39,6 +40,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
     private DBHelper dbHelper;
     private Application app;
     private PhotoUtil photoUtil;
+    private String fileContract;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +164,9 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
     }
 
     private void setPhoto(Uri uri) {
-        ivPicture.setImageURI(uri);
+
+        fileContract = new UriUtil().UriToFile(getApplicationContext(),uri);
+        ivPicture.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
         imgUri = uri.toString();
     }
 }

@@ -91,6 +91,7 @@ public class CreateDatabase {
         application.addStringProperty("App_InvoiceBankName2");   //支行
         application.addStringProperty("App_InvoiceBankOwner");  //户主
         application.addStringProperty("App_InvoiceBankPhone");   //电话
+        application.addStringProperty("App_InvoiceVatNum");    //增值税号
         application.addStringProperty("App_Send");      //0已发送,1未发送,2资料不完整
         application.addStringProperty("App_Status");    //审核状态
         application.addDateProperty("App_TimeFlag");    //记录创建时间

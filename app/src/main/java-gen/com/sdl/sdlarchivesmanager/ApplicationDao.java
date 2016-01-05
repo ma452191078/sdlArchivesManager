@@ -49,9 +49,10 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
         public final static Property App_InvoiceBankName2 = new Property(23, String.class, "App_InvoiceBankName2", false, "APP__INVOICE_BANK_NAME2");
         public final static Property App_InvoiceBankOwner = new Property(24, String.class, "App_InvoiceBankOwner", false, "APP__INVOICE_BANK_OWNER");
         public final static Property App_InvoiceBankPhone = new Property(25, String.class, "App_InvoiceBankPhone", false, "APP__INVOICE_BANK_PHONE");
-        public final static Property App_Send = new Property(26, String.class, "App_Send", false, "APP__SEND");
-        public final static Property App_Status = new Property(27, String.class, "App_Status", false, "APP__STATUS");
-        public final static Property App_TimeFlag = new Property(28, java.util.Date.class, "App_TimeFlag", false, "APP__TIME_FLAG");
+        public final static Property App_InvoiceVatNum = new Property(26, String.class, "App_InvoiceVatNum", false, "APP__INVOICE_VAT_NUM");
+        public final static Property App_Send = new Property(27, String.class, "App_Send", false, "APP__SEND");
+        public final static Property App_Status = new Property(28, String.class, "App_Status", false, "APP__STATUS");
+        public final static Property App_TimeFlag = new Property(29, java.util.Date.class, "App_TimeFlag", false, "APP__TIME_FLAG");
     };
 
 
@@ -93,9 +94,10 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
                 "\"APP__INVOICE_BANK_NAME2\" TEXT," + // 23: App_InvoiceBankName2
                 "\"APP__INVOICE_BANK_OWNER\" TEXT," + // 24: App_InvoiceBankOwner
                 "\"APP__INVOICE_BANK_PHONE\" TEXT," + // 25: App_InvoiceBankPhone
-                "\"APP__SEND\" TEXT," + // 26: App_Send
-                "\"APP__STATUS\" TEXT," + // 27: App_Status
-                "\"APP__TIME_FLAG\" INTEGER);"); // 28: App_TimeFlag
+                "\"APP__INVOICE_VAT_NUM\" TEXT," + // 26: App_InvoiceVatNum
+                "\"APP__SEND\" TEXT," + // 27: App_Send
+                "\"APP__STATUS\" TEXT," + // 28: App_Status
+                "\"APP__TIME_FLAG\" INTEGER);"); // 29: App_TimeFlag
     }
 
     /** Drops the underlying database table. */
@@ -239,19 +241,24 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
             stmt.bindString(26, App_InvoiceBankPhone);
         }
  
+        String App_InvoiceVatNum = entity.getApp_InvoiceVatNum();
+        if (App_InvoiceVatNum != null) {
+            stmt.bindString(27, App_InvoiceVatNum);
+        }
+ 
         String App_Send = entity.getApp_Send();
         if (App_Send != null) {
-            stmt.bindString(27, App_Send);
+            stmt.bindString(28, App_Send);
         }
  
         String App_Status = entity.getApp_Status();
         if (App_Status != null) {
-            stmt.bindString(28, App_Status);
+            stmt.bindString(29, App_Status);
         }
  
         java.util.Date App_TimeFlag = entity.getApp_TimeFlag();
         if (App_TimeFlag != null) {
-            stmt.bindLong(29, App_TimeFlag.getTime());
+            stmt.bindLong(30, App_TimeFlag.getTime());
         }
     }
 
@@ -291,9 +298,10 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
             cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // App_InvoiceBankName2
             cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // App_InvoiceBankOwner
             cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // App_InvoiceBankPhone
-            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // App_Send
-            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // App_Status
-            cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)) // App_TimeFlag
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // App_InvoiceVatNum
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // App_Send
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // App_Status
+            cursor.isNull(offset + 29) ? null : new java.util.Date(cursor.getLong(offset + 29)) // App_TimeFlag
         );
         return entity;
     }
@@ -327,9 +335,10 @@ public class ApplicationDao extends AbstractDao<Application, Long> {
         entity.setApp_InvoiceBankName2(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
         entity.setApp_InvoiceBankOwner(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
         entity.setApp_InvoiceBankPhone(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
-        entity.setApp_Send(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
-        entity.setApp_Status(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
-        entity.setApp_TimeFlag(cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)));
+        entity.setApp_InvoiceVatNum(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setApp_Send(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setApp_Status(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setApp_TimeFlag(cursor.isNull(offset + 29) ? null : new java.util.Date(cursor.getLong(offset + 29)));
      }
     
     /** @inheritdoc */

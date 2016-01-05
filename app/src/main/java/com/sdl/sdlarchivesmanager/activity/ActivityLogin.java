@@ -122,17 +122,6 @@ public class ActivityLogin extends AppCompatActivity {
                 return false;
             }
         });
-
-        if (newtworstatus) {
-            mUpdateManager = new UpdateManager(this);
-            //这里来检测版本是否需要更新
-            getServerVer();
-
-        } else {
-            Toast.makeText(this,
-                    "你没有开启网络连接！！请开启网络连接,否则影响使用",
-                    Toast.LENGTH_LONG).show();
-        }
     }
 
     private boolean NetWorkStatus() {
@@ -243,6 +232,16 @@ public class ActivityLogin extends AppCompatActivity {
             }
         }, params);
         requestQueue.add(userRequest);
+        if (newtworstatus) {
+            mUpdateManager = new UpdateManager(this);
+            //这里来检测版本是否需要更新
+            getServerVer();
+
+        } else {
+            Toast.makeText(this,
+                    "你没有开启网络连接！！请开启网络连接,否则影响使用",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     //得到服务器上的版本

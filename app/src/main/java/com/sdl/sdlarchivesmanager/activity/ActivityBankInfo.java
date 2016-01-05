@@ -41,6 +41,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
     private EditText etInvoiceName2;    //支行
     private EditText etInvoiceOwner;    //户主
     private EditText etInvoicePhone;    //电话
+    private EditText etInvoiceVatNum;
 
 
     @Override
@@ -79,6 +80,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
         etInvoiceName2 = (EditText) findViewById(R.id.et_invoicebankname2);
         etInvoiceOwner = (EditText) findViewById(R.id.et_invoicebankowner);
         etInvoicePhone = (EditText) findViewById(R.id.et_invoicebankphone);
+        etInvoiceVatNum = (EditText) findViewById(R.id.et_invoicevatnum);
     }
 
     //    设置屏幕组件属性
@@ -143,6 +145,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
                 app.setApp_InvoiceBankName2(etInvoiceName2.getText().toString().trim());
                 app.setApp_InvoiceBankOwner(etInvoiceOwner.getText().toString().trim());
                 app.setApp_InvoiceBankPhone(etInvoicePhone.getText().toString().trim());
+                app.setApp_InvoiceVatNum(etInvoiceVatNum.getText().toString().trim());
             } else {
                 app.setApp_InvoiceType("1");
             }

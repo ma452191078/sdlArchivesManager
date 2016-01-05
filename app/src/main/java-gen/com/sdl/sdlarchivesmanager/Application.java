@@ -32,6 +32,7 @@ public class Application {
     private String App_InvoiceBankName2;
     private String App_InvoiceBankOwner;
     private String App_InvoiceBankPhone;
+    private String App_InvoiceVatNum;
     private String App_Send;
     private String App_Status;
     private java.util.Date App_TimeFlag;
@@ -43,7 +44,7 @@ public class Application {
         this.id = id;
     }
 
-    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
         this.App_Name = App_Name;
         this.App_Owner = App_Owner;
@@ -70,6 +71,7 @@ public class Application {
         this.App_InvoiceBankName2 = App_InvoiceBankName2;
         this.App_InvoiceBankOwner = App_InvoiceBankOwner;
         this.App_InvoiceBankPhone = App_InvoiceBankPhone;
+        this.App_InvoiceVatNum = App_InvoiceVatNum;
         this.App_Send = App_Send;
         this.App_Status = App_Status;
         this.App_TimeFlag = App_TimeFlag;
@@ -281,6 +283,14 @@ public class Application {
 
     public void setApp_InvoiceBankPhone(String App_InvoiceBankPhone) {
         this.App_InvoiceBankPhone = App_InvoiceBankPhone;
+    }
+
+    public String getApp_InvoiceVatNum() {
+        return App_InvoiceVatNum;
+    }
+
+    public void setApp_InvoiceVatNum(String App_InvoiceVatNum) {
+        this.App_InvoiceVatNum = App_InvoiceVatNum;
     }
 
     public String getApp_Send() {

@@ -7,6 +7,7 @@ package com.sdl.sdlarchivesmanager;
 public class Application {
 
     private Long id;
+    private String App_Num;
     private String App_Name;
     private String App_Owner;
     private String App_Type;
@@ -18,7 +19,8 @@ public class Application {
     private String App_Country;
     private String App_Town;
     private String App_Address;
-    private String App_LngLat;
+    private String App_Lng;
+    private String App_Lat;
     private String App_Contract;
     private String App_IdCardF;
     private String App_IdCardB;
@@ -44,8 +46,9 @@ public class Application {
         this.id = id;
     }
 
-    public Application(Long id, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_LngLat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
+        this.App_Num = App_Num;
         this.App_Name = App_Name;
         this.App_Owner = App_Owner;
         this.App_Type = App_Type;
@@ -57,7 +60,8 @@ public class Application {
         this.App_Country = App_Country;
         this.App_Town = App_Town;
         this.App_Address = App_Address;
-        this.App_LngLat = App_LngLat;
+        this.App_Lng = App_Lng;
+        this.App_Lat = App_Lat;
         this.App_Contract = App_Contract;
         this.App_IdCardF = App_IdCardF;
         this.App_IdCardB = App_IdCardB;
@@ -83,6 +87,14 @@ public class Application {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getApp_Num() {
+        return App_Num;
+    }
+
+    public void setApp_Num(String App_Num) {
+        this.App_Num = App_Num;
     }
 
     public String getApp_Name() {
@@ -173,12 +185,20 @@ public class Application {
         this.App_Address = App_Address;
     }
 
-    public String getApp_LngLat() {
-        return App_LngLat;
+    public String getApp_Lng() {
+        return App_Lng;
     }
 
-    public void setApp_LngLat(String App_LngLat) {
-        this.App_LngLat = App_LngLat;
+    public void setApp_Lng(String App_Lng) {
+        this.App_Lng = App_Lng;
+    }
+
+    public String getApp_Lat() {
+        return App_Lat;
+    }
+
+    public void setApp_Lat(String App_Lat) {
+        this.App_Lat = App_Lat;
     }
 
     public String getApp_Contract() {

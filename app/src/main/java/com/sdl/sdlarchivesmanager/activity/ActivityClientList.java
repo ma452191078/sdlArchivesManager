@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -49,8 +50,10 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
     private String strClient;
     private String strClientName = "";
     private static final String BASEURL="AppSyncAction!getSellerListBySalesId";
-    private String userNum;
+    private String userNum = "";
+    private String clientLevel = "";
     private JSONArray array;
+    private int click = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,47 +61,69 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_address);
         iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            userNum = bundle.getString("usernum");
+            clientLevel = bundle.getString("level");
+        }
+
+        userNum = "20140009";
         createWidget();
         setWidget();
         setClick();
 
         //获取省级列表
-        getAddrList(userNum);
+        if (userNum != null){
+            getClientList(userNum, "");
+
+        }
+
     }
 
-    private void getAddrList(String id) {
+    private void getClientList(String id, String client) {
+
+        click ++;
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
         Map<String, String> params = new HashMap<String, String>();
         params.put("sales_id", id);
+        params.put("client_id", client);
 
         String url = new sdlClient().getUrl(BASEURL);
         Request<JSONObject> provRequest = new NormalPostRequest(url,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         String strdata = null;
                         try {
                             strdata = response.getString("Data");
                             array = new JSONArray(strdata);
+                            if (array.length() > 0){
+                                for (int i = 0; i < array.length(); i++){
+                                    Client client = new Client();
+                                    String clientNum = array.getJSONObject(i).getString("seller_id");
+                                    String clientName = array.getJSONObject(i).getString("seller_name");
 
-                            for (int i = 0; i < array.length(); i++){
-                                Client client = new Client();
-                                String clientNum = array.getJSONObject(i).getString("seller_id");
-                                String clientName = array.getJSONObject(i).getString("seller_name");
+                                    client.setClient_Name(clientName);
+                                    client.setClient_Num(clientNum);
+                                    client.setId((long)i);
+                                    listItems.add(client);
 
-                                client.setClient_Name(clientName);
-                                client.setClient_Num(clientNum);
-                                client.setId((long)i);
-                                listItems.add(client);
+
+                                }
+                                adapter = new ClientListAdapter(ActivityClientList.this, listItems);
+                                lvClient.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
                             }
+                            else {
+                                Toast.makeText(getApplicationContext(),"暂无经销商", Toast.LENGTH_SHORT).show();
+                            }
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        adapter = new ClientListAdapter(ActivityClientList.this, listItems);
-                        lvClient.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -112,7 +137,14 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                this.finish();
+                break;
 
+            default:
+                break;
+        }
     }
 
     private void createWidget() {
@@ -126,6 +158,7 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
     private void setWidget() {
 
         tvTittle.setText(R.string.title_activity_clientinfo);
+        tvClient.setText("选择经销商");
         tvIconAddress.setTypeface(iconfont);
     }
 
@@ -139,11 +172,17 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
                 strClient = client.getClient_Num();
                 strClientName = client.getClient_Name();
                 tvClient.setText(strClientName);
-                Intent intent = new Intent();
-                intent.putExtra("result", strClientName);
-                intent.putExtra("client", strClient);
-                setResult(1002, intent);
-                ActivityClientList.this.finish();
+
+                if ((clientLevel.equals("3") && click == 2) || (clientLevel.equals("2") && click == 1)){
+
+                    Intent intent = new Intent();
+                    intent.putExtra("result", strClientName);
+                    intent.putExtra("client", strClient);
+                    setResult(2001, intent);
+                    ActivityClientList.this.finish();
+                }else {
+                    getClientList("", strClient);
+                }
             }
         });
     }

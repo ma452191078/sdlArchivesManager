@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by majingyuan on 15/11/30.
- * 经销商列表控制器
+ * 地址列表控制器
  */
 public class AddressListAdapter extends BaseAdapter {
     private LayoutInflater inflater;

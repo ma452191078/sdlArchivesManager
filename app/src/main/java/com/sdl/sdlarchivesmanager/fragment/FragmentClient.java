@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.activity.ActivityClientInfo;
-import com.sdl.sdlarchivesmanager.adapter.ClientListAdapter;
+import com.sdl.sdlarchivesmanager.adapter.ClientAdapter;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class FragmentClient extends Fragment {
     private List<Client> listClient = new ArrayList<Client>();
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
-    private ClientListAdapter adapter;
+    private ClientAdapter adapter;
     private DBHelper dbHelper;
 
     @Override
@@ -125,14 +125,14 @@ public class FragmentClient extends Fragment {
     private void setListViewSource() {
 
         listClient = dbHelper.loadAllClient();
-        adapter = new ClientListAdapter(getActivity(), listClient);
+        adapter = new ClientAdapter(getActivity(), listClient);
         listView.setAdapter(adapter);
     }
 
     protected void updateListViewSource(Context context) {
 
         listClient = dbHelper.loadAllClient();
-        adapter = new ClientListAdapter(getActivity(), listClient);
+        adapter = new ClientAdapter(getActivity(), listClient);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         ptrFrame.refreshComplete();

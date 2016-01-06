@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
@@ -24,6 +25,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int RESULT_ADDRESS = 1000;
+    private static final int RESULT_CLIENT = 2000;
     private LinearLayout llBack;
     private LinearLayout llNext;
     private LinearLayout llLevel;
@@ -38,9 +40,11 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
     private RadioButton rbJxs, rbZzdh;  //经销商和种植大户单选按钮
     private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
 
-    private String strProvince,strCity,strCountry,strTown;
+    private String strProvince, strCity, strCountry, strTown;
     private DBHelper dbHelper;
     private String timeFlag;
+    private String strUpLevel;  //上级经销商
+    private User user;
 
 
     @Override
@@ -50,6 +54,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         SysApplication.getInstance().addActivity(this);
         dbHelper = DBHelper.getInstance(this);
+        user = dbHelper.loadUserByStatus();
         createWidget();
         setWidget();
         setClick();
@@ -90,6 +95,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         rbLevel2.setOnClickListener(this);
         rbLevel3.setOnClickListener(this);
         tvAddress1.setOnClickListener(this);
+        tvUpLevel.setOnClickListener(this);
     }
 
     @Override
@@ -107,14 +113,6 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.rb_jxs:
-                if (llLevel.getVisibility() == View.GONE)
-                    llLevel.setVisibility(View.VISIBLE);
-                break;
-            case R.id.rb_zzdh:
-                if (llLevel.getVisibility() == View.VISIBLE)
-                    llLevel.setVisibility(View.GONE);
-                break;
             case R.id.rb_level1:
                 if (llUpLevel.getVisibility() == View.VISIBLE)
                     llUpLevel.setVisibility(View.GONE);
@@ -128,9 +126,19 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
                     llUpLevel.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_clientaddr:
-                intent.setClass(ActivityBaseInfo.this,ActivityAddrList.class);
+                intent.setClass(ActivityBaseInfo.this, ActivityAddrList.class);
                 startActivityForResult(intent, RESULT_ADDRESS);
                 break;
+            case R.id.tv_uplevel:
+                if (rbLevel3.isChecked()) {
+                    bundle.putString("level", "3");
+                } else {
+                    bundle.putString("level", "2");
+                }
+                bundle.putString("usernum", user.getUser_Num());
+                intent.setClass(ActivityBaseInfo.this, ActivityClientList.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, RESULT_CLIENT, bundle);
             default:
                 break;
         }
@@ -146,37 +154,40 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
             strCountry = data.getStringExtra("country");
             strTown = data.getStringExtra("town");
 
+        } else if (requestCode == RESULT_CLIENT && resultCode == 2001) {
+            tvUpLevel.setText(data.getStringExtra("result"));
+            strUpLevel = data.getStringExtra("client");
         }
     }
 
-    protected void  saveApp(){
+    protected void saveApp() {
 //        获得界面数据
         timeFlag = new GetDateUtil().getNowDateTime();
         Application app = new Application();
 //        经销商类型,经销商0/种植大户1
-        if (rbJxs.isSelected()){
+        if (rbJxs.isSelected()) {
             app.setApp_Type("0");
-        }else if (rbZzdh.isSelected()){
+        } else if (rbZzdh.isSelected()) {
             app.setApp_Type("1");
-        }else {
+        } else {
             app.setApp_Type("");
         }
 
 //        经销商层级,一级1/二级2/三级3
-        if (rbLevel1.isSelected()){
+        if (rbLevel1.isSelected()) {
             app.setApp_Level("1");
-        }else if (rbLevel2.isSelected()){
+        } else if (rbLevel2.isSelected()) {
             app.setApp_Level("2");
-        }else if (rbLevel3.isSelected()){
+        } else if (rbLevel3.isSelected()) {
             app.setApp_Level("3");
-        }else{
+        } else {
             app.setApp_Level("");
         }
 
 //        上级经销商
-        if (rbLevel2.isSelected() || rbLevel3.isSelected()){
-            app.setApp_Uplevel(tvUpLevel.getText().toString());
-        }else {
+        if (rbLevel2.isSelected() || rbLevel3.isSelected()) {
+            app.setApp_Uplevel(strUpLevel);
+        } else {
             app.setApp_Uplevel("");
         }
 

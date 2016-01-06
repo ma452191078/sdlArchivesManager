@@ -18,8 +18,8 @@ import com.loopj.android.http.RequestParams;
 public class sdlClient {
 
 
-    //private static final String BASE_URL = "http://eb.shidanli.cn/";//基本的url
-    private static final String BASE_URL = "http://192.168.9.23:8000/SdlEBS/";
+    private static final String BASE_URL = "http://eb.shidanli.cn/";//基本的url
+//    private static final String BASE_URL = "http://192.168.9.23:8000/SdlEBS/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

@@ -4,22 +4,36 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.sdl.sdlarchivesmanager.Address;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.adapter.AddressListAdapter;
+import com.sdl.sdlarchivesmanager.http.NormalPostRequest;
+import com.sdl.sdlarchivesmanager.util.sdlClient;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by majingyuan on 15/12/5.
- * 创建经销商步骤1
+ * 获取地区信息,省市县
  */
 public class ActivityAddrList extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,10 +47,21 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
     private AddressListAdapter adapter;
 
     private String strProvince;
+    private String strProvinceName = "";
     private String strCity;
+    private String strCityName = "";
     private String strCountry;
+    private String strCountryName = "";
     private String strTown;
-    private String[] sProvince = {"山东", "北京"};
+    private String strTownName = "";
+    private static final String BASEURL="AppSyncAction!getDivListByParentId";
+    private static final String PROVINCE = "province";
+    private static final String CITY = "city";
+    private static final String COUNTRY = "area";
+    private static final String TOWN = "town";
+
+    private String strClick = null;
+    private JSONArray array;
 
 
     @Override
@@ -49,14 +74,9 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
         setWidget();
         setClick();
 
-        Address address;
-        for (int i = 0; i < sProvince.length; i++){
-            address = new Address();
-            address.setAddr_Name(sProvince[i]);
-            listItems.add(address);
-        }
-        adapter = new AddressListAdapter(ActivityAddrList.this, listItems);
-        lvAddress.setAdapter(adapter);
+        //获取省级列表
+        getAddrList("0", PROVINCE);
+
 
     }
 
@@ -80,18 +100,93 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
         lvAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String adr = ((Address) parent.getAdapter().getItem(position)).getAddr_Name();
-                tvAddress.setText(adr);
-                Intent intent = new Intent();
-                intent.putExtra("result", adr);
-                intent.putExtra("province",strProvince);
-                intent.putExtra("city",strCity);
-                intent.putExtra("country",strCountry);
-                intent.putExtra("town",strTown);
-                setResult(1001, intent);
-                ActivityAddrList.this.finish();
+                Address adr = ((Address) parent.getAdapter().getItem(position));
+
+                if (strClick.equals(PROVINCE)){
+                    strProvince = adr.getAddr_Code();
+                    strProvinceName = adr.getAddr_Name();
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
+                    getAddrList(adr.getAddr_Code(),CITY);
+                }else if (strClick.equals(CITY)){
+                    strCity = adr.getAddr_Code();
+                    strCityName = adr.getAddr_Name();
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
+                    getAddrList(adr.getAddr_Code(),COUNTRY);
+                }else if (strClick.equals(COUNTRY)){
+                    strCountry = adr.getAddr_Code();
+                    strCountryName = adr.getAddr_Name();
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
+                    getAddrList(adr.getAddr_Code(),TOWN);
+
+                }else if (strClick.equals(TOWN)){
+                    strTownName = adr.getAddr_Name();
+                    strTown = adr.getAddr_Code();
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
+                    Intent intent = new Intent();
+                    intent.putExtra("result", tvAddress.getText());
+                    intent.putExtra("province", strProvince);
+                    intent.putExtra("city", strCity);
+                    intent.putExtra("country", strCountry);
+                    intent.putExtra("town", strTown);
+                    setResult(1001, intent);
+                    ActivityAddrList.this.finish();
+                }
+
+
+
+
             }
         });
+    }
+
+    /**
+     * 获取省市县列表
+     */
+    private void getAddrList( String id, String type){
+
+        strClick = type;
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("parent_id", id);
+        params.put("type_code", type);
+        String url = new sdlClient().getUrl(BASEURL);
+        Request<JSONObject> provRequest = new NormalPostRequest(url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        List<Address> addressList = new ArrayList<Address>();
+                        String strdata = null;
+                        try {
+                            strdata = response.getString("Data");
+                            array = new JSONArray(strdata);
+
+                            for (int i = 0; i < array.length(); i++){
+                                Address address = new Address();
+                                String prov_code = array.getJSONObject(i).getString("code");
+                                String prov_name = array.getJSONObject(i).getString("name");
+
+                                address.setAddr_Name(prov_name);
+                                address.setAddr_Code(prov_code);
+                                address.setId((long)i);
+                                addressList.add(address);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        adapter = new AddressListAdapter(ActivityAddrList.this, addressList);
+                        lvAddress.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }, params);
+        requestQueue.add(provRequest);
     }
 
     @Override

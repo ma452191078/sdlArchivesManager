@@ -177,7 +177,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     protected void loadLoginStatus(final String userNum1, String userPass1) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
         Map<String, String> params = new HashMap<String, String>();
         params.put("username", userNum1);
         params.put("password", userPass1);
@@ -218,6 +218,7 @@ public class ActivityLogin extends AppCompatActivity {
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                     ActivityLogin.this.finish();
+                                    requestQueue.stop();
                                 }
 
                             }

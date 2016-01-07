@@ -116,6 +116,7 @@ public class GetAddressUtil {
                                     continue;
                                 }
                             }
+                            requestQueue.stop();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

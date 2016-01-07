@@ -3,6 +3,7 @@ package com.sdl.sdlarchivesmanager.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -10,12 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.GetDateUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by majingyuan on 15/12/5.
@@ -39,13 +47,20 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
     private EditText etAddress2;    //详细地址
     private RadioButton rbJxs, rbZzdh;  //经销商和种植大户单选按钮
     private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
+    private TextView tvLngLat;
 
     private String strProvince, strCity, strCountry, strTown;
     private DBHelper dbHelper;
     private String timeFlag;
     private String strUpLevel;  //上级经销商
+    private String strLng;  //经度
+    private String strLat;  //纬度
     private User user;
     private Application app = new Application();
+    //声明mLocationOption对象
+    private AMapLocationClientOption mLocationOption = null;
+    //      声明AMapLocationClient类对象
+    AMapLocationClient mLocationClient = null;
 
 
     @Override
@@ -57,14 +72,18 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         Bundle bundle = getIntent().getExtras();
         dbHelper = DBHelper.getInstance(this);
         user = dbHelper.loadUserByStatus();
+        if (bundle != null)
         app = dbHelper.loadApplicationByID(bundle.getLong("id"));
 
         createWidget();
         setWidget();
         setClick();
-        if (app != null){
+        if (app != null) {
             setWidgetText(app);
         }
+
+
+        getMapInfo();
     }
 
     /*控件声明*/
@@ -87,6 +106,7 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);    //详细地址
         tvAddress1 = (TextView) findViewById(R.id.tv_clientaddr);
         etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);
+        tvLngLat = (TextView) findViewById(R.id.tv_lnglat);
     }
 
     private void setWidget() {
@@ -112,10 +132,12 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.ll_back:
 //                返回键
+                mLocationClient.stopLocation();
                 this.finish();
                 break;
             case R.id.ll_next:
 //                下一步
+                mLocationClient.stopLocation();//停止定位
                 saveApp();
                 bundle.putString("timeflag", timeFlag);
                 intent.setClass(BaseInfoActivity.this, BankInfoActivity.class);
@@ -218,6 +240,8 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         app.setApp_City(strCity);
         app.setApp_Country(strCountry);
         app.setApp_Town(strTown);
+        app.setApp_Lng(strLng);
+        app.setApp_Lat(strLat);
         app.setApp_Address(etAddress2.getText().toString().trim());
         app.setApp_TimeFlag(new GetDateUtil().getDate(timeFlag));
         app.setApp_Send("2");   //资料尚未建立完整,不允许上传
@@ -226,26 +250,26 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         dbHelper.addApplication(app);
     }
 
-//    已存在的审核设置控件值
-    private void setWidgetText(Application application){
+    //    已存在的审核设置控件值
+    private void setWidgetText(Application application) {
 
 //        经销商类型
-        if (app.getApp_Type() != null){
-            if (app.getApp_Type().equals("0")){
+        if (app.getApp_Type() != null) {
+            if (app.getApp_Type().equals("0")) {
                 rbJxs.setChecked(true);
-            }else if (app.getApp_Type().equals("1")){
+            } else if (app.getApp_Type().equals("1")) {
                 rbZzdh.setChecked(true);
             }
         }
 
 //        经销商等级
-        if (app.getApp_Level() != null){
-            if (app.getApp_Level().equals("1")){
+        if (app.getApp_Level() != null) {
+            if (app.getApp_Level().equals("1")) {
                 rbLevel1.setChecked(true);
-            }else if (app.getApp_Level().equals("2")){
+            } else if (app.getApp_Level().equals("2")) {
                 rbLevel2.setChecked(true);
                 llUpLevel.setVisibility(View.VISIBLE);
-            }else if (app.getApp_Level().equals("3")){
+            } else if (app.getApp_Level().equals("3")) {
                 rbLevel3.setChecked(true);
                 llUpLevel.setVisibility(View.VISIBLE);
             }
@@ -285,6 +309,68 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
 //        详细地址
         if (app.getApp_Address() != null)
             etAddress2.setText(app.getApp_Address());
+
+
+    }
+
+    public void getMapInfo() {
+
+
+//        声明定位回调监听器
+        AMapLocationListener mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        //定位成功回调信息，设置相关消息
+                        aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                        strLng = String.valueOf(aMapLocation.getLatitude());//获取纬度
+                        strLat = String.valueOf(aMapLocation.getLongitude());//获取经度
+                        aMapLocation.getAccuracy();//获取精度信息
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date date = new Date(aMapLocation.getTime());
+                        df.format(date);//定位时间
+                        tvLngLat.setText(aMapLocation.getAddress());//地址，如果option中设置isNeedAddress为false，则没有此结果
+                        aMapLocation.getCountry();//国家信息
+                        aMapLocation.getProvince();//省信息
+                        aMapLocation.getCity();//城市信息
+                        aMapLocation.getDistrict();//城区信息
+                        aMapLocation.getRoad();//街道信息
+                        aMapLocation.getCityCode();//城市编码
+                        aMapLocation.getAdCode();//地区编码
+                    } else {
+                        //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
+                    }
+                }
+            }
+        };
+//      初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+//      设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+
+//      初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+//      设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+//      设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+//      设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+//      设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+//      设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+//      设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(2000);
+//      给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+//      启动定位
+        mLocationClient.startLocation();
 
 
     }

@@ -294,7 +294,7 @@
                 android:layout_height="@dimen/left_text_height"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="@dimen/left_text_width"
@@ -313,9 +313,8 @@
                         android:id="@+id/tv_lnglat"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
                         android:gravity="center_vertical"
-                        android:text="@string/step_ev_lnglat"
+                        android:textSize="@dimen/editview_textsize"
                         />
 
                 </LinearLayout>

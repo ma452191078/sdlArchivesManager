@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.activity.ActivityConfirm;
-import com.sdl.sdlarchivesmanager.activity.ActivityFlowChart;
+import com.sdl.sdlarchivesmanager.activity.ConfirmActivity;
+import com.sdl.sdlarchivesmanager.activity.FlowChartActivity;
 import com.sdl.sdlarchivesmanager.adapter.MainListAdapter;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 
@@ -31,10 +31,10 @@ import in.srain.cube.views.ptr.PtrHandler;
  * Created by majingyuan on 15/12/20.
  * 首页
  */
-public class FragmentHome extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    public FragmentHome() {
+    public HomeFragment() {
 
     }
 
@@ -62,7 +62,7 @@ public class FragmentHome extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent();
-                intent.setClass(mainview.getContext(), ActivityFlowChart.class);
+                intent.setClass(mainview.getContext(), FlowChartActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,7 +113,7 @@ public class FragmentHome extends Fragment {
                 Application application = (Application) parent.getAdapter().getItem(position);
                 bundle.putLong("id", application.getId());
                 bundle.putString("source", "home");
-                intent.setClass(mainview.getContext(), ActivityConfirm.class);
+                intent.setClass(mainview.getContext(), ConfirmActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

@@ -8,10 +8,25 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--用于访问网络，网络定位需要上网-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <!-- 摄像头 -->
     <uses-feature android:name="android.hardware.camera" />
@@ -37,21 +52,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ActivityFlowChart" />
-        <activity android:name=".activity.ActivityBaseInfo" />
-        <activity android:name=".activity.ActivityBankInfo" />
-        <activity android:name=".activity.ActivityLicence" />
-        <activity android:name=".activity.ActivityIDCard" />
-        <activity android:name=".activity.ActivityContract" />
-        <activity android:name=".activity.ActivityLogin" />
-        <activity android:name=".activity.ActivityConfirm" />
-        <activity android:name=".activity.ActivityClientInfo" />
-        <activity android:name=".activity.ActivityAddrList" />
-        <activity android:name=".activity.ActivityClientList" />
+        <activity android:name=".activity.FlowChartActivity" />
+        <activity android:name=".activity.BaseInfoActivity" />
+        <activity android:name=".activity.BankInfoActivity" />
+        <activity android:name=".activity.LicenceActivity" />
+        <activity android:name=".activity.IDCardActivity" />
+        <activity android:name=".activity.ContractActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.ConfirmActivity" />
+        <activity android:name=".activity.ClientInfoActivity" />
+        <activity android:name=".activity.AddrListActivity" />
+        <activity android:name=".activity.ClientListActivity" />
         <!-- <activity -->
         <!-- android:name=".activity.MainActivity" -->
         <!-- android:label="@string/title_activity_main2" -->
         <!-- android:theme="@style/AppTheme"></activity> -->
+        <!--高德API-->
+        <service android:name="com.amap.api.location.APSService"></service>
+        <!--开发者申请的key-->
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="4b93b0ead907adb2614f29b9084e1db2">
+
+        </meta-data>
     </application>
 
 </manifest>

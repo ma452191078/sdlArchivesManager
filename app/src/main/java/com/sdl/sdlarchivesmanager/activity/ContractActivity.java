@@ -26,7 +26,7 @@ import java.io.File;
  * Created by majingyuan on 15/12/6.
  * 经销商协议书
  */
-public class ActivityContract extends AppCompatActivity implements View.OnClickListener {
+public class ContractActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
     private LinearLayout llNext;
@@ -48,7 +48,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_create_contract);
         SysApplication.getInstance().addActivity(this);
         dbHelper = DBHelper.getInstance(this);
-        photoUtil = new PhotoUtil(ActivityContract.this);
+        photoUtil = new PhotoUtil(ContractActivity.this);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
@@ -92,7 +92,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", id);
                 bundle.putString("source", "create");
-                intent.setClass(ActivityContract.this, ActivityConfirm.class);
+                intent.setClass(ContractActivity.this, ConfirmActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -113,7 +113,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
 
     private void getPhoto() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityContract.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ContractActivity.this);
         items = new CharSequence[]{"拍照上传", "从相册选择"};
 
         builder.setTitle("请选择图片来源");
@@ -151,7 +151,7 @@ public class ActivityContract extends AppCompatActivity implements View.OnClickL
 
                         setPhoto(data.getData());
                     } else {
-                        Toast.makeText(ActivityContract.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ContractActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case PhotoUtil.PHOTO_REQUEST_CUT:// 返回的结果

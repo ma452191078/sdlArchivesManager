@@ -36,7 +36,7 @@ import java.util.Map;
  * Created by majingyuan on 16/1/6.
  * 获取一级商列表
  */
-public class ActivityClientList extends AppCompatActivity implements View.OnClickListener {
+public class ClientListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
     private TextView tvTittle;
@@ -110,7 +110,7 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
 
 
                                 }
-                                adapter = new ClientListAdapter(ActivityClientList.this, listItems);
+                                adapter = new ClientListAdapter(ClientListActivity.this, listItems);
                                 lvClient.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             }
@@ -179,7 +179,7 @@ public class ActivityClientList extends AppCompatActivity implements View.OnClic
                     intent.putExtra("result", strClientName);
                     intent.putExtra("client", strClient);
                     setResult(2001, intent);
-                    ActivityClientList.this.finish();
+                    ClientListActivity.this.finish();
                 }else {
                     getClientList("", strClient);
                 }

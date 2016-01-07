@@ -19,7 +19,7 @@ import com.sdl.sdlarchivesmanager.util.SysApplication;
  * create by majingyuan on 2015-12-05 20:31:29
  * 第二步,银行信息
  */
-public class ActivityBankInfo extends AppCompatActivity implements View.OnClickListener {
+public class BankInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RESULT_BANK = 2000;
     private String timeFlag;
@@ -108,7 +108,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
                 goNextStep();
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", app.getId());
-                intent.setClass(ActivityBankInfo.this, ActivityLicence.class);
+                intent.setClass(BankInfoActivity.this, LicenceActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -116,7 +116,7 @@ public class ActivityBankInfo extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.tv_bankname:
-                intent.setClass(ActivityBankInfo.this, ActivityAddrList.class);
+                intent.setClass(BankInfoActivity.this, AddrListActivity.class);
                 startActivityForResult(intent, RESULT_BANK);
                 break;
             case R.id.tv_invoicebankname:

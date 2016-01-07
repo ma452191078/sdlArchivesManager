@@ -44,7 +44,7 @@ import java.util.Map;
  * Created by majingyuan on 15/12/20.
  * 登录界面
  */
-public class ActivityLogin extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static DaoSession daoSession;
     private static DaoMaster daoMaster;
@@ -164,13 +164,13 @@ public class ActivityLogin extends AppCompatActivity {
             bundle.putString("usernum", usernum);
             bundle.putString("username", loginUser.getUser_Name());
 
-            intent.setClass(ActivityLogin.this, MainActivity.class);
+            intent.setClass(LoginActivity.this, MainActivity.class);
 
             intent.putExtras(bundle);
             startActivity(intent);
-            ActivityLogin.this.finish();
+            LoginActivity.this.finish();
         } else {
-            Toast.makeText(ActivityLogin.this, "写入用户数据失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "写入用户数据失败", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -214,10 +214,10 @@ public class ActivityLogin extends AppCompatActivity {
                                 if (login) {
                                     bundle.putString("usernum", userNum1);
                                     bundle.putString("username", loginUser.getUser_Name());
-                                    intent.setClass(ActivityLogin.this, MainActivity.class);
+                                    intent.setClass(LoginActivity.this, MainActivity.class);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-                                    ActivityLogin.this.finish();
+                                    LoginActivity.this.finish();
                                     requestQueue.stop();
                                 }
 
@@ -266,7 +266,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                     {
                         //获得本地版本
-                        vercode = mUpdateManager.getVerCode(ActivityLogin.this); // 获得版本
+                        vercode = mUpdateManager.getVerCode(LoginActivity.this); // 获得版本
                         if (newVerCode > vercode) {
 
                             mUpdateManager.checkUpdateInfo();

@@ -21,7 +21,7 @@ import com.sdl.sdlarchivesmanager.util.SysApplication;
  * Created by majingyuan on 15/12/5.
  * 创建经销商步骤1
  */
-public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickListener {
+public class BaseInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int RESULT_ADDRESS = 1000;
@@ -45,6 +45,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
     private String timeFlag;
     private String strUpLevel;  //上级经销商
     private User user;
+    private Application app = new Application();
 
 
     @Override
@@ -53,11 +54,17 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_create_baseinfo);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         SysApplication.getInstance().addActivity(this);
+        Bundle bundle = getIntent().getExtras();
         dbHelper = DBHelper.getInstance(this);
         user = dbHelper.loadUserByStatus();
+        app = dbHelper.loadApplicationByID(bundle.getLong("id"));
+
         createWidget();
         setWidget();
         setClick();
+        if (app != null){
+            setWidgetText(app);
+        }
     }
 
     /*控件声明*/
@@ -104,39 +111,52 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.ll_back:
+//                返回键
                 this.finish();
                 break;
             case R.id.ll_next:
+//                下一步
                 saveApp();
-                bundle.putString("timeflag", timeFlag.toString());
-                intent.setClass(ActivityBaseInfo.this, ActivityBankInfo.class);
+                bundle.putString("timeflag", timeFlag);
+                intent.setClass(BaseInfoActivity.this, BankInfoActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.rb_level1:
-                if (llUpLevel.getVisibility() == View.VISIBLE)
+//                一级商
+                if (llUpLevel.getVisibility() == View.VISIBLE) {
                     llUpLevel.setVisibility(View.GONE);
+                    tvUpLevel.setText("");
+                }
                 break;
             case R.id.rb_level2:
-                if (llUpLevel.getVisibility() == View.GONE)
+//                二级商
+                if (llUpLevel.getVisibility() == View.GONE) {
+                    tvUpLevel.setText("");
                     llUpLevel.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.rb_level3:
-                if (llUpLevel.getVisibility() == View.GONE)
+//                三级商
+                if (llUpLevel.getVisibility() == View.GONE) {
+                    tvUpLevel.setText("");
                     llUpLevel.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.tv_clientaddr:
-                intent.setClass(ActivityBaseInfo.this, ActivityAddrList.class);
+//                地址
+                intent.setClass(BaseInfoActivity.this, AddrListActivity.class);
                 startActivityForResult(intent, RESULT_ADDRESS);
                 break;
             case R.id.tv_uplevel:
+//                上级经销商
                 if (rbLevel3.isChecked()) {
                     bundle.putString("level", "3");
                 } else {
                     bundle.putString("level", "2");
                 }
                 bundle.putString("usernum", user.getUser_Num());
-                intent.setClass(ActivityBaseInfo.this, ActivityClientList.class);
+                intent.setClass(BaseInfoActivity.this, ClientListActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, RESULT_CLIENT, bundle);
             default:
@@ -163,7 +183,7 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
     protected void saveApp() {
 //        获得界面数据
         timeFlag = new GetDateUtil().getNowDateTime();
-        Application app = new Application();
+
 //        经销商类型,经销商0/种植大户1
         if (rbJxs.isSelected()) {
             app.setApp_Type("0");
@@ -204,5 +224,43 @@ public class ActivityBaseInfo extends AppCompatActivity implements View.OnClickL
 
 //        保存申请单
         dbHelper.addApplication(app);
+    }
+
+//    已存在的审核设置控件值
+    private void setWidgetText(Application application){
+        if (app.getApp_Type() != null){
+            if (app.getApp_Type().equals("0")){
+                rbJxs.setChecked(true);
+            }else if (app.getApp_Type().equals("1")){
+                rbZzdh.setChecked(true);
+            }
+        }
+
+        if (app.getApp_Level() != null){
+            if (app.getApp_Level().equals("1")){
+                rbLevel1.setChecked(true);
+            }else if (app.getApp_Level().equals("2")){
+                rbLevel2.setChecked(true);
+            }else if (app.getApp_Level().equals("3")){
+                rbLevel3.setChecked(true);
+            }
+        }
+
+        if (app.getApp_Uplevel() != null){
+            tvUpLevel.setText(app.getApp_Uplevel());
+        }
+        if (app.getApp_Name() != null){
+            etClientName.setText(app.getApp_Name());
+        }
+        if (app.getApp_Owner() != null){
+            etClientOwner.setText(app.getApp_Owner());
+        }
+        if (app.getApp_Phone() != null){
+            etClientPhone.setText(app.getApp_Phone());
+        }
+        if (app.getApp_Address() != null){
+
+        }
+
     }
 }

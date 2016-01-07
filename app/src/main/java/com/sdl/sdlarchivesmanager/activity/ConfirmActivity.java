@@ -1,5 +1,8 @@
 package com.sdl.sdlarchivesmanager.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,15 +14,20 @@ import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
+import com.sdl.sdlarchivesmanager.util.SysApplication;
+import com.sdl.sdlarchivesmanager.util.UriUtil;
 
 /**
  * Created by majingyuan on 15/12/26.
- * 经销商详情
+ * 信息确认
  */
-public class ActivityClientInfo extends AppCompatActivity implements View.OnClickListener {
+public class ConfirmActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
+    private LinearLayout llNext;
     private LinearLayout llInvoice;
+    private TextView tvNext;
+    private TextView tvStatus;
     private TextView tvClientType;  //经销商类型
     private TextView tvClientLevel; //经销商层级
     private TextView tvClientName;  //经销商名称
@@ -39,7 +47,6 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
     private ImageView ivIDCardF;     //身份证正面
     private ImageView ivIDCardB;    //身份证背面
     private ImageView ivLicence;    //营业执照
-    private TextView tvTittle;  //标题栏
 
     private DBHelper dbHelper;
     private Application app;
@@ -49,18 +56,21 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
     private String fileIDCardF;
     private String fileIDCardB;
     private String fileLicence;
+    private String strSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clientinfo);
+        setContentView(R.layout.activity_confirm);
+        SysApplication.getInstance().addActivity(this);
         dbHelper = DBHelper.getInstance(this);
         photoUtil = new PhotoUtil(this);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            id = bundle.getLong("id", id);
+            id = bundle.getLong("id");
             app = dbHelper.loadApplicationByID(id);
+            strSource = bundle.getString("source");
         }
 
 //        组件声明
@@ -68,14 +78,15 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
 //        属性设置
         setWidget();
 
-        llBack.setOnClickListener(this);
     }
 
     //    组件声明
     private void createWidget() {
         llBack = (LinearLayout) findViewById(R.id.ll_back);
+        llNext = (LinearLayout) findViewById(R.id.ll_next);
         llInvoice = (LinearLayout) findViewById(R.id.ll_invoice);
-
+        tvNext = (TextView) findViewById(R.id.tv_next);
+        tvStatus = (TextView) findViewById(R.id.tv_status);
         tvClientType = (TextView) findViewById(R.id.tv_clienttype);  //经销商类型
         tvClientLevel = (TextView) findViewById(R.id.tv_clientlevel); //经销商层级
         tvClientName = (TextView) findViewById(R.id.tv_clientname);  //经销商名称
@@ -91,14 +102,24 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
         tvInvoiceName2 = (TextView) findViewById(R.id.tv_invoicename2);    //支行名称
         tvInvoiceOwner = (TextView) findViewById(R.id.tv_invoiceowner);
         tvInvoicePhone = (TextView) findViewById(R.id.tv_invoicephone);    //对公电话
-        tvTittle = (TextView) findViewById(R.id.tv_tittle);
-
+        ivContract = (ImageView) findViewById(R.id.iv_contract);   //营业执照
+        ivIDCardF = (ImageView) findViewById(R.id.iv_idcardf);     //身份证正面
+        ivIDCardB = (ImageView) findViewById(R.id.iv_idcardb);    //身份证背面
+        ivLicence = (ImageView) findViewById(R.id.iv_licence);    //营业执照
     }
 
     //    属性设置
     private void setWidget() {
+
+        tvNext.setText("提交");
         llBack.setOnClickListener(this);
-        tvTittle.setText(R.string.title_activity_clientinfo);
+        llNext.setOnClickListener(this);
+
+        if(strSource.equals("home")){
+            llNext.setVisibility(View.INVISIBLE);
+        }
+
+        tvStatus.setText("请确认信息后提交");
         tvClientType.setText(app.getApp_Type());
         tvClientLevel.setText(app.getApp_Level());
         tvClientName.setText(app.getApp_Name());
@@ -117,16 +138,65 @@ public class ActivityClientInfo extends AppCompatActivity implements View.OnClic
             tvInvoiceName2.setText(app.getApp_InvoiceBankName2());
             tvInvoicePhone.setText(app.getApp_InvoiceBankPhone());
             tvInvoiceOwner.setText(app.getApp_InvoiceBankOwner());
-        }else {
-            llInvoice.setVisibility(View.GONE);
+        }
+
+        if (app.getApp_Contract() != null){
+            fileContract = new UriUtil().UriToFile(this, Uri.parse(app.getApp_Contract()));
+            ivContract.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
+            ivContract.setOnClickListener(this);
+        }
+
+        if (app.getApp_IdCardF() != null){
+            fileIDCardF = new UriUtil().UriToFile(this,Uri.parse(app.getApp_IdCardF()));
+            ivIDCardF.setImageBitmap(photoUtil.createThumbnail(fileIDCardF, 10));
+            ivIDCardF.setOnClickListener(this);
+        }
+
+        if (app.getApp_IdCardB() != null){
+            fileIDCardB = new UriUtil().UriToFile(this,Uri.parse(app.getApp_IdCardB()));
+            ivIDCardB.setImageBitmap(photoUtil.createThumbnail(fileIDCardB, 10));
+            ivIDCardB.setOnClickListener(this);
+        }
+
+        if (app.getApp_Licence() != null){
+            fileLicence = new UriUtil().UriToFile(this,Uri.parse(app.getApp_Licence()));
+            ivLicence.setImageBitmap(photoUtil.createThumbnail(fileLicence, 10));
+            ivLicence.setOnClickListener(this);
         }
     }
+
+    private void saveApp(){
+        app.setApp_Send("1");
+        app.setApp_Status("未上传");   //已确认,未上传
+        dbHelper.updateApplication(app);
+    }
+
     @Override
     public void onClick(View v) {
-
+        Bitmap myBitmap;
         switch (v.getId()) {
             case R.id.ll_back:
                 this.finish();
+                break;
+            case R.id.ll_next:
+                saveApp();
+                SysApplication.getInstance().exit();
+                break;
+            case R.id.iv_contract:
+                myBitmap = BitmapFactory.decodeFile(fileContract);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
+                break;
+            case R.id.iv_idcardf:
+                myBitmap = BitmapFactory.decodeFile(fileIDCardF);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
+                break;
+            case R.id.iv_idcardb:
+                myBitmap = BitmapFactory.decodeFile(fileIDCardB);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
+                break;
+            case R.id.iv_licence:
+                myBitmap = BitmapFactory.decodeFile(fileLicence);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
                 break;
             default:
                 break;

@@ -17,10 +17,10 @@ import android.widget.Toast;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.User;
-import com.sdl.sdlarchivesmanager.fragment.FragmentClient;
-import com.sdl.sdlarchivesmanager.fragment.FragmentHome;
-import com.sdl.sdlarchivesmanager.fragment.FragmentSetting;
-import com.sdl.sdlarchivesmanager.fragment.FragmentUpload;
+import com.sdl.sdlarchivesmanager.fragment.ClientFragment;
+import com.sdl.sdlarchivesmanager.fragment.HomeFragment;
+import com.sdl.sdlarchivesmanager.fragment.SettingFragment;
+import com.sdl.sdlarchivesmanager.fragment.UploadFragment;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 
 public class MainActivity extends AppCompatActivity
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity
             tvUserRegin = (TextView) headerLayout.findViewById(R.id.tv_userregin);
 
 //            加载数据
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentHome()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new HomeFragment()).commit();
         } else {
 //            不存在进行登录操作
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, ActivityLogin.class);
+            intent.setClass(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             MainActivity.this.finish();
         }
@@ -103,19 +103,19 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentHome()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new HomeFragment()).commit();
                 toolbar.setTitle("掌中档");
                 break;
             case R.id.nav_send:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentUpload()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new UploadFragment()).commit();
                 toolbar.setTitle(item.getTitle());
                 break;
             case R.id.nav_client:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentClient()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new ClientFragment()).commit();
                 toolbar.setTitle(item.getTitle());
                 break;
             case R.id.nav_setting:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new FragmentSetting()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_mainframe, new SettingFragment()).commit();
                 toolbar.setTitle(item.getTitle());
                 break;
             case R.id.nav_signout:
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         user.setUser_Status(false);
         if (dbManager.updateUser(user)){
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, ActivityLogin.class);
+            intent.setClass(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             MainActivity.this.finish();
         }

@@ -26,7 +26,7 @@ import java.io.File;
  * Created by majingyuan on 15/12/5.
  * 创建经销商第三步,上传营业执照
  */
-public class ActivityLicence extends AppCompatActivity implements View.OnClickListener {
+public class LicenceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
     private LinearLayout llNext;
@@ -48,7 +48,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_create_licence);
         SysApplication.getInstance().addActivity(this);
         dbHelper = DBHelper.getInstance(this);
-        photoUtil = new PhotoUtil(ActivityLicence.this);
+        photoUtil = new PhotoUtil(LicenceActivity.this);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
@@ -91,7 +91,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", id);
-                intent.setClass(ActivityLicence.this, ActivityIDCard.class);
+                intent.setClass(LicenceActivity.this, IDCardActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -113,7 +113,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
     private void getPhoto() {
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLicence.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LicenceActivity.this);
         items = new CharSequence[]{"拍照上传", "从相册选择"};
 
         builder.setTitle("请选择图片来源");
@@ -151,7 +151,7 @@ public class ActivityLicence extends AppCompatActivity implements View.OnClickLi
 
                         setPhoto(data.getData());
                     } else {
-                        Toast.makeText(ActivityLicence.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LicenceActivity.this, "请重新选择图片", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case PhotoUtil.PHOTO_REQUEST_CUT:// 返回的结果

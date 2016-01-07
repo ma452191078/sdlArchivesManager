@@ -14,9 +14,9 @@ import com.sdl.sdlarchivesmanager.util.UpdateManager;
  * Created by majingyuan on 15/12/20.
  * 设置页面
  */
-public class FragmentSetting extends android.support.v4.app.Fragment {
+public class SettingFragment extends android.support.v4.app.Fragment {
 
-    public FragmentSetting(){
+    public SettingFragment(){
 
     }
 

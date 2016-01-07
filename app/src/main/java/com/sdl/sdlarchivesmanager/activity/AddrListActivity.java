@@ -35,7 +35,7 @@ import java.util.Map;
  * Created by majingyuan on 15/12/5.
  * 获取地区信息,省市县
  */
-public class ActivityAddrList extends AppCompatActivity implements View.OnClickListener {
+public class AddrListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout llBack;
     private TextView tvTittle;
@@ -129,7 +129,7 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
                     intent.putExtra("country", strCountry);
                     intent.putExtra("town", strTown);
                     setResult(1001, intent);
-                    ActivityAddrList.this.finish();
+                    AddrListActivity.this.finish();
                 }
 
 
@@ -175,7 +175,7 @@ public class ActivityAddrList extends AppCompatActivity implements View.OnClickL
                             e.printStackTrace();
                         }
 
-                        adapter = new AddressListAdapter(ActivityAddrList.this, addressList);
+                        adapter = new AddressListAdapter(AddrListActivity.this, addressList);
                         lvAddress.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 

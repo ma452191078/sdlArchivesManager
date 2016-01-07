@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
     <!--营业执照-->
-
     <include
         android:id="@+id/in_head"
         layout="@layout/activity_head2" />

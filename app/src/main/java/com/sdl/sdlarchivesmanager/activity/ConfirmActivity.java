@@ -28,10 +28,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout llBack;
     private LinearLayout llNext;
     private LinearLayout llInvoice;
+    private LinearLayout llUpLevel;
     private TextView tvNext;
     private TextView tvStatus;
     private TextView tvClientType;  //经销商类型
     private TextView tvClientLevel; //经销商层级
+    private TextView tvClientUpLevel;   //上级商
     private TextView tvClientName;  //经销商名称
     private TextView tvClientOwner; //经销商法人
     private TextView tvClientPhone; //联系电话
@@ -39,6 +41,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvClientAddr2; //详细地址
     private TextView tvBankName;    //开户行
     private TextView tvBankNum;     //银行卡号
+    private TextView tvBankOwner;   //户主
     private TextView tvInvoiceType; //发票类型
     private TextView tvInvoiceNum;  //对公账号
     private TextView tvInvoiceName; //开户行
@@ -59,6 +62,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private String fileIDCardB;
     private String fileLicence;
     private String strSource;
+    private String COMMIT = "提交";
+    private String CHANGE = "修改";
+    private String HOME = "home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +93,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         llBack = (LinearLayout) findViewById(R.id.ll_back);
         llNext = (LinearLayout) findViewById(R.id.ll_next);
         llInvoice = (LinearLayout) findViewById(R.id.ll_invoice);
+        llUpLevel = (LinearLayout) findViewById(R.id.ll_uplevel);
         tvNext = (TextView) findViewById(R.id.tv_next);
         tvStatus = (TextView) findViewById(R.id.tv_status);
         tvClientType = (TextView) findViewById(R.id.tv_clienttype);  //经销商类型
         tvClientLevel = (TextView) findViewById(R.id.tv_clientlevel); //经销商层级
+        tvClientUpLevel = (TextView) findViewById(R.id.tv_uplevel);     //上级商
         tvClientName = (TextView) findViewById(R.id.tv_clientname);  //经销商名称
         tvClientOwner = (TextView) findViewById(R.id.tv_clientowner); //经销商法人
         tvClientPhone = (TextView) findViewById(R.id.tv_clientphone); //联系电话
@@ -98,6 +106,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         tvClientAddr2 = (TextView) findViewById(R.id.tv_clientaddr2); //详细地址
         tvBankName = (TextView) findViewById(R.id.tv_bankname);    //开户行
         tvBankNum = (TextView) findViewById(R.id.tv_banknum);     //银行卡号
+        tvBankOwner = (TextView) findViewById(R.id.tv_bankowner);   //户主
         tvInvoiceType = (TextView) findViewById(R.id.tv_invoicetype); //发票类型
         tvInvoiceNum = (TextView) findViewById(R.id.tv_invoicenum);  //对公账号
         tvInvoiceName = (TextView) findViewById(R.id.tv_invoicename); //开户行
@@ -117,19 +126,34 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
 
-        if(strSource.equals("home")){
+        if(strSource.equals(HOME)){
             if (app.getApp_Send() != null && !app.getApp_Send().equals("0")){
-                tvNext.setText("修改");
+                tvNext.setText(CHANGE);
             }else {
                 llNext.setVisibility(View.INVISIBLE);
             }
         }else {
-            tvNext.setText("提交");
+            tvNext.setText(COMMIT);
         }
 
         tvStatus.setText(app.getApp_Status());
-        tvClientType.setText(app.getApp_Type());
-        tvClientLevel.setText(app.getApp_Level());
+        if (app.getApp_Type().equals("0")){
+            tvClientType.setText("经销商");
+        }else if (app.getApp_Type().equals("1")){
+            tvClientType.setText("种植大户");
+        }
+        if (app.getApp_Level().equals("1")){
+            tvClientLevel.setText("一级商");
+            llUpLevel.setVisibility(View.GONE);
+        }else if (app.getApp_Level().equals("2")){
+            tvClientLevel.setText("二级商");
+            tvClientUpLevel.setText(app.getApp_Uplevel());
+        }else if (app.getApp_Level().equals("3")){
+            tvClientLevel.setText("三级商");
+            tvClientUpLevel.setText(app.getApp_Uplevel());
+        }
+
+
         tvClientName.setText(app.getApp_Name());
         tvClientOwner.setText(app.getApp_Owner());
         tvClientPhone.setText(app.getApp_Phone());
@@ -138,14 +162,19 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         tvBankName.setText(app.getApp_BankName());
         tvBankNum.setText(app.getApp_BankNum());
+        tvBankOwner.setText(app.getApp_BankOwner());
         tvInvoiceType.setText(app.getApp_InvoiceType());
+
         if (app.getApp_InvoiceType().equals("0")){
             llInvoice.setVisibility(View.VISIBLE);
+            tvInvoiceType.setText("增值税专用发票");
             tvInvoiceNum.setText(app.getApp_InvoiceBankNum());
             tvInvoiceName.setText(app.getApp_InvoiceBankName());
             tvInvoiceName2.setText(app.getApp_InvoiceBankName2());
             tvInvoicePhone.setText(app.getApp_InvoiceBankPhone());
             tvInvoiceOwner.setText(app.getApp_InvoiceBankOwner());
+        }else {
+            tvInvoiceType.setText("普通发票");
         }
 
         if (app.getApp_Contract() != null){
@@ -187,7 +216,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
-                if (app.getApp_Send() != null && !app.getApp_Send().equals("0")){
+                if (strSource.equals(HOME) && app.getApp_Send() != null && !app.getApp_Send().equals("0")){
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
                     bundle.putLong("id", app.getId());

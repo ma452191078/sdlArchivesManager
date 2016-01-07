@@ -99,7 +99,7 @@
                             android:id="@+id/tv_clienttype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="经销商" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商层级-->
@@ -118,7 +118,27 @@
                             android:id="@+id/tv_clientlevel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="二级商" />
+                            android:text="" />
+                    </LinearLayout>
+
+                    <!--上级经销商-->
+                    <LinearLayout
+                        android:id="@+id/ll_uplevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/confirm_text_height"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="@dimen/left_text_width"
+                            android:layout_height="wrap_content"
+                            android:text="@string/step_tv_client_uplevel" />
+
+                        <TextView
+                            android:id="@+id/tv_clientup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商名称-->
@@ -137,7 +157,7 @@
                             android:id="@+id/tv_clientname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="农资超市" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商法人-->
@@ -156,7 +176,7 @@
                             android:id="@+id/tv_clientowner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="张三" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商电话-->
@@ -175,7 +195,7 @@
                             android:id="@+id/tv_clientphone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="18265186760" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商地址-->
@@ -194,7 +214,7 @@
                             android:id="@+id/tv_clientaddr"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="山东省临沂市临沭县" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--经销商详细地址-->
@@ -213,7 +233,7 @@
                             android:id="@+id/tv_clientaddr2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="县城驻地" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -278,7 +298,7 @@
                             android:id="@+id/tv_bankname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="中国银行" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--银行卡号-->
@@ -297,7 +317,7 @@
                             android:id="@+id/tv_banknum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="10101010101010101010" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--户主-->
@@ -316,7 +336,7 @@
                             android:id="@+id/tv_bankowner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="张三" />
+                            android:text="" />
                     </LinearLayout>
 
                     <!--发票类型-->
@@ -335,7 +355,7 @@
                             android:id="@+id/tv_invoicetype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="增值税专用发票" />
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout

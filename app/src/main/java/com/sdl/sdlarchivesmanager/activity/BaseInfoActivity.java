@@ -207,20 +207,20 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         timeFlag = new GetDateUtil().getNowDateTime();
 
 //        经销商类型,经销商0/种植大户1
-        if (rbJxs.isSelected()) {
+        if (rbJxs.isChecked()) {
             app.setApp_Type("0");
-        } else if (rbZzdh.isSelected()) {
+        } else if (rbZzdh.isChecked()) {
             app.setApp_Type("1");
         } else {
             app.setApp_Type("");
         }
 
 //        经销商层级,一级1/二级2/三级3
-        if (rbLevel1.isSelected()) {
+        if (rbLevel1.isChecked()) {
             app.setApp_Level("1");
-        } else if (rbLevel2.isSelected()) {
+        } else if (rbLevel2.isChecked()) {
             app.setApp_Level("2");
-        } else if (rbLevel3.isSelected()) {
+        } else if (rbLevel3.isChecked()) {
             app.setApp_Level("3");
         } else {
             app.setApp_Level("");

@@ -31,9 +31,13 @@ public class GetAddressUtil {
     private JSONArray array;
     private DBHelper dbHelper;
     private Activity activity;
+    private RequestQueue requestQueue;
+    private int postion;
+    private String strAddress = null;
 
     public GetAddressUtil(Activity act){
         activity = act;
+        requestQueue = Volley.newRequestQueue(activity.getApplicationContext());
         getAddrList();
     }
 
@@ -42,7 +46,7 @@ public class GetAddressUtil {
      */
     private void getAddrList(){
         dbHelper = DBHelper.getInstance(activity.getApplicationContext());
-        final RequestQueue requestQueue = Volley.newRequestQueue(activity.getApplicationContext());
+
         Map<String, String> params = new HashMap<String, String>();
         String url = new sdlClient().getUrl(BASEURL);
         Request<JSONObject> provRequest = new NormalPostRequest(url,
@@ -84,5 +88,47 @@ public class GetAddressUtil {
             }
         }, params);
         requestQueue.add(provRequest);
+    }
+
+    public String getAddressByCode(final String code, final String parentCode, final String type){
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("parent_id", parentCode);
+        params.put("type_code", type);
+        String url = new sdlClient().getUrl(BASEURL);
+        Request<JSONObject> provRequest = new NormalPostRequest(url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        List<Address> addressList = new ArrayList<Address>();
+                        String strdata = null;
+                        try {
+                            strdata = response.getString("Data");
+                            array = new JSONArray(strdata);
+                            for (int i = 0; i < array.length(); i++){
+                                Address address = new Address();
+                                String prov_code = array.getJSONObject(i).getString("code");
+                                String prov_name = array.getJSONObject(i).getString("name");
+
+                                if (prov_code == code){
+                                    strAddress = prov_name;
+                                    continue;
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }, params);
+        requestQueue.add(provRequest);
+
+        return strAddress;
     }
 }

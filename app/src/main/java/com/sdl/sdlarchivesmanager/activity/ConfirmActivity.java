@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.util.GetAddressUtil;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
 import com.sdl.sdlarchivesmanager.util.UriUtil;
@@ -221,9 +222,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private String getAddress(Application application){
+
+        GetAddressUtil getAddressUtil = new GetAddressUtil(ConfirmActivity.this);
+
         StringBuilder addr = new StringBuilder(); //地区名称,由省市县乡镇组合
         if (application.getApp_Province() != null)
-            addr.append(dbHelper.loadAddressByCode(application.getApp_Province()));
+            addr.append(getAddressUtil.getAddressByCode(app.getApp_Province(), "0", "province"));
 
         if (application.getApp_City() != null)
             addr.append(dbHelper.loadAddressByCode(application.getApp_City()));

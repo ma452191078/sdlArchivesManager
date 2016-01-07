@@ -100,10 +100,10 @@ public class CreateDatabase {
 
         Entity address = schema.addEntity("Address");
         address.addIdProperty().primaryKey().autoincrement();
-        address.addStringProperty("Addr_Code");
-        address.addStringProperty("Addr_Name");
-        address.addStringProperty("Addr_UpCode");
-        address.addStringProperty("Addr_Level");
+        address.addStringProperty("Addr_Code"); //编号
+        address.addStringProperty("Addr_Name"); //名称
+        address.addStringProperty("Addr_UpCode");   //上级编号
+        address.addStringProperty("Addr_Level");    //层级,province,city,country,town
     }
 
 

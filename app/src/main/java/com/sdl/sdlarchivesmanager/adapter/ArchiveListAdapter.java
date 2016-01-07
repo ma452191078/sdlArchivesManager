@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.bean.BeanAudit;
+import com.sdl.sdlarchivesmanager.bean.AuditBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class ArchiveListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<BeanAudit> dataArray = new ArrayList<BeanAudit>();
+    private List<AuditBean> dataArray = new ArrayList<AuditBean>();
 
-    public ArchiveListAdapter(Activity activity, List<BeanAudit> mListItems) {
+    public ArchiveListAdapter(Activity activity, List<AuditBean> mListItems) {
 
         inflater = activity.getLayoutInflater();
         dataArray = mListItems;
@@ -52,7 +52,7 @@ public class ArchiveListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_client_list_item,null);
         }
         convertView.setTag(position);
-        BeanAudit audit = (BeanAudit) getItem(position);
+        AuditBean audit = (AuditBean) getItem(position);
 
         TextView tvClientName = (TextView) convertView.findViewById(R.id.tv_clientname);
         tvClientName.setText(audit.getClientName().toString());

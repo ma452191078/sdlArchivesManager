@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.sdl.sdlarchivesmanager.Address;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.adapter.AddressListAdapter;
+import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.http.NormalPostRequest;
 import com.sdl.sdlarchivesmanager.util.sdlClient;
 
@@ -62,6 +64,7 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
 
     private String strClick = null;
     private JSONArray array;
+    private DBHelper dbHelper;
 
 
     @Override
@@ -69,6 +72,7 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
         iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
+        dbHelper = DBHelper.getInstance(getApplicationContext());
 
         createWidget();
         setWidget();
@@ -76,8 +80,6 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
 
         //获取省级列表
         getAddrList("0", PROVINCE);
-
-
     }
 
     private void createWidget() {
@@ -102,26 +104,26 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Address adr = ((Address) parent.getAdapter().getItem(position));
 
-                if (strClick.equals(PROVINCE)){
+                if (strClick.equals(PROVINCE)) {
                     strProvince = adr.getAddr_Code();
                     strProvinceName = adr.getAddr_Name();
-                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
-                    getAddrList(adr.getAddr_Code(),CITY);
-                }else if (strClick.equals(CITY)){
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName + strTownName);
+                    getAddrList(adr.getAddr_Code(), CITY);
+                } else if (strClick.equals(CITY)) {
                     strCity = adr.getAddr_Code();
                     strCityName = adr.getAddr_Name();
-                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
-                    getAddrList(adr.getAddr_Code(),COUNTRY);
-                }else if (strClick.equals(COUNTRY)){
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName + strTownName);
+                    getAddrList(adr.getAddr_Code(), COUNTRY);
+                } else if (strClick.equals(COUNTRY)) {
                     strCountry = adr.getAddr_Code();
                     strCountryName = adr.getAddr_Name();
-                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
-                    getAddrList(adr.getAddr_Code(),TOWN);
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName + strTownName);
+                    getAddrList(adr.getAddr_Code(), TOWN);
 
-                }else if (strClick.equals(TOWN)){
+                } else if (strClick.equals(TOWN)) {
                     strTownName = adr.getAddr_Name();
                     strTown = adr.getAddr_Code();
-                    tvAddress.setText(strProvinceName + strCityName + strCountryName+ strTownName);
+                    tvAddress.setText(strProvinceName + strCityName + strCountryName + strTownName);
                     Intent intent = new Intent();
                     intent.putExtra("result", tvAddress.getText());
                     intent.putExtra("province", strProvince);
@@ -133,8 +135,6 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
                 }
 
 
-
-
             }
         });
     }
@@ -142,7 +142,7 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
     /**
      * 获取省市县列表
      */
-    private void getAddrList( String id, String type){
+    private void getAddrList( final String id, final String type){
 
         strClick = type;
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -161,32 +161,43 @@ public class AddrListActivity extends AppCompatActivity implements View.OnClickL
                             strdata = response.getString("Data");
                             array = new JSONArray(strdata);
 
-                            for (int i = 0; i < array.length(); i++){
-                                Address address = new Address();
-                                String prov_code = array.getJSONObject(i).getString("code");
-                                String prov_name = array.getJSONObject(i).getString("name");
+                            if (array.length() > 0){
+                                for (int i = 0; i < array.length(); i++){
+                                    Address address = new Address();
+                                    String prov_code = array.getJSONObject(i).getString("code");
+                                    String prov_name = array.getJSONObject(i).getString("name");
 
-                                address.setAddr_Name(prov_name);
-                                address.setAddr_Code(prov_code);
-                                address.setId((long)i);
-                                addressList.add(address);
+                                    address.setAddr_Name(prov_name);
+                                    address.setAddr_Code(prov_code);
+                                    address.setId((long) i);
+                                    address.setAddr_UpCode(id);
+                                    address.setAddr_Level(type);
+                                    addressList.add(address);
+                                }
+
+                            saveAddressList(addressList);
+                            adapter = new AddressListAdapter(AddrListActivity.this, addressList);
+                            lvAddress.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            }else {
+                                Toast.makeText(getApplicationContext(),"未查询到地址信息",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        adapter = new AddressListAdapter(AddrListActivity.this, addressList);
-                        lvAddress.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
                 Log.e("TAG", error.getMessage(), error);
             }
         }, params);
         requestQueue.add(provRequest);
+    }
+
+    private void saveAddressList(List<Address> addressList) {
+        dbHelper.insertAddressList(addressList);
     }
 
     @Override

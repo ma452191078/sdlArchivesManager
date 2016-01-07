@@ -228,6 +228,8 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
 
 //    已存在的审核设置控件值
     private void setWidgetText(Application application){
+
+//        经销商类型
         if (app.getApp_Type() != null){
             if (app.getApp_Type().equals("0")){
                 rbJxs.setChecked(true);
@@ -236,31 +238,54 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
+//        经销商等级
         if (app.getApp_Level() != null){
             if (app.getApp_Level().equals("1")){
                 rbLevel1.setChecked(true);
             }else if (app.getApp_Level().equals("2")){
                 rbLevel2.setChecked(true);
+                llUpLevel.setVisibility(View.VISIBLE);
             }else if (app.getApp_Level().equals("3")){
                 rbLevel3.setChecked(true);
+                llUpLevel.setVisibility(View.VISIBLE);
             }
         }
 
-        if (app.getApp_Uplevel() != null){
+//        上级经销商
+        if (app.getApp_Uplevel() != null)
             tvUpLevel.setText(app.getApp_Uplevel());
-        }
-        if (app.getApp_Name() != null){
-            etClientName.setText(app.getApp_Name());
-        }
-        if (app.getApp_Owner() != null){
-            etClientOwner.setText(app.getApp_Owner());
-        }
-        if (app.getApp_Phone() != null){
-            etClientPhone.setText(app.getApp_Phone());
-        }
-        if (app.getApp_Address() != null){
 
-        }
+//        经销商名称
+        if (app.getApp_Name() != null)
+            etClientName.setText(app.getApp_Name());
+
+//        法人
+        if (app.getApp_Owner() != null)
+            etClientOwner.setText(app.getApp_Owner());
+
+//        电话
+        if (app.getApp_Phone() != null)
+            etClientPhone.setText(app.getApp_Phone());
+
+//        地区
+        StringBuilder addr = new StringBuilder(); //地区名称,由省市县乡镇组合
+        if (app.getApp_Province() != null)
+            addr.append(dbHelper.loadAddressByCode(app.getApp_Province()));
+
+        if (app.getApp_City() != null)
+            addr.append(dbHelper.loadAddressByCode(app.getApp_City()));
+
+        if (app.getApp_Country() != null)
+            addr.append(dbHelper.loadAddressByCode(app.getApp_Country()));
+
+        if (app.getApp_Town() != null)
+            addr.append(dbHelper.loadAddressByCode(app.getApp_Town()));
+        tvAddress1.setText(addr.toString());
+
+//        详细地址
+        if (app.getApp_Address() != null)
+            etAddress2.setText(app.getApp_Address());
+
 
     }
 }

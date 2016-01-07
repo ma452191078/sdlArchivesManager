@@ -4,7 +4,7 @@ package com.sdl.sdlarchivesmanager.bean;
  * Created by majingyuan on 15/11/30.
  * 审核列表中的项目类
  */
-public class BeanAudit {
+public class AuditBean {
     private String status;  //状态
     private String clientName;  //经销商名称
     private String clientAddress;  //经销商地址

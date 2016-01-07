@@ -3,6 +3,8 @@ package com.sdl.sdlarchivesmanager.db;
 
 import android.content.Context;
 
+import com.sdl.sdlarchivesmanager.Address;
+import com.sdl.sdlarchivesmanager.AddressDao;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.ApplicationDao;
 import com.sdl.sdlarchivesmanager.BankDao;
@@ -28,6 +30,7 @@ public class DBHelper {
     private BankDao bankDao;
     private ClientDao clientDao;
     private UserDao userDao;
+    private AddressDao addressDao;
 
     private DBHelper() {
     }
@@ -43,6 +46,7 @@ public class DBHelper {
             instance.bankDao = instance.mDaoSession.getBankDao();
             instance.clientDao = instance.mDaoSession.getClientDao();
             instance.userDao = instance.mDaoSession.getUserDao();
+            instance.addressDao = instance.mDaoSession.getAddressDao();
         }
         return instance;
     }
@@ -63,11 +67,16 @@ public class DBHelper {
         UserDao.dropTable(mDaoSession.getDatabase(), true);
     }
 
+    public void dropAddressTable() {
+        AddressDao.dropTable(mDaoSession.getDatabase(), true);
+    }
+
     public void dropAllTable() {
         ApplicationDao.dropTable(mDaoSession.getDatabase(), true);
         BankDao.dropTable(mDaoSession.getDatabase(), true);
         ClientDao.dropTable(mDaoSession.getDatabase(), true);
         UserDao.dropTable(mDaoSession.getDatabase(), true);
+        AddressDao.dropTable(mDaoSession.getDatabase(),true);
     }
 
     public void createAllTable() {
@@ -75,6 +84,7 @@ public class DBHelper {
         BankDao.createTable(mDaoSession.getDatabase(), true);
         ClientDao.createTable(mDaoSession.getDatabase(), true);
         UserDao.createTable(mDaoSession.getDatabase(), true);
+        AddressDao.createTable(mDaoSession.getDatabase(), true);
 
     }
 
@@ -196,7 +206,7 @@ public class DBHelper {
     }
 
     public void updateApplication(Application application){
-        applicationDao.update(application);
+        applicationDao.insertOrReplace(application);
     }
 
     public boolean existApplication(Date timeFlag){
@@ -296,5 +306,34 @@ public class DBHelper {
 
     public List<Client> loadAllClient(){
         return clientDao.loadAll();
+    }
+
+    public void insertAddressList(List<Address> addressList){
+        addressDao.insertOrReplaceInTx(addressList);
+    }
+
+    public Address loadAddressByCode(String code){
+
+        Address address = null;
+        List<Address> addrList = null;
+        Query query = addressDao.queryBuilder()
+                .where(AddressDao.Properties.Addr_Code.eq(code))
+                .orderAsc(AddressDao.Properties.Addr_Code)
+                .build();
+        addrList = query.list();
+        if (addrList.size() > 0){
+            address = addrList.get(0);
+        }
+        return address;
+    }
+
+    public List<Address> loadAddressList(String code, String level){
+        List<Address> addrList = null;
+        Query query = addressDao.queryBuilder()
+                .where(AddressDao.Properties.Addr_Code.eq(code),AddressDao.Properties.Addr_Level.eq(level))
+                .orderAsc(AddressDao.Properties.Addr_Code)
+                .build();
+        addrList = query.list();
+        return addrList;
     }
 }

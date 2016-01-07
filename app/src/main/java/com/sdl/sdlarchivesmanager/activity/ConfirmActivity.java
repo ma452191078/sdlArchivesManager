@@ -1,5 +1,6 @@
 package com.sdl.sdlarchivesmanager.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -111,21 +112,27 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     //    属性设置
     private void setWidget() {
 
-        tvNext.setText("提交");
+
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
 
         if(strSource.equals("home")){
-            llNext.setVisibility(View.INVISIBLE);
+            if (app.getApp_Send() != null && !app.getApp_Send().equals("0")){
+                tvNext.setText("修改");
+            }else {
+                llNext.setVisibility(View.INVISIBLE);
+            }
+        }else {
+            tvNext.setText("提交");
         }
 
-        tvStatus.setText("请确认信息后提交");
+        tvStatus.setText(app.getApp_Status());
         tvClientType.setText(app.getApp_Type());
         tvClientLevel.setText(app.getApp_Level());
         tvClientName.setText(app.getApp_Name());
         tvClientOwner.setText(app.getApp_Owner());
         tvClientPhone.setText(app.getApp_Phone());
-        tvClientAddr.setText(app.getApp_Address());
+        tvClientAddr.setText(getAddress(app));
         tvClientAddr2.setText(app.getApp_Address());
 
         tvBankName.setText(app.getApp_BankName());
@@ -179,8 +186,18 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
-                saveApp();
-                SysApplication.getInstance().exit();
+                if (app.getApp_Send() != null && !app.getApp_Send().equals("0")){
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("id", app.getId());
+                    intent.setClass(getApplicationContext(), BaseInfoActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    this.finish();
+                }else {
+                    saveApp();
+                    SysApplication.getInstance().exit();
+                }
                 break;
             case R.id.iv_contract:
                 myBitmap = BitmapFactory.decodeFile(fileContract);
@@ -201,5 +218,22 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    private String getAddress(Application application){
+        StringBuilder addr = new StringBuilder(); //地区名称,由省市县乡镇组合
+        if (application.getApp_Province() != null)
+            addr.append(dbHelper.loadAddressByCode(application.getApp_Province()));
+
+        if (application.getApp_City() != null)
+            addr.append(dbHelper.loadAddressByCode(application.getApp_City()));
+
+        if (application.getApp_Country() != null)
+            addr.append(dbHelper.loadAddressByCode(application.getApp_Country()));
+
+        if (application.getApp_Town() != null)
+            addr.append(dbHelper.loadAddressByCode(application.getApp_Town()));
+        return addr.toString();
+
     }
 }

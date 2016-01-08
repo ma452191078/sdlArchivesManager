@@ -1,23 +1,32 @@
 package com.sdl.sdlarchivesmanager.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
+import com.sdl.sdlarchivesmanager.http.ResponseListener;
 import com.sdl.sdlarchivesmanager.util.GetAddressUtil;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 import com.sdl.sdlarchivesmanager.util.SysApplication;
+import com.sdl.sdlarchivesmanager.util.UploadApi;
 import com.sdl.sdlarchivesmanager.util.UriUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by majingyuan on 15/12/26.
@@ -52,6 +61,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView ivIDCardF;     //身份证正面
     private ImageView ivIDCardB;    //身份证背面
     private ImageView ivLicence;    //营业执照
+    private ProgressDialog mDialog ;
 
     private DBHelper dbHelper;
     private Application app;
@@ -65,6 +75,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private String COMMIT = "提交";
     private String CHANGE = "修改";
     private String HOME = "home";
+    private static String TGA = "com.sdl.sdlarchivesmanager";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +129,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         ivIDCardF = (ImageView) findViewById(R.id.iv_idcardf);     //身份证正面
         ivIDCardB = (ImageView) findViewById(R.id.iv_idcardb);    //身份证背面
         ivLicence = (ImageView) findViewById(R.id.iv_licence);    //营业执照
+
+        mDialog = new ProgressDialog(this) ;
+        mDialog.setCanceledOnTouchOutside(false);
     }
 
     //    属性设置
@@ -203,6 +218,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void saveApp(){
+        List<String> fileList = new ArrayList<String>();
+        fileList.add(fileContract);
+        fileList.add(fileIDCardF);
+        fileList.add(fileIDCardB);
+        fileList.add(fileLicence);
+        uploadImg(fileList);
         app.setApp_Send("1");
         app.setApp_Status("未上传");   //已确认,未上传
         dbHelper.updateApplication(app);
@@ -268,5 +289,30 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             addr.append(dbHelper.loadAddressByCode(application.getApp_Town()));
         return addr.toString();
 
+    }
+
+    public void uploadImg(List<String> filePath){
+        mDialog.setMessage("图片上传中...");
+        mDialog.show();
+
+        UploadApi.uploadImg(filePath, new ResponseListener<String>() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v(TGA, "===========VolleyError=========" + error);
+//                mShowResponse.setText("ErrorResponse\n" + error.getMessage());
+                Toast.makeText(ConfirmActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                mDialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                response = response.substring(response.indexOf("img src="));
+                response = response.substring(8, response.indexOf("/>"));
+                Log.v(TGA, "===========onResponse=========" + response);
+//                mShowResponse.setText("图片地址:\n" + response);
+                mDialog.dismiss();
+                Toast.makeText(ConfirmActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+            }
+        }) ;
     }
 }

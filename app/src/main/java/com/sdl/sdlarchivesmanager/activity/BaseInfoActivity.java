@@ -372,6 +372,5 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
 //      启动定位
         mLocationClient.startLocation();
 
-
     }
 }

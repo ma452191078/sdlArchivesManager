@@ -137,7 +137,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     //    属性设置
     private void setWidget() {
 
-
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
 
@@ -167,7 +166,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             tvClientLevel.setText("三级商");
             tvClientUpLevel.setText(app.getApp_Uplevel());
         }
-
 
         tvClientName.setText(app.getApp_Name());
         tvClientOwner.setText(app.getApp_Owner());
@@ -271,7 +269,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private String getAddress(Application application){
+    protected String getAddress(Application application){
 
         GetAddressUtil getAddressUtil = new GetAddressUtil(ConfirmActivity.this);
 

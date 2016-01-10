@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--基本信息-->
+    <LinearLayout
+        android:id="@+id/ll_baseinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWhite"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:background="@color/colorTitleBlue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:text="基本信息"
+                android:textSize="@dimen/editview_textsize" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorGray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <!--经销商类型-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_type" />
+
+                <TextView
+                    android:id="@+id/tv_clienttype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商层级-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_level" />
+
+                <TextView
+                    android:id="@+id/tv_clientlevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--上级经销商-->
+            <LinearLayout
+                android:id="@+id/ll_uplevel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_uplevel" />
+
+                <TextView
+                    android:id="@+id/tv_clientup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商名称-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_name" />
+
+                <TextView
+                    android:id="@+id/tv_clientname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商法人-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_owner" />
+
+                <TextView
+                    android:id="@+id/tv_clientowner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商电话-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_phone" />
+
+                <TextView
+                    android:id="@+id/tv_clientphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商地址-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_address" />
+
+                <TextView
+                    android:id="@+id/tv_clientaddr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--经销商详细地址-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/tv_clientaddr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

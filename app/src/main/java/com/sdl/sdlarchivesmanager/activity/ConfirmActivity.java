@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,6 +62,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView ivIDCardF;     //身份证正面
     private ImageView ivIDCardB;    //身份证背面
     private ImageView ivLicence;    //营业执照
+    private ImageView ivGrouPhoto;  //经销商合影
+    private Button btCommit;    //提交按钮
     private ProgressDialog mDialog ;
 
     private DBHelper dbHelper;
@@ -71,6 +74,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private String fileIDCardF;
     private String fileIDCardB;
     private String fileLicence;
+    private String fileGrouPhoto;
     private String strSource;
     private String COMMIT = "提交";
     private String CHANGE = "修改";
@@ -129,6 +133,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         ivIDCardF = (ImageView) findViewById(R.id.iv_idcardf);     //身份证正面
         ivIDCardB = (ImageView) findViewById(R.id.iv_idcardb);    //身份证背面
         ivLicence = (ImageView) findViewById(R.id.iv_licence);    //营业执照
+        ivGrouPhoto = (ImageView) findViewById(R.id.iv_grouphoto);
+
+        btCommit = (Button) findViewById(R.id.bt_commit);
 
         mDialog = new ProgressDialog(this) ;
         mDialog.setCanceledOnTouchOutside(false);
@@ -139,15 +146,14 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
+        btCommit.setOnClickListener(this);
+        llNext.setVisibility(View.INVISIBLE);
 
         if(strSource.equals(HOME)){
-            if (app.getApp_Send() != null && !app.getApp_Send().equals("0")){
+            if (app.getApp_Send() != null && !app.getApp_Send().equals("0")) {
                 tvNext.setText(CHANGE);
-            }else {
-                llNext.setVisibility(View.INVISIBLE);
+                llNext.setVisibility(View.VISIBLE);
             }
-        }else {
-            tvNext.setText(COMMIT);
         }
 
         tvStatus.setText(app.getApp_Status());
@@ -213,6 +219,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             ivLicence.setImageBitmap(photoUtil.createThumbnail(fileLicence, 10));
             ivLicence.setOnClickListener(this);
         }
+
+        if (app.getApp_GroupPhoto() != null){
+            fileGrouPhoto = new UriUtil().UriToFile(this,Uri.parse(app.getApp_GroupPhoto()));
+            ivGrouPhoto.setImageBitmap(photoUtil.createThumbnail(fileGrouPhoto, 10));
+            ivGrouPhoto.setOnClickListener(this);
+        }
     }
 
     private void saveApp(){
@@ -221,6 +233,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         fileList.add(fileIDCardF);
         fileList.add(fileIDCardB);
         fileList.add(fileLicence);
+        fileList.add(fileGrouPhoto);
         uploadImg(fileList);
         app.setApp_Send("1");
         app.setApp_Status("未上传");   //已确认,未上传
@@ -235,18 +248,17 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
-                if (strSource.equals(HOME) && app.getApp_Send() != null && !app.getApp_Send().equals("0")){
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("id", app.getId());
-                    intent.setClass(getApplicationContext(), BaseInfoActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    this.finish();
-                }else {
-                    saveApp();
-                    SysApplication.getInstance().exit();
-                }
+                saveApp();
+                SysApplication.getInstance().exit();
+                break;
+            case R.id.bt_commit:
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", app.getId());
+                intent.setClass(getApplicationContext(), BaseInfoActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                this.finish();
                 break;
             case R.id.iv_contract:
                 myBitmap = BitmapFactory.decodeFile(fileContract);
@@ -262,6 +274,10 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.iv_licence:
                 myBitmap = BitmapFactory.decodeFile(fileLicence);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
+                break;
+            case R.id.iv_grouphoto:
+                myBitmap = BitmapFactory.decodeFile(fileGrouPhoto);
                 new PhotoUtil(this).getBigPicture(myBitmap,this);
                 break;
             default:
@@ -313,4 +329,5 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             }
         }) ;
     }
+
 }

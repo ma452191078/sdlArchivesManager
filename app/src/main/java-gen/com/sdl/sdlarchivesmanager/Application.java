@@ -25,6 +25,7 @@ public class Application {
     private String App_IdCardF;
     private String App_IdCardB;
     private String App_Licence;
+    private String App_GroupPhoto;
     private String App_BankNum;
     private String App_BankName;
     private String App_BankOwner;
@@ -46,7 +47,7 @@ public class Application {
         this.id = id;
     }
 
-    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_GroupPhoto, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
         this.App_Num = App_Num;
         this.App_Name = App_Name;
@@ -66,6 +67,7 @@ public class Application {
         this.App_IdCardF = App_IdCardF;
         this.App_IdCardB = App_IdCardB;
         this.App_Licence = App_Licence;
+        this.App_GroupPhoto = App_GroupPhoto;
         this.App_BankNum = App_BankNum;
         this.App_BankName = App_BankName;
         this.App_BankOwner = App_BankOwner;
@@ -231,6 +233,14 @@ public class Application {
 
     public void setApp_Licence(String App_Licence) {
         this.App_Licence = App_Licence;
+    }
+
+    public String getApp_GroupPhoto() {
+        return App_GroupPhoto;
+    }
+
+    public void setApp_GroupPhoto(String App_GroupPhoto) {
+        this.App_GroupPhoto = App_GroupPhoto;
     }
 
     public String getApp_BankNum() {

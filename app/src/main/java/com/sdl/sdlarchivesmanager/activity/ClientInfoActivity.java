@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.R;
+import com.sdl.sdlarchivesmanager.bean.BitmapCatchBean;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
 import com.sdl.sdlarchivesmanager.util.PhotoUtil;
 
@@ -95,7 +97,7 @@ public class ClientInfoActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    //    属性设置
+    //    内容设置
     private void setWidget() {
         llBack.setOnClickListener(this);
         tvTittle.setText(R.string.title_activity_clientinfo);
@@ -121,6 +123,7 @@ public class ClientInfoActivity extends AppCompatActivity implements View.OnClic
             llInvoice.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onClick(View v) {
 
@@ -131,5 +134,19 @@ public class ClientInfoActivity extends AppCompatActivity implements View.OnClic
             default:
                 break;
         }
+    }
+
+    /**
+     * 获取图片缓存
+     * @param url 图片地址
+     * @param iv  图片控件
+     */
+    private void getImageCatch(String url, ImageView iv){
+        //实例化对象
+        ImageLoader imageLoader = new ImageLoader(ArchiveApplication.getHttpQueues(),new BitmapCatchBean());
+        //图片监听,设置默认和错误图像
+        ImageLoader.ImageListener imageListener = imageLoader.getImageListener(iv,R.mipmap.picture,R.mipmap.picture);
+        //加载图片
+        imageLoader.get(url,imageListener,0,0);
     }
 }

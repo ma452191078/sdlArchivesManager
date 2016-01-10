@@ -84,6 +84,7 @@ public class CreateDatabase {
         application.addStringProperty("App_IdCardF"); //身份证正面
         application.addStringProperty("App_IdCardB"); //身份证反面
         application.addStringProperty("App_Licence"); //经销商协议书
+        application.addStringProperty("App_GroupPhoto");    //经销商合影
         application.addStringProperty("App_BankNum");     //银行卡号
         application.addStringProperty("App_BankName");    //银行名称
         application.addStringProperty("App_BankOwner");   //户主

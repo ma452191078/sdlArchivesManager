@@ -43,7 +43,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
                     android:gravity="left"
-                    android:text="@string/step_tv_pooled_tips" />
+                    android:text="@string/step_tv_groupphoto_tips" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

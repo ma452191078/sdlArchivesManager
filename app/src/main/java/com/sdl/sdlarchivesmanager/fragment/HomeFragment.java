@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         mainview = inflater.inflate(R.layout.content_main, null);
-        dbHelper = DBHelper.getInstance(getContext());
+        dbHelper = DBHelper.getInstance(getActivity().getApplicationContext());
 
         fabAdd = (FloatingActionButton) mainview.findViewById(R.id.fab);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);

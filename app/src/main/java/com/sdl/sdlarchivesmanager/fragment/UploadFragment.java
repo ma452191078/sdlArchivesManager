@@ -46,7 +46,7 @@ public class UploadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainview = inflater.inflate(R.layout.activity_client_list, null);
-        dbHelper = DBHelper.getInstance(getContext());
+        dbHelper = DBHelper.getInstance(getActivity().getApplicationContext());
 
         fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);

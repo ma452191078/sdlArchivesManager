@@ -24,6 +24,10 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
@@ -31,8 +35,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/nineoldandroids-2.4.0.jar')
     //    compile project('trinea-android-common')
-    compile project(':trinea-android-common2')
-    compile project(':ptr-lib')
+    //    compile project(':trinea-android-common2')
     compile project(':DaoGenerator')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
@@ -42,9 +45,8 @@ dependencies {
     compile files('libs/volley.jar')
     compile files('libs/gson-2.5.jar')
     compile files('libs/AMap_Location_V2.2.0_20151222.jar')
-    compile files('libs/httpmime-4.2.5.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
-    compile files('libs/httpmime-4.2.5-2.jar')
-    compile files('libs/httpclient-4.5.1.jar')
-    compile files('libs/httpmime-4.5.1.jar')
+    compile project(':ptr-lib')
+    compile files('libs/classes.jar')
+    compile files('libs/clog-1.0.2.jar')
 }

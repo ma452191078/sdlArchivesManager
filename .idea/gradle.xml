@@ -10,7 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-lib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/greenDAO-master/DaoCore" />
             <option value="$PROJECT_DIR$/greenDAO-master/DaoExample" />
@@ -18,7 +17,7 @@
             <option value="$PROJECT_DIR$/greenDAO-master/DaoGenerator" />
             <option value="$PROJECT_DIR$/greenDAO-master/DaoTest" />
             <option value="$PROJECT_DIR$/greenDAO-master/DaoTestGenerator" />
-            <option value="$PROJECT_DIR$/trinea-android-common2" />
+            <option value="$PROJECT_DIR$/ptr-lib" />
           </set>
         </option>
       </GradleProjectSettings>

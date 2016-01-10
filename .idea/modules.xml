@@ -9,9 +9,10 @@
       <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoTest/DaoTest.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoTest/DaoTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/greenDAO-master/DaoTestGenerator/DaoTestGenerator.iml" filepath="$PROJECT_DIR$/greenDAO-master/DaoTestGenerator/DaoTestGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ptr-lib/ptr-lib.iml" filepath="$PROJECT_DIR$/ptr-lib/ptr-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-lib/ptr-lib.iml" filepath="$PROJECT_DIR$/android-Ultra-Pull-To-Refresh-master-2/ptr-lib/ptr-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdlArchivesManager.iml" filepath="$PROJECT_DIR$/sdlArchivesManager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/trinea-android-common2/trinea-android-common2.iml" filepath="$PROJECT_DIR$/trinea-android-common2/trinea-android-common2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdlArchivesManager.iml" filepath="$PROJECT_DIR$/sdlArchivesManager.iml" />
     </modules>
   </component>
 </project>

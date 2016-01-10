@@ -21,6 +21,9 @@ import com.sdl.sdlarchivesmanager.db.DBHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.loadmore.LoadMoreContainer;
+import in.srain.cube.views.loadmore.LoadMoreHandler;
+import in.srain.cube.views.loadmore.LoadMoreListViewContainer;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -44,6 +47,8 @@ public class ClientFragment extends Fragment {
     private ListView listView;
     private ClientAdapter adapter;
     private DBHelper dbHelper;
+    private static String BASEURL="AppSyncAction!getSellerListBySalesId";
+    private LoadMoreListViewContainer loadMoreListViewContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +70,10 @@ public class ClientFragment extends Fragment {
 //        下拉刷新控件
         setPtrFrame();
 
+//        加载更多
+        setLoadMore();
+
+
 //        列表项目
         setListView();
         setListViewSource();
@@ -76,6 +85,19 @@ public class ClientFragment extends Fragment {
 
         Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
         ptrFrame.refreshComplete();
+    }
+
+    private void setLoadMore(){
+        loadMoreListViewContainer = (LoadMoreListViewContainer) mainview.findViewById(R.id.load_more);
+        //loadMoreListViewContainer.useDefaultFooter();
+
+        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
+            @Override
+            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+
+                setListViewSource();
+            }
+        });
     }
 
     /**

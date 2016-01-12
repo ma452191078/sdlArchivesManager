@@ -248,10 +248,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.ll_next:
-                saveApp();
-                SysApplication.getInstance().exit();
-                break;
-            case R.id.bt_commit:
+
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", app.getId());
@@ -259,6 +256,11 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 intent.putExtras(bundle);
                 startActivity(intent);
                 this.finish();
+
+                break;
+            case R.id.bt_commit:
+                saveApp();
+                SysApplication.getInstance().exit();
                 break;
             case R.id.iv_contract:
                 myBitmap = BitmapFactory.decodeFile(fileContract);

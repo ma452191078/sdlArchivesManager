@@ -2,6 +2,7 @@ package com.sdl.sdlarchivesmanager.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,7 +28,6 @@ import com.sdl.sdlarchivesmanager.fragment.HomeFragment;
 import com.sdl.sdlarchivesmanager.fragment.SettingFragment;
 import com.sdl.sdlarchivesmanager.fragment.UploadFragment;
 import com.sdl.sdlarchivesmanager.http.NormalPostRequest;
-import com.sdl.sdlarchivesmanager.util.SysApplication;
 import com.sdl.sdlarchivesmanager.util.sdlClient;
 
 import org.json.JSONArray;
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private String userNum, userName;
     private User user;
     private JSONArray array;
+    private boolean mIsExit;
 
     private TextView tvUserName;
     private TextView tvUserRegin;
@@ -177,21 +178,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            if (mIsExit) {
+                this.finish();
+
+            } else {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mIsExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIsExit = false;
+                    }
+                }, 2000);
+            }
             return true;
         }
-        return super.onKeyDown(keyCode, event);
-    }
 
-    private void exit() {
-        if ((System.currentTimeMillis() - clickTime) > 3000) {
-            Toast.makeText(getApplicationContext(), "再按一次后退键退出程序",
-                    Toast.LENGTH_SHORT).show();
-            clickTime = System.currentTimeMillis();
-        } else {
-            //关闭整个程序
-            SysApplication.getInstance().exit();
-        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void getDbDate(String userNum){

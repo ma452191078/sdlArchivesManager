@@ -19,6 +19,7 @@
     <color name="colorRed">#e94349</color>
     <color name="colorRedSelector">#c22d32</color>
     <color name="colorGreen">#ff54af61</color>
-
+    <color name="standly_red">#ffbe4848</color>
+    <color name="standly_red_touch">#ff9f3f3f</color>
     <color name="black_overlay">#66000000</color>
 </resources>

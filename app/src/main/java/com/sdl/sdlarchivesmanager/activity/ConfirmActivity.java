@@ -49,6 +49,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvClientPhone; //联系电话
     private TextView tvClientAddr;   //地区
     private TextView tvClientAddr2; //详细地址
+    private TextView tvClientArea;  //代理区域
     private TextView tvBankName;    //开户行
     private TextView tvBankNum;     //银行卡号
     private TextView tvBankOwner;   //户主
@@ -58,6 +59,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvInvoiceName2;    //支行名称
     private TextView tvInvoiceOwner;    //户主
     private TextView tvInvoicePhone;    //对公电话
+    private TextView tvInvoiceVatNum;   //增值税号
+    private TextView tvInvoiceAddr;     //地址
+    private ImageView ivInvoiceImage;   //税务登记证
     private ImageView ivContract;   //营业执照
     private ImageView ivIDCardF;     //身份证正面
     private ImageView ivIDCardB;    //身份证背面
@@ -70,6 +74,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private Application app;
     private PhotoUtil photoUtil;
     private long id;
+    private String fileTax;
     private String fileContract;
     private String fileIDCardF;
     private String fileIDCardB;
@@ -120,6 +125,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         tvClientPhone = (TextView) findViewById(R.id.tv_clientphone); //联系电话
         tvClientAddr = (TextView) findViewById(R.id.tv_clientaddr);   //地区
         tvClientAddr2 = (TextView) findViewById(R.id.tv_clientaddr2); //详细地址
+        tvClientArea = (TextView) findViewById(R.id.tv_clientarea); //代理区域
         tvBankName = (TextView) findViewById(R.id.tv_bankname);    //开户行
         tvBankNum = (TextView) findViewById(R.id.tv_banknum);     //银行卡号
         tvBankOwner = (TextView) findViewById(R.id.tv_bankowner);   //户主
@@ -129,11 +135,14 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         tvInvoiceName2 = (TextView) findViewById(R.id.tv_invoicename2);    //支行名称
         tvInvoiceOwner = (TextView) findViewById(R.id.tv_invoiceowner);
         tvInvoicePhone = (TextView) findViewById(R.id.tv_invoicephone);    //对公电话
+        tvInvoiceAddr = (TextView) findViewById(R.id.tv_invoice_address);   //地址
+        tvInvoiceVatNum = (TextView) findViewById(R.id.tv_invoice_vatnum);  //增值税号
+        ivInvoiceImage = (ImageView) findViewById(R.id.iv_invoiceimage);    //税务登记证
         ivContract = (ImageView) findViewById(R.id.iv_contract);   //营业执照
         ivIDCardF = (ImageView) findViewById(R.id.iv_idcardf);     //身份证正面
         ivIDCardB = (ImageView) findViewById(R.id.iv_idcardb);    //身份证背面
         ivLicence = (ImageView) findViewById(R.id.iv_licence);    //营业执照
-        ivGrouPhoto = (ImageView) findViewById(R.id.iv_grouphoto);
+        ivGrouPhoto = (ImageView) findViewById(R.id.iv_grouphoto);//经销商合影
 
         btCommit = (Button) findViewById(R.id.bt_commit);
 
@@ -178,7 +187,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         tvClientPhone.setText(app.getApp_Phone());
         tvClientAddr.setText(getAddress(app));
         tvClientAddr2.setText(app.getApp_Address());
-
+        tvClientArea.setText(app.getApp_Area());
         tvBankName.setText(app.getApp_BankName());
         tvBankNum.setText(app.getApp_BankNum());
         tvBankOwner.setText(app.getApp_BankOwner());
@@ -192,6 +201,13 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             tvInvoiceName2.setText(app.getApp_InvoiceBankName2());
             tvInvoicePhone.setText(app.getApp_InvoiceBankPhone());
             tvInvoiceOwner.setText(app.getApp_InvoiceBankOwner());
+            tvInvoiceAddr.setText(app.getApp_InvoiceAddr());
+            tvInvoiceVatNum.setText(app.getApp_InvoiceVatNum());
+            if (app.getApp_InvoiceImage() != null){
+                fileTax = new UriUtil().UriToFile(this, Uri.parse(app.getApp_InvoiceImage()));
+                ivInvoiceImage.setImageBitmap(photoUtil.createThumbnail(fileTax, 10));
+                ivInvoiceImage.setOnClickListener(this);
+            }
         }else {
             tvInvoiceType.setText("普通发票");
         }
@@ -234,7 +250,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         fileList.add(fileIDCardB);
         fileList.add(fileLicence);
         fileList.add(fileGrouPhoto);
-        uploadImg(fileList);
+        //uploadImg(fileList);
         app.setApp_Send("1");
         app.setApp_Status("未上传");   //已确认,未上传
         dbHelper.updateApplication(app);
@@ -261,6 +277,10 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.bt_commit:
                 saveApp();
                 SysApplication.getInstance().exit();
+                break;
+            case R.id.iv_invoiceimage:
+                myBitmap = BitmapFactory.decodeFile(fileTax);
+                new PhotoUtil(this).getBigPicture(myBitmap,this);
                 break;
             case R.id.iv_contract:
                 myBitmap = BitmapFactory.decodeFile(fileContract);

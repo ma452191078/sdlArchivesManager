@@ -20,11 +20,13 @@ public class Client {
     private String Client_Country;
     private String Client_Town;
     private String Client_Address;
+    private String Client_Area;
     private String Client_LngLat;
     private String Client_Contract;
     private String Client_IdCardF;
     private String Client_IdCardB;
     private String Client_Licence;
+    private String Client_GrouPhoto;
 
     public Client() {
     }
@@ -33,7 +35,7 @@ public class Client {
         this.id = id;
     }
 
-    public Client(Long id, String Client_Num, String Client_Name, String Client_Owner, String Client_Type, String Client_Level, String Client_Uplevel, String Client_Phone, String Client_Province, String Client_City, String Client_Country, String Client_Town, String Client_Address, String Client_LngLat, String Client_Contract, String Client_IdCardF, String Client_IdCardB, String Client_Licence) {
+    public Client(Long id, String Client_Num, String Client_Name, String Client_Owner, String Client_Type, String Client_Level, String Client_Uplevel, String Client_Phone, String Client_Province, String Client_City, String Client_Country, String Client_Town, String Client_Address, String Client_Area, String Client_LngLat, String Client_Contract, String Client_IdCardF, String Client_IdCardB, String Client_Licence, String Client_GrouPhoto) {
         this.id = id;
         this.Client_Num = Client_Num;
         this.Client_Name = Client_Name;
@@ -47,11 +49,13 @@ public class Client {
         this.Client_Country = Client_Country;
         this.Client_Town = Client_Town;
         this.Client_Address = Client_Address;
+        this.Client_Area = Client_Area;
         this.Client_LngLat = Client_LngLat;
         this.Client_Contract = Client_Contract;
         this.Client_IdCardF = Client_IdCardF;
         this.Client_IdCardB = Client_IdCardB;
         this.Client_Licence = Client_Licence;
+        this.Client_GrouPhoto = Client_GrouPhoto;
     }
 
     public Long getId() {
@@ -160,6 +164,14 @@ public class Client {
         this.Client_Address = Client_Address;
     }
 
+    public String getClient_Area() {
+        return Client_Area;
+    }
+
+    public void setClient_Area(String Client_Area) {
+        this.Client_Area = Client_Area;
+    }
+
     public String getClient_LngLat() {
         return Client_LngLat;
     }
@@ -198,6 +210,14 @@ public class Client {
 
     public void setClient_Licence(String Client_Licence) {
         this.Client_Licence = Client_Licence;
+    }
+
+    public String getClient_GrouPhoto() {
+        return Client_GrouPhoto;
+    }
+
+    public void setClient_GrouPhoto(String Client_GrouPhoto) {
+        this.Client_GrouPhoto = Client_GrouPhoto;
     }
 
 }

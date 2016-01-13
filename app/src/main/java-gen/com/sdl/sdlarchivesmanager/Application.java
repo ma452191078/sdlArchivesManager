@@ -19,6 +19,7 @@ public class Application {
     private String App_Country;
     private String App_Town;
     private String App_Address;
+    private String App_Area;
     private String App_Lng;
     private String App_Lat;
     private String App_Contract;
@@ -36,6 +37,8 @@ public class Application {
     private String App_InvoiceBankOwner;
     private String App_InvoiceBankPhone;
     private String App_InvoiceVatNum;
+    private String App_InvoiceAddr;
+    private String App_InvoiceImage;
     private String App_Send;
     private String App_Status;
     private java.util.Date App_TimeFlag;
@@ -47,7 +50,7 @@ public class Application {
         this.id = id;
     }
 
-    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_GroupPhoto, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Area, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_GroupPhoto, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_InvoiceAddr, String App_InvoiceImage, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
         this.App_Num = App_Num;
         this.App_Name = App_Name;
@@ -61,6 +64,7 @@ public class Application {
         this.App_Country = App_Country;
         this.App_Town = App_Town;
         this.App_Address = App_Address;
+        this.App_Area = App_Area;
         this.App_Lng = App_Lng;
         this.App_Lat = App_Lat;
         this.App_Contract = App_Contract;
@@ -78,6 +82,8 @@ public class Application {
         this.App_InvoiceBankOwner = App_InvoiceBankOwner;
         this.App_InvoiceBankPhone = App_InvoiceBankPhone;
         this.App_InvoiceVatNum = App_InvoiceVatNum;
+        this.App_InvoiceAddr = App_InvoiceAddr;
+        this.App_InvoiceImage = App_InvoiceImage;
         this.App_Send = App_Send;
         this.App_Status = App_Status;
         this.App_TimeFlag = App_TimeFlag;
@@ -185,6 +191,14 @@ public class Application {
 
     public void setApp_Address(String App_Address) {
         this.App_Address = App_Address;
+    }
+
+    public String getApp_Area() {
+        return App_Area;
+    }
+
+    public void setApp_Area(String App_Area) {
+        this.App_Area = App_Area;
     }
 
     public String getApp_Lng() {
@@ -321,6 +335,22 @@ public class Application {
 
     public void setApp_InvoiceVatNum(String App_InvoiceVatNum) {
         this.App_InvoiceVatNum = App_InvoiceVatNum;
+    }
+
+    public String getApp_InvoiceAddr() {
+        return App_InvoiceAddr;
+    }
+
+    public void setApp_InvoiceAddr(String App_InvoiceAddr) {
+        this.App_InvoiceAddr = App_InvoiceAddr;
+    }
+
+    public String getApp_InvoiceImage() {
+        return App_InvoiceImage;
+    }
+
+    public void setApp_InvoiceImage(String App_InvoiceImage) {
+        this.App_InvoiceImage = App_InvoiceImage;
     }
 
     public String getApp_Send() {

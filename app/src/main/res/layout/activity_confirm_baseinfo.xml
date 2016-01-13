@@ -166,7 +166,7 @@
             <!--经销商地址-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/confirm_text_height"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -185,7 +185,7 @@
             <!--经销商详细地址-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/confirm_text_height"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -196,6 +196,24 @@
 
                 <TextView
                     android:id="@+id/tv_clientaddr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+            <!--代理区域-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_client_area" />
+
+                <TextView
+                    android:id="@+id/tv_clientarea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="" />

@@ -36,11 +36,13 @@ public class ClientDao extends AbstractDao<Client, Long> {
         public final static Property Client_Country = new Property(10, String.class, "Client_Country", false, "CLIENT__COUNTRY");
         public final static Property Client_Town = new Property(11, String.class, "Client_Town", false, "CLIENT__TOWN");
         public final static Property Client_Address = new Property(12, String.class, "Client_Address", false, "CLIENT__ADDRESS");
-        public final static Property Client_LngLat = new Property(13, String.class, "Client_LngLat", false, "CLIENT__LNG_LAT");
-        public final static Property Client_Contract = new Property(14, String.class, "Client_Contract", false, "CLIENT__CONTRACT");
-        public final static Property Client_IdCardF = new Property(15, String.class, "Client_IdCardF", false, "CLIENT__ID_CARD_F");
-        public final static Property Client_IdCardB = new Property(16, String.class, "Client_IdCardB", false, "CLIENT__ID_CARD_B");
-        public final static Property Client_Licence = new Property(17, String.class, "Client_Licence", false, "CLIENT__LICENCE");
+        public final static Property Client_Area = new Property(13, String.class, "Client_Area", false, "CLIENT__AREA");
+        public final static Property Client_LngLat = new Property(14, String.class, "Client_LngLat", false, "CLIENT__LNG_LAT");
+        public final static Property Client_Contract = new Property(15, String.class, "Client_Contract", false, "CLIENT__CONTRACT");
+        public final static Property Client_IdCardF = new Property(16, String.class, "Client_IdCardF", false, "CLIENT__ID_CARD_F");
+        public final static Property Client_IdCardB = new Property(17, String.class, "Client_IdCardB", false, "CLIENT__ID_CARD_B");
+        public final static Property Client_Licence = new Property(18, String.class, "Client_Licence", false, "CLIENT__LICENCE");
+        public final static Property Client_GrouPhoto = new Property(19, String.class, "Client_GrouPhoto", false, "CLIENT__GROU_PHOTO");
     };
 
 
@@ -69,11 +71,13 @@ public class ClientDao extends AbstractDao<Client, Long> {
                 "\"CLIENT__COUNTRY\" TEXT," + // 10: Client_Country
                 "\"CLIENT__TOWN\" TEXT," + // 11: Client_Town
                 "\"CLIENT__ADDRESS\" TEXT," + // 12: Client_Address
-                "\"CLIENT__LNG_LAT\" TEXT," + // 13: Client_LngLat
-                "\"CLIENT__CONTRACT\" TEXT," + // 14: Client_Contract
-                "\"CLIENT__ID_CARD_F\" TEXT," + // 15: Client_IdCardF
-                "\"CLIENT__ID_CARD_B\" TEXT," + // 16: Client_IdCardB
-                "\"CLIENT__LICENCE\" TEXT);"); // 17: Client_Licence
+                "\"CLIENT__AREA\" TEXT," + // 13: Client_Area
+                "\"CLIENT__LNG_LAT\" TEXT," + // 14: Client_LngLat
+                "\"CLIENT__CONTRACT\" TEXT," + // 15: Client_Contract
+                "\"CLIENT__ID_CARD_F\" TEXT," + // 16: Client_IdCardF
+                "\"CLIENT__ID_CARD_B\" TEXT," + // 17: Client_IdCardB
+                "\"CLIENT__LICENCE\" TEXT," + // 18: Client_Licence
+                "\"CLIENT__GROU_PHOTO\" TEXT);"); // 19: Client_GrouPhoto
     }
 
     /** Drops the underlying database table. */
@@ -148,29 +152,39 @@ public class ClientDao extends AbstractDao<Client, Long> {
             stmt.bindString(13, Client_Address);
         }
  
+        String Client_Area = entity.getClient_Area();
+        if (Client_Area != null) {
+            stmt.bindString(14, Client_Area);
+        }
+ 
         String Client_LngLat = entity.getClient_LngLat();
         if (Client_LngLat != null) {
-            stmt.bindString(14, Client_LngLat);
+            stmt.bindString(15, Client_LngLat);
         }
  
         String Client_Contract = entity.getClient_Contract();
         if (Client_Contract != null) {
-            stmt.bindString(15, Client_Contract);
+            stmt.bindString(16, Client_Contract);
         }
  
         String Client_IdCardF = entity.getClient_IdCardF();
         if (Client_IdCardF != null) {
-            stmt.bindString(16, Client_IdCardF);
+            stmt.bindString(17, Client_IdCardF);
         }
  
         String Client_IdCardB = entity.getClient_IdCardB();
         if (Client_IdCardB != null) {
-            stmt.bindString(17, Client_IdCardB);
+            stmt.bindString(18, Client_IdCardB);
         }
  
         String Client_Licence = entity.getClient_Licence();
         if (Client_Licence != null) {
-            stmt.bindString(18, Client_Licence);
+            stmt.bindString(19, Client_Licence);
+        }
+ 
+        String Client_GrouPhoto = entity.getClient_GrouPhoto();
+        if (Client_GrouPhoto != null) {
+            stmt.bindString(20, Client_GrouPhoto);
         }
     }
 
@@ -197,11 +211,13 @@ public class ClientDao extends AbstractDao<Client, Long> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // Client_Country
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // Client_Town
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // Client_Address
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // Client_LngLat
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // Client_Contract
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Client_IdCardF
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // Client_IdCardB
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // Client_Licence
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // Client_Area
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // Client_LngLat
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // Client_Contract
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // Client_IdCardF
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // Client_IdCardB
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // Client_Licence
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // Client_GrouPhoto
         );
         return entity;
     }
@@ -222,11 +238,13 @@ public class ClientDao extends AbstractDao<Client, Long> {
         entity.setClient_Country(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setClient_Town(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setClient_Address(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setClient_LngLat(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setClient_Contract(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setClient_IdCardF(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setClient_IdCardB(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setClient_Licence(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setClient_Area(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setClient_LngLat(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setClient_Contract(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setClient_IdCardF(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setClient_IdCardB(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setClient_Licence(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setClient_GrouPhoto(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
      }
     
     /** @inheritdoc */

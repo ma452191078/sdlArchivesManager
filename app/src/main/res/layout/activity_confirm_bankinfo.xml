@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
                 <!--对公账户-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                         android:id="@+id/tv_invoicenum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1029302930" />
+                        android:text="" />
                 </LinearLayout>
 
                 <!--开户行-->
@@ -165,7 +165,7 @@
                         android:id="@+id/tv_invoicename"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="中国银行" />
+                        android:text="" />
                 </LinearLayout>
 
                 <!--支行名称-->
@@ -184,7 +184,7 @@
                         android:id="@+id/tv_invoicename2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="临沭支行" />
+                        android:text="" />
                 </LinearLayout>
 
                 <!--户主-->
@@ -203,7 +203,7 @@
                         android:id="@+id/tv_invoiceowner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="户主" />
+                        android:text="" />
                 </LinearLayout>
 
                 <!--电话-->
@@ -222,8 +222,68 @@
                         android:id="@+id/tv_invoicephone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="临沭支行" />
+                        android:text="" />
                 </LinearLayout>
+
+                <!--地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_client_address" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--增值税号-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_vatnum" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_vatnum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--税务登记证-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_image" />
+
+                    <ImageView
+                        android:id="@+id/tv_invoice_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:background="@color/colorGray"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/picture"/>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

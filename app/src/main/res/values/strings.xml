@@ -37,6 +37,8 @@
     <string name="step_ev_address">点击选择地区</string>
     <string name="step_ev_address2">输入详细地址</string>
     <string name="step_ev_lnglat"> 点击获取经纬度</string>
+    <string name="step_tv_client_area">代理区域:</string>
+    <string name="step_ev_client_area">输入代理区域</string>
 
     <!--银行信息-->
     <string name="step_tv_bank_name">开户行:</string>
@@ -61,6 +63,7 @@
     <string name="invoice_type_pt">普通发票</string>
     <string name="step_tv_invoice_vatnum">增值税号:</string>
     <string name="step_et_invoice_vatnum">输入增值税号</string>
+    <string name="step_tv_invoice_image">税务登记证:</string>
 
     <string name="step_tv_photo_tips">点击上方图片,\n拍照或从相册选择需要上传的照片</string>
     <string name="step_tv_groupphoto_tips">拍照时必须以店面为背景,业务人员和经销商同时出现在画面中,经销商须手持营业执照和身份证放于胸前.</string>

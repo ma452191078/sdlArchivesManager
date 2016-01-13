@@ -48,13 +48,14 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
     private RadioButton rbJxs, rbZzdh;  //经销商和种植大户单选按钮
     private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
     private TextView tvLngLat;
+    private EditText etClientArea;  //代理区域
 
     private String strProvince, strCity, strCountry, strTown;
     private DBHelper dbHelper;
-    private String timeFlag;
-    private String strUpLevel;  //上级经销商
-    private String strLng;  //经度
-    private String strLat;  //纬度
+    private String timeFlag = "";
+    private String strUpLevel = "";  //上级经销商
+    private String strLng = "";  //经度
+    private String strLat = "";  //纬度
     private User user;
     private Application app = new Application();
     //声明mLocationOption对象
@@ -107,6 +108,8 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         tvAddress1 = (TextView) findViewById(R.id.tv_clientaddr);
         etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);
         tvLngLat = (TextView) findViewById(R.id.tv_lnglat);
+        etClientArea = (EditText) findViewById(R.id.et_clientarea);
+
     }
 
     private void setWidget() {
@@ -243,6 +246,7 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         app.setApp_Lng(strLng);
         app.setApp_Lat(strLat);
         app.setApp_Address(etAddress2.getText().toString().trim());
+        app.setApp_Area(etClientArea.getText().toString().trim());
         app.setApp_TimeFlag(new GetDateUtil().getDate(timeFlag));
         app.setApp_Send("2");   //资料尚未建立完整,不允许上传
 

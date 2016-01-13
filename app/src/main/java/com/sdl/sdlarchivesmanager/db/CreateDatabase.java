@@ -47,6 +47,7 @@ public class CreateDatabase {
         client.addStringProperty("Client_Country");     //县
         client.addStringProperty("Client_Town");        //乡镇
         client.addStringProperty("Client_Address");     //详细地址
+        client.addStringProperty("Client_Area");        //代理区域
         client.addStringProperty("Client_LngLat");      //经纬度
         client.addStringProperty("Client_Contract");    //营业执照
         client.addStringProperty("Client_IdCardF");     //身份证正面
@@ -79,6 +80,7 @@ public class CreateDatabase {
         application.addStringProperty("App_Country"); //县
         application.addStringProperty("App_Town");    //乡镇
         application.addStringProperty("App_Address"); //详细地址
+        application.addStringProperty("App_Area");  //代理区域
         application.addStringProperty("App_Lng");   //经度
         application.addStringProperty("App_Lat");   //纬度
         application.addStringProperty("App_Contract");//营业执照
@@ -93,9 +95,11 @@ public class CreateDatabase {
         application.addStringProperty("App_InvoiceBankNum");    //对公账号
         application.addStringProperty("App_InvoiceBankName");   //开户行
         application.addStringProperty("App_InvoiceBankName2");  //支行
-        application.addStringProperty("App_InvoiceBankOwner");  //户主
+        application.addStringProperty("App_InvoiceBankOwner");  //纳税人
         application.addStringProperty("App_InvoiceBankPhone");  //电话
         application.addStringProperty("App_InvoiceVatNum");    //增值税号
+        application.addStringProperty("App_InvoiceAddr");       //纳税人地址
+        application.addStringProperty("App_InvoiceImage");      //税务登记证
         application.addStringProperty("App_Send");      //0已发送,1未发送,2资料不完整
         application.addStringProperty("App_Status");    //审核状态
         application.addDateProperty("App_TimeFlag");    //记录创建时间

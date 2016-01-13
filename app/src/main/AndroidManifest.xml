@@ -65,6 +65,7 @@
         <activity android:name=".activity.ClientInfoActivity" />
         <activity android:name=".activity.AddrListActivity" />
         <activity android:name=".activity.ClientListActivity" />
+        <activity android:name=".activity.GroupPhotoActivity" />
         <!-- <activity -->
         <!-- android:name=".activity.MainActivity" -->
         <!-- android:label="@string/title_activity_main2" -->

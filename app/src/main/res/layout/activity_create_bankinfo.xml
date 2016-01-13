@@ -28,9 +28,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="@dimen/left_text_width"
@@ -67,6 +67,7 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,8 +97,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_ev_bank_number" />
+                            android:hint="@string/step_ev_bank_number"
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -125,8 +126,8 @@
                             android:id="@+id/tv_bankname"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
                             android:layout_marginLeft="5dp"
+                            android:gravity="center_vertical"
                             android:text="@string/step_ev_bank_name" />
                     </LinearLayout>
                 </LinearLayout>
@@ -156,17 +157,19 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:hint="@string/step_ev_bank_owner"
-                            android:textSize="@dimen/editview_textsize"/>
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_invoice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/black_invoice"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
                 <!--对公账号-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,8 +195,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_ev_bank_number" />
+                            android:hint="@string/step_ev_bank_number"
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -251,8 +254,8 @@
                             android:id="@+id/et_invoicebankname2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_ev_invoice_bankname2" />
+                            android:hint="@string/step_ev_invoice_bankname2"
+                            android:textSize="@dimen/editview_textsize" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -280,8 +283,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_ev_bank_owner" />
+                            android:hint="@string/step_ev_bank_owner"
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -310,8 +313,38 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_ev_inovice_phone" />
+                            android:hint="@string/step_ev_inovice_phone"
+                            android:textSize="@dimen/editview_textsize" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--认证地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/left_text_height"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/step_tv_client_address" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_invoiceaddr"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:hint="@string/step_ev_address2"
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -340,11 +373,51 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="@dimen/editview_textsize"
-                            android:hint="@string/step_et_invoice_vatnum" />
+                            android:hint="@string/step_et_invoice_vatnum"
+                            android:textSize="@dimen/editview_textsize" />
 
                     </LinearLayout>
                 </LinearLayout>
+
+                <!--税务登记证-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="20dp"
+                            android:background="@color/colorTitleBlue" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/step_tv_invoice_image"
+                            android:textSize="@dimen/editview_textsize" />
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/iv_invoiceimage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:background="@color/colorGray"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/picture" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

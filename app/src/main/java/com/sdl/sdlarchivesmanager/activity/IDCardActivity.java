@@ -64,6 +64,23 @@ public class IDCardActivity extends AppCompatActivity implements View.OnClickLis
         }
         createWidget();
         setWidget();
+        if (app != null){
+            bindSource(app);
+        }
+    }
+
+    private void bindSource(Application application) {
+        if (application.getApp_IdCardF() != null){
+            fileContract = new UriUtil().UriToFile(this, Uri.parse(app.getApp_IdCardF()));
+            ivCardF.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
+            ivCardF.setOnClickListener(this);
+        }
+        if (application.getApp_IdCardB() != null){
+            fileContract = new UriUtil().UriToFile(this, Uri.parse(app.getApp_IdCardB()));
+            ivCardB.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
+            ivCardB.setOnClickListener(this);
+        }
+
     }
 
 //    初始化控件

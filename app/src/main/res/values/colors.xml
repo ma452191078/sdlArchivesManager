@@ -22,4 +22,5 @@
     <color name="standly_red">#ffbe4848</color>
     <color name="standly_red_touch">#ff9f3f3f</color>
     <color name="black_overlay">#66000000</color>
+    <color name="black_invoice">#66fdf6d2</color>
 </resources>

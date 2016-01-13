@@ -287,6 +287,34 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/left_text_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/step_tv_client_area" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_clientarea"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/step_ev_client_area"
+                        android:textSize="@dimen/editview_textsize"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
 
             <!--经纬度-->
             <LinearLayout

@@ -60,7 +60,19 @@ public class ContractActivity extends AppCompatActivity implements View.OnClickL
         createWidget();
 //        初次载入显示选择提示
         setWidget();
-        getPhoto();
+        if (app != null){
+            bindSource(app);
+        }else {
+            getPhoto();
+        }
+    }
+
+    private void bindSource(Application application) {
+        if (application.getApp_Contract() != null){
+            fileContract = new UriUtil().UriToFile(this, Uri.parse(app.getApp_Contract()));
+            ivPicture.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
+            ivPicture.setOnClickListener(this);
+        }
     }
 
     //        组件声明
@@ -92,7 +104,7 @@ public class ContractActivity extends AppCompatActivity implements View.OnClickL
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", id);
                 bundle.putString("source", "create");
-                intent.setClass(ContractActivity.this, ConfirmActivity.class);
+                intent.setClass(ContractActivity.this, GroupPhotoActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

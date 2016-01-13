@@ -7,6 +7,7 @@ import com.sdl.sdlarchivesmanager.Address;
 import com.sdl.sdlarchivesmanager.AddressDao;
 import com.sdl.sdlarchivesmanager.Application;
 import com.sdl.sdlarchivesmanager.ApplicationDao;
+import com.sdl.sdlarchivesmanager.Bank;
 import com.sdl.sdlarchivesmanager.BankDao;
 import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.ClientDao;
@@ -206,7 +207,7 @@ public class DBHelper {
     }
 
     public void updateApplication(Application application){
-        applicationDao.insertOrReplace(application);
+        applicationDao.update(application);
     }
 
     public boolean existApplication(Date timeFlag){
@@ -335,5 +336,23 @@ public class DBHelper {
                 .build();
         addrList = query.list();
         return addrList;
+    }
+
+    public Bank loadBankItem(String bankNum){
+        Bank bank = null;
+        List<Bank> bankList = null;
+        Query query = bankDao.queryBuilder()
+                .where(BankDao.Properties.Bank_Num.eq(bankNum))
+                .orderAsc(BankDao.Properties.Bank_Num)
+                .build();
+        bankList = query.list();
+        if (bankList.size() > 0){
+            bank = bankList.get(0);
+        }
+        return bank;
+    }
+
+    public List<Bank> loadBankList(){
+        return bankDao.loadAll();
     }
 }

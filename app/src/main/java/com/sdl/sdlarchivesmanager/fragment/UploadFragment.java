@@ -26,7 +26,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by majingyuan on 15/12/20.
- * 经销商列表
+ * 待上传列表
  */
 public class UploadFragment extends Fragment {
 

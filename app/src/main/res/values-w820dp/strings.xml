@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+       
+    <string name="app_name">分销系统</string>
+     <string name="action_settings">Settings</string>
+    <string name="input_keyword">输入经销商名称或编码</string>
+    <string name="Cart_tiele">我的购物车</string>
+    <string name="edit">编辑</string>
+    <string name="tab_user_center_title">个人中心</string>
+    <string name="user_center_setting">设置</string>
+    <string name="tab_usercenter_username">用户名:</string>
+    <string name="phone_no">手机号码</string>
+    <string name="phone_vip">手机专享</string>
+    <string name="join">参加</string>
+    <string name="last_time">上次更新:</string>
+    <string name="level">等级:</string>
+    <string name="loading">加载中...</string>
+    <string name="loadmore">加载更多</string>
+    <string name="gold_coin">金币:</string>
+    <string name="goodDetail">商品详情-</string>
+    <string name="goodList">商品列表-</string>
+    <string name="tab_usercenter_account_balance">账户余额:</string>
+    <string name="balance">余额:</string>
+    <string name="updata_title">更新提示</string>
+    <string name="top_back">返回</string>
+    <string name="activity_common_affirm_password">确认密码:</string>
+    <string name="activity_common_email">邮　箱:</string>
+    <string name="activity_common_registered">普通用户注册</string>
+    <string name="activity_group_purchase">团购</string>
+    <string name="activity_login_button1">登　录</string>
+    <string name="activity_login_findpassword">找回密码</string>
+    <string name="activity_login_name">账户名:</string>
+    <string name="activity_login_other">使用其它账号登录</string>
+    <string name="activity_login_password">密　码:</string>
+    <string name="activity_login_register">免费注册</string>
+    <string name="activity_login_selfmotion">自动登录</string>
+    <string name="activity_phone_vip">手机专享</string>
+    <string name="activity_registered">快速注册</string>
+    <string name="login_phone_dynamic">手机动态登录></string>   
+    <string name="goback">返回</string>
+    <string name="confirm_install_hint">安装提示</string>
+    <string name="confirm_product">确认收货</string>
+    <string name="confirm_to_logout">确定退出吗？</string>
+    <string name="buy_again">再次购买</string>
+    <string name="buy_now">立即购买</string>
+    <string name="cancle">取消</string>
+    <string name="cancle_order">取消订单</string>
+    <string name="cart">购物车</string>
+    <string name="cart_edit_done">完成</string>
+    <string name="logistics_detail">物流详情</string>
+    <string name="title">标题</string>
+    <string name="mysh">我的审核　</string>
+    <string name="mygxp">我的广宣品</string>
+    <!-- 库存上报 -->
+    <string name="product_name">产品名称：</string>
+    <string name="product_num">物料编号：</string>
+    <string name="product_match">产品配比：</string>
+    <string name="product_pack">产品包重：</string>
+    <string name="product_tech">产品工艺：</string>
+    <string name="product_sale">数量：</string>
+    <string name="product_sale_hint">请输入数量</string>
+    <string name="product_go">产品去向：</string>
+    <string name="product_purpose">产品用途：</string>
+    <string name="product_forecasts_inv">预估库存：</string>
+    <string name="product_forecasts_inv_hint">请输入预估库存</string>
+    <string name="button_submit">提  交</string>
+    <string name="lv2_sale_num">二级商编码： </string>
+    <string name="product_sale_date">销售时间： </string>
+    <string name="hint_sale_date">请选择销售时间 </string>
+    <string name="lv2_sale_name">经销商名字：</string> 
+     <string name="kcsb_time">上报时间：</string>
+    <!-- 广宣品 -->
+    <string name="promo_num">预留号：</string>
+    <string name="promo_link">当前环节：</string>
+    <string name="promo_cre_date">日期：</string>
+    <string name="promo_man">申请人：</string>
+    <string name="promo_customer">经销商：</string>
+    <string name="promo_money">总金额：</string>
+    <string name="promo_purpose">用途：</string>
+    <string name="promo_cost">费用承担方：</string>
+    <string name="promo_receive">领取地：</string>
+    <string name="promo_proname">宣传品名称</string>
+    <string name="promo_pronum">宣传品编码：</string>
+    <string name="promo_application_num">申请数量：</string>
+    <string name="promo_recipients_num">领用数量：</string>
+    <string name="promo_price">单价：</string>
+    <string name="promo_sum_price">总金额：</string>
+    
+    <!-- 业务员 -->
+    <string name="salesman_name">姓名：</string>
+    <string name="salesman_name_hint">请输入姓名</string>
+    <string name="salesman_ship">隶属于：</string>
+    <string name="salesman_phone">联系电话：</string>
+    <string name="salesman_phone_hint">请输入联系电话</string>
+    <string name="salesman_sale">完成量：</string>
+    <string name="salesman_target">目标量：</string>
+    <string name="title_activity_activity_gxp">Activity_gxp</string>
+    <string name="salesman_workarea">负责区域：</string>
+    <string name="salesman_xiangzhen">请输入乡镇：</string>
+    <string name="salesman_adrdetail">请输入详细地址：</string>
+    <!-- 订单 -->
+    <string name="salesorder_num">订单号：</string>
+    <string name="salesorder_customer">经销商：</string>
+    <string name="salesorder_date">订单日期：</string>
+    <string name="salesorder_freight">运费：</string>
+    <string name="salesorder_flprice">返利金额：</string>
+    <string name="salesorder_orderprice">订单金额：</string>
+    <string name="salesorder_mantnr_price">物料单价：</string>
+    <string name="salesorder_matnr_flprice">返利单价：</string>
+    <string name="salesorder_matnr_flsum">返利总金额：</string>
+    <string name="salesorder_matnr_freightsum">运费金额：</string>
+    <string name="salesorder_state">状态：</string>
+    <string name="salesorder_factory">发货工厂：</string>
+    <!-- 绩效考核 -->
+    <string name="performance_target">销售目标量上报</string>
+    <string name="performance_finish">销售完成量上报</string>
+    <string name="performance_newsellertarget">新开发网点目标量上报</string>
+    <string name="performance_newsellerfinish">新开发网点完成量上报</string>
+    <string name="performance_saler">业务员：</string>
+    <string name="performance_customer">经销商：</string>
+    <string name="performance_year">销售年度：</string>
+    <string name="performance_quarter">销售季度：</string>
+    <string name="performance_count">目标销量：</string>
+    <string name="performance_new">新网点数：</string>
+    
+   <!--  经销商 -->
+   <string name="jxs_levelone">我的一级经销商</string>
+   <string name="jxs_leveltwo">我的二级经销商</string>
+   <string name="searchywy">输入业务员姓名或编码进行搜索</string>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF03A9F4</color>
+    <color name="colorTitleBlue">#FF03A9F4</color>
+    <color name="colorBlueDown">#ff068ecc</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorBackgroudn">#fff5f4f2</color>
+    <color name="colorBlack">#ff555555</color>
+    <color name="colorGray">#ffbbbbbb</color>
+    <color name="colorSelected">#e9e9e9</color>
+    <!-- drop down list header font color -->
+    <color name="drop_down_list_header_font_color">#ff7b7b7b</color>
+    <!-- drop down list header second font color -->
+    <color name="drop_down_list_header_second_font_color">#ff3F51B5</color>
+    <!-- drop down list footer font color -->
+    <color name="drop_down_list_footer_font_color">#ff7b7b7b</color>
+    <color name="colorRed">#e94349</color>
+    <color name="colorRedSelector">#c22d32</color>
+    <color name="colorGreen">#ff54af61</color>
+    <color name="standly_red">#ffbe4848</color>
+    <color name="standly_red_touch">#ff9f3f3f</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="black_invoice">#66fdf6d2</color>
+</resources>

@@ -1,0 +1,7 @@
+include ':app', ':DaoGenerator', ':DaoExample', ':DaoExampleGenerator', ':DaoTestGenerator', ':DaoCore', ':DaoTest', ':ptr-lib'
+project(':DaoGenerator').projectDir = new File('greenDAO-master/DaoGenerator')
+project(':DaoExample').projectDir = new File('greenDAO-master/DaoExample')
+project(':DaoExampleGenerator').projectDir = new File('greenDAO-master/DaoExampleGenerator')
+project(':DaoTestGenerator').projectDir = new File('greenDAO-master/DaoTestGenerator')
+project(':DaoCore').projectDir = new File('greenDAO-master/DaoCore')
+project(':DaoTest').projectDir = new File('greenDAO-master/DaoTest')

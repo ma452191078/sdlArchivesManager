@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--银行信息-->
+    <LinearLayout
+        android:id="@+id/ll_bank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:background="@color/colorTitleBlue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:text="银行信息"
+                android:textSize="@dimen/editview_textsize" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorGray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <!--开户行-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_bank_name" />
+
+                <TextView
+                    android:id="@+id/tv_bankname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--银行卡号-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_bank_number" />
+
+                <TextView
+                    android:id="@+id/tv_banknum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--户主-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_bank_owner" />
+
+                <TextView
+                    android:id="@+id/tv_bankowner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <!--发票类型-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/confirm_text_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/left_text_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_tv_invoice_type" />
+
+                <TextView
+                    android:id="@+id/tv_invoicetype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_invoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--对公账户-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_banknum" />
+
+                    <TextView
+                        android:id="@+id/tv_invoicenum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--开户行-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_bankname" />
+
+                    <TextView
+                        android:id="@+id/tv_invoicename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--支行名称-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_bankname2" />
+
+                    <TextView
+                        android:id="@+id/tv_invoicename2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--户主-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_bankowner" />
+
+                    <TextView
+                        android:id="@+id/tv_invoiceowner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--电话-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_phone" />
+
+                    <TextView
+                        android:id="@+id/tv_invoicephone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--地址-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_client_address" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--增值税号-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/confirm_text_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/left_text_width"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_vatnum" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_vatnum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </LinearLayout>
+
+                <!--税务登记证-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_tv_invoice_image" />
+
+                    <ImageView
+                        android:id="@+id/tv_invoice_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:background="@color/colorGray"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/picture"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

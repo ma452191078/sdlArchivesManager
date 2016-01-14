@@ -169,7 +169,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/black_invoice"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
                 <!--对公账号-->
                 <LinearLayout
                     android:layout_width="match_parent"

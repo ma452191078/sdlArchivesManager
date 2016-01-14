@@ -124,8 +124,7 @@ public class BankInfoActivity extends AppCompatActivity implements View.OnClickL
 
             if (app.getApp_BankNum() != null) {
                 Bank bank = dbHelper.loadBankItem(app.getApp_BankNum());
-                if (bank != null)
-                    tvBankName.setText(bank.getBank_Name());
+                tvBankName.setText(bank.getBank_Name());
             }
             etBankNum.setText(app.getApp_BankNum());
             etBankOwner.setText(app.getApp_BankOwner());

@@ -29,7 +29,6 @@ public class ClientInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView tvClientPhone; //联系电话
     private TextView tvClientAddr;   //地区
     private TextView tvClientAddr2; //详细地址
-    private TextView tvClientArea;  //代理地区
     private TextView tvBankName;    //开户行
     private TextView tvBankNum;     //银行卡号
     private TextView tvInvoiceType; //发票类型
@@ -38,7 +37,6 @@ public class ClientInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView tvInvoiceName2;    //支行名称
     private TextView tvInvoiceOwner;    //户主
     private TextView tvInvoicePhone;    //对公电话
-    private TextView tvInvoiceAddr;     //地址
     private ImageView ivContract;   //营业执照
     private ImageView ivIDCardF;     //身份证正面
     private ImageView ivIDCardB;    //身份证背面

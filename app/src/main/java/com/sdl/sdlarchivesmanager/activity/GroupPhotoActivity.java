@@ -122,7 +122,7 @@ public class GroupPhotoActivity extends AppCompatActivity implements View.OnClic
 
     protected void saveApp(){
         if (imgUri != null){
-            app.setApp_GroupPhoto(imgUri);
+            app.setApp_Contract(imgUri);
             dbHelper.updateApplication(app);
         }
     }

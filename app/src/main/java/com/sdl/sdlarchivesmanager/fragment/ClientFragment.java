@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.sdl.sdlarchivesmanager.Client;
 import com.sdl.sdlarchivesmanager.R;
-import com.sdl.sdlarchivesmanager.User;
-import com.sdl.sdlarchivesmanager.activity.ArchiveApplication;
 import com.sdl.sdlarchivesmanager.activity.ClientInfoActivity;
 import com.sdl.sdlarchivesmanager.adapter.ClientAdapter;
 import com.sdl.sdlarchivesmanager.db.DBHelper;
-import com.sdl.sdlarchivesmanager.http.NormalPostRequest;
-import com.sdl.sdlarchivesmanager.util.sdlClient;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import in.srain.cube.views.loadmore.LoadMoreContainer;
 import in.srain.cube.views.loadmore.LoadMoreHandler;
@@ -56,34 +42,19 @@ public class ClientFragment extends Fragment {
     private View mainview;
 
     private FloatingActionButton fabSearch;
+    private List<Client> listClient = new ArrayList<Client>();
     private PtrClassicFrameLayout ptrFrame;
     private ListView listView;
     private ClientAdapter adapter;
     private DBHelper dbHelper;
     private static String BASEURL="AppSyncAction!getSellerListBySalesId";
     private LoadMoreListViewContainer loadMoreListViewContainer;
-    private JSONArray array;
-    private int click = 0;
-    private List<Client> listClient = new ArrayList<Client>();
-    private String userNum = "";
-    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainview = inflater.inflate(R.layout.activity_client_list, null);
         dbHelper = DBHelper.getInstance(getActivity().getApplicationContext());
-
-        user = new User();
-        user = dbHelper.loadUserByStatus();
-
-//        判断用户是否存在
-        if (user != null) {
-
-                userNum = user.getUser_Num();
-            }
-
-        userNum = "20140009";
 
         fabSearch = (FloatingActionButton) mainview.findViewById(R.id.fab_search);
         listView = (ListView) mainview.findViewById(R.id.lv_itemlist);
@@ -105,10 +76,7 @@ public class ClientFragment extends Fragment {
 
 //        列表项目
         setListView();
-        if (userNum != null){
-            getClientList(userNum, "");
-
-        }
+        setListViewSource();
 
         return mainview;
     }
@@ -127,7 +95,7 @@ public class ClientFragment extends Fragment {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
 
-                getClientList(userNum, "");
+                setListViewSource();
             }
         });
     }
@@ -149,7 +117,7 @@ public class ClientFragment extends Fragment {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                getClientList(userNum, "");
+                updateListViewSource(mainview.getContext());
             }
         });
     }
@@ -176,59 +144,11 @@ public class ClientFragment extends Fragment {
 
     }
 
-    private void getClientList(String id, String client) {
+    private void setListViewSource() {
 
-        click ++;
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("sales_id", id);
-        params.put("client_id", client);
-
-        String url = new sdlClient().getUrl(BASEURL);
-        Request<JSONObject> provRequest = new NormalPostRequest(url,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        String strdata = null;
-                        try {
-                            strdata = response.getString("Data");
-                            array = new JSONArray(strdata);
-                            if (array.length() > 0){
-                                for (int i = 0; i < array.length(); i++){
-                                    Client client = new Client();
-                                    String clientNum = array.getJSONObject(i).getString("seller_id");
-                                    String clientName = array.getJSONObject(i).getString("seller_name");
-
-                                    client.setClient_Name(clientName);
-                                    client.setClient_Num(clientNum);
-                                    client.setId((long)i);
-                                    listClient.add(client);
-
-
-                                }
-                                adapter = new ClientAdapter(getActivity(), listClient);
-                                listView.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
-                            }
-                            else {
-                                Toast.makeText(getContext(),"暂无经销商", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-            }
-        }, params);
-        ArchiveApplication.getHttpQueues().add(provRequest);
+        listClient = dbHelper.loadAllClient();
+        adapter = new ClientAdapter(getActivity(), listClient);
+        listView.setAdapter(adapter);
     }
 
     protected void updateListViewSource(Context context) {

@@ -74,13 +74,11 @@ public class CreateDatabase {
         application.addStringProperty("App_Type");     //经销商类型,经销商0/种植大户1
         application.addStringProperty("App_Level");    //经销商层级,一级1/二级2/三级3
         application.addStringProperty("App_Uplevel");  //上级经销商编号
-        application.addStringProperty("App_UplevelName"); //上级商名称
         application.addStringProperty("App_Phone");    //经销商电话
         application.addStringProperty("App_Province"); //省
         application.addStringProperty("App_City");    //市
         application.addStringProperty("App_Country"); //县
         application.addStringProperty("App_Town");    //乡镇
-        application.addStringProperty("App_PCCT");    //地址文本
         application.addStringProperty("App_Address"); //详细地址
         application.addStringProperty("App_Area");  //代理区域
         application.addStringProperty("App_Lng");   //经度

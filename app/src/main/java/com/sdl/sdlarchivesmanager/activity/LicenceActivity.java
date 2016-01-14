@@ -40,7 +40,7 @@ public class LicenceActivity extends AppCompatActivity implements View.OnClickLi
     private DBHelper dbHelper;
     private Application app;
     private PhotoUtil photoUtil;
-    private String fileContract;
+    private String fileLicence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,11 @@ public class LicenceActivity extends AppCompatActivity implements View.OnClickLi
         createWidget();
         setWidget();
 //        初次载入显示选择提示
-        getPhoto();
-
+        if (app != null){
+            bindSource(app);
+        }else {
+            getPhoto();
+        }
     }
 
     //        组件声明
@@ -78,6 +81,15 @@ public class LicenceActivity extends AppCompatActivity implements View.OnClickLi
         llBack.setOnClickListener(this);
         llNext.setOnClickListener(this);
         ivPicture.setOnClickListener(this);
+    }
+
+    //绑定数据
+    private void bindSource(Application application) {
+        if (application.getApp_Licence() != null){
+            fileLicence = new UriUtil().UriToFile(this, Uri.parse(app.getApp_Licence()));
+            ivPicture.setImageBitmap(photoUtil.createThumbnail(fileLicence, 10));
+            ivPicture.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -164,8 +176,8 @@ public class LicenceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setPhoto(Uri uri) {
-        fileContract = new UriUtil().UriToFile(getApplicationContext(),uri);
-        ivPicture.setImageBitmap(photoUtil.createThumbnail(fileContract, 10));
+        fileLicence = new UriUtil().UriToFile(getApplicationContext(),uri);
+        ivPicture.setImageBitmap(photoUtil.createThumbnail(fileLicence, 10));
         imgUri = uri.toString();
     }
 }

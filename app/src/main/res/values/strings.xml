@@ -29,7 +29,7 @@
     <string name="step_tv_client_owner">法人代表:</string>
     <string name="step_tv_client_phone">联系电话:</string>
     <string name="step_tv_client_address">地址:</string>
-    <string name="step_tv_client_lnglat">当前位置:</string>
+    <string name="step_tv_client_lnglat">获取位置:  </string>
     <string name="step_ev_client_uplevel">选择上级经销商</string>
     <string name="step_ev_client_name">输入经销商名称</string>
     <string name="step_ev_client_owner">输入法人代表</string>

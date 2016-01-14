@@ -70,12 +70,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <include layout="@layout/activity_confirm_contract" />
             </LinearLayout>
 
-            <!--营业执照-->
+            <!--经销商协议书-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

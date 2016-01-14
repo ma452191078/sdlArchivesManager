@@ -57,19 +57,19 @@ public class ClientAdapter extends BaseAdapter {
         TextView tvClientName = (TextView) convertView.findViewById(R.id.tv_clientname);
         tvClientName.setText(client.getClient_Name());
 
-        TextView tvClientOwner = (TextView) convertView.findViewById(R.id.tv_clientowner);
-        tvClientOwner.setText(client.getClient_Owner());
-
-        TextView tvClientAddress = (TextView) convertView.findViewById(R.id.tv_clientaddr);
-        tvClientAddress.setText(client.getClient_Address());
-
-        TextView tvClientLevel = (TextView) convertView.findViewById(R.id.tv_clientlevel);
-        if (client.getClient_Type().equals("种植大户")){
-            tvClientLevel.setText("种植大户");
-        }else
-        {
-            tvClientLevel.setText(client.getClient_Level());
-        }
+//        TextView tvClientOwner = (TextView) convertView.findViewById(R.id.tv_clientowner);
+//        tvClientOwner.setText(client.getClient_Owner());
+//
+//        TextView tvClientAddress = (TextView) convertView.findViewById(R.id.tv_clientaddr);
+//        tvClientAddress.setText(client.getClient_Address());
+//
+//        TextView tvClientLevel = (TextView) convertView.findViewById(R.id.tv_clientlevel);
+//        if (client.getClient_Type().equals("种植大户")){
+//            tvClientLevel.setText("种植大户");
+//        }else
+//        {
+//            tvClientLevel.setText(client.getClient_Level());
+//        }
 
 
         return convertView;

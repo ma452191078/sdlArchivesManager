@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -49,11 +51,14 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
     private RadioButton rbLevel1, rbLevel2, rbLevel3;  //经销商层级
     private TextView tvLngLat;
     private EditText etClientArea;  //代理区域
+    private Switch swLocation;  //获取位置开关
 
     private String strProvince, strCity, strCountry, strTown;
     private DBHelper dbHelper;
     private String timeFlag = "";
-    private String strUpLevel = "";  //上级经销商
+    private String strUpLevel = "";  //上级商编号
+    private String strUpLevelName = ""; //上级商名称
+    private String strAddress = ""; //地址全名
     private String strLng = "";  //经度
     private String strLat = "";  //纬度
     private User user;
@@ -80,11 +85,9 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         setWidget();
         setClick();
         if (app != null) {
-            setWidgetText(app);
+            binDataSource(app);
         }
 
-
-        getMapInfo();
     }
 
     /*控件声明*/
@@ -109,6 +112,7 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         etAddress2 = (EditText) findViewById(R.id.et_clientaddr2);
         tvLngLat = (TextView) findViewById(R.id.tv_lnglat);
         etClientArea = (EditText) findViewById(R.id.et_clientarea);
+        swLocation = (Switch) findViewById(R.id.sw_location);
 
     }
 
@@ -126,6 +130,17 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         rbLevel3.setOnClickListener(this);
         tvAddress1.setOnClickListener(this);
         tvUpLevel.setOnClickListener(this);
+        swLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    getMapInfo();
+                }else{
+                    if (mLocationClient != null)
+                        mLocationClient.stopLocation();
+                }
+            }
+        });
     }
 
     @Override
@@ -140,7 +155,8 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.ll_next:
 //                下一步
-                mLocationClient.stopLocation();//停止定位
+                if (mLocationClient != null)
+                    mLocationClient.stopLocation();//停止定位
                 saveApp();
                 bundle.putString("timeflag", timeFlag);
                 intent.setClass(BaseInfoActivity.this, BankInfoActivity.class);
@@ -193,15 +209,17 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_ADDRESS && resultCode == 1001) {
-            tvAddress1.setText(data.getStringExtra("result"));
+            strAddress = data.getStringExtra("result");
             strProvince = data.getStringExtra("province");
             strCity = data.getStringExtra("city");
             strCountry = data.getStringExtra("country");
             strTown = data.getStringExtra("town");
+            tvAddress1.setText(strAddress);
 
         } else if (requestCode == RESULT_CLIENT && resultCode == 2001) {
-            tvUpLevel.setText(data.getStringExtra("result"));
+            strUpLevelName = data.getStringExtra("result");
             strUpLevel = data.getStringExtra("client");
+            tvUpLevel.setText(strUpLevelName);
         }
     }
 
@@ -232,8 +250,10 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
 //        上级经销商
         if (rbLevel2.isSelected() || rbLevel3.isSelected()) {
             app.setApp_Uplevel(strUpLevel);
+            app.setApp_UplevelName(strUpLevelName);
         } else {
             app.setApp_Uplevel("");
+            app.setApp_UplevelName("");
         }
 
         app.setApp_Name(etClientName.getText().toString().trim());
@@ -242,6 +262,7 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
         app.setApp_Province(strProvince);
         app.setApp_City(strCity);
         app.setApp_Country(strCountry);
+        app.setApp_PCCT(strAddress);
         app.setApp_Town(strTown);
         app.setApp_Lng(strLng);
         app.setApp_Lat(strLat);
@@ -255,70 +276,60 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //    已存在的审核设置控件值
-    private void setWidgetText(Application application) {
+    private void binDataSource(Application application) {
 
 //        经销商类型
-        if (app.getApp_Type() != null) {
-            if (app.getApp_Type().equals("0")) {
+        if (application.getApp_Type() != null) {
+            if (application.getApp_Type().equals("0")) {
                 rbJxs.setChecked(true);
-            } else if (app.getApp_Type().equals("1")) {
+            } else if (application.getApp_Type().equals("1")) {
                 rbZzdh.setChecked(true);
             }
         }
 
 //        经销商等级
-        if (app.getApp_Level() != null) {
-            if (app.getApp_Level().equals("1")) {
+        if (application.getApp_Level() != null) {
+            if (application.getApp_Level().equals("1")) {
                 rbLevel1.setChecked(true);
-            } else if (app.getApp_Level().equals("2")) {
+            } else if (application.getApp_Level().equals("2")) {
                 rbLevel2.setChecked(true);
                 llUpLevel.setVisibility(View.VISIBLE);
-            } else if (app.getApp_Level().equals("3")) {
+            } else if (application.getApp_Level().equals("3")) {
                 rbLevel3.setChecked(true);
                 llUpLevel.setVisibility(View.VISIBLE);
             }
         }
 
 //        上级经销商
-        if (app.getApp_Uplevel() != null)
-            tvUpLevel.setText(app.getApp_Uplevel());
+        if (application.getApp_Uplevel() != null)
+            tvUpLevel.setText(application.getApp_Uplevel());
 
 //        经销商名称
-        if (app.getApp_Name() != null)
-            etClientName.setText(app.getApp_Name());
+        if (application.getApp_Name() != null)
+            etClientName.setText(application.getApp_Name());
 
 //        法人
-        if (app.getApp_Owner() != null)
-            etClientOwner.setText(app.getApp_Owner());
+        if (application.getApp_Owner() != null)
+            etClientOwner.setText(application.getApp_Owner());
 
 //        电话
-        if (app.getApp_Phone() != null)
-            etClientPhone.setText(app.getApp_Phone());
+        if (application.getApp_Phone() != null)
+            etClientPhone.setText(application.getApp_Phone());
 
 //        地区
-        StringBuilder addr = new StringBuilder(); //地区名称,由省市县乡镇组合
-        if (app.getApp_Province() != null)
-            addr.append(dbHelper.loadAddressByCode(app.getApp_Province()));
-
-        if (app.getApp_City() != null)
-            addr.append(dbHelper.loadAddressByCode(app.getApp_City()));
-
-        if (app.getApp_Country() != null)
-            addr.append(dbHelper.loadAddressByCode(app.getApp_Country()));
-
-        if (app.getApp_Town() != null)
-            addr.append(dbHelper.loadAddressByCode(app.getApp_Town()));
-        tvAddress1.setText(addr.toString());
+        if (app.getApp_PCCT() != null)
+            tvAddress1.setText(app.getApp_PCCT());
 
 //        详细地址
-        if (app.getApp_Address() != null)
-            etAddress2.setText(app.getApp_Address());
+        if (application.getApp_Address() != null)
+            etAddress2.setText(application.getApp_Address());
 
+        if (application.getApp_Area() != null)
+            etClientArea.setText(application.getApp_Area());
 
     }
 
     public void getMapInfo() {
-
 
 //        声明定位回调监听器
         AMapLocationListener mLocationListener = new AMapLocationListener() {
@@ -329,13 +340,14 @@ public class BaseInfoActivity extends AppCompatActivity implements View.OnClickL
                     if (aMapLocation.getErrorCode() == 0) {
                         //定位成功回调信息，设置相关消息
                         aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                        strLng = String.valueOf(aMapLocation.getLatitude());//获取纬度
-                        strLat = String.valueOf(aMapLocation.getLongitude());//获取经度
+                        strLat = String.valueOf(aMapLocation.getLatitude());//获取纬度
+                        strLng = String.valueOf(aMapLocation.getLongitude());//获取经度
                         aMapLocation.getAccuracy();//获取精度信息
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(aMapLocation.getTime());
                         df.format(date);//定位时间
-                        tvLngLat.setText(aMapLocation.getAddress());//地址，如果option中设置isNeedAddress为false，则没有此结果
+                        aMapLocation.getAddress();
+                        tvLngLat.setText(strLat + "," + strLng);//地址，如果option中设置isNeedAddress为false，则没有此结果
                         aMapLocation.getCountry();//国家信息
                         aMapLocation.getProvince();//省信息
                         aMapLocation.getCity();//城市信息

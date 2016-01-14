@@ -185,7 +185,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         tvClientName.setText(app.getApp_Name());
         tvClientOwner.setText(app.getApp_Owner());
         tvClientPhone.setText(app.getApp_Phone());
-        tvClientAddr.setText(getAddress(app));
+        tvClientAddr.setText(app.getApp_PCCT());
         tvClientAddr2.setText(app.getApp_Address());
         tvClientArea.setText(app.getApp_Area());
         tvBankName.setText(app.getApp_BankName());

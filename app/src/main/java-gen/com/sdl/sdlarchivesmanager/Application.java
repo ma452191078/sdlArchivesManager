@@ -13,11 +13,13 @@ public class Application {
     private String App_Type;
     private String App_Level;
     private String App_Uplevel;
+    private String App_UplevelName;
     private String App_Phone;
     private String App_Province;
     private String App_City;
     private String App_Country;
     private String App_Town;
+    private String App_PCCT;
     private String App_Address;
     private String App_Area;
     private String App_Lng;
@@ -50,7 +52,7 @@ public class Application {
         this.id = id;
     }
 
-    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_Address, String App_Area, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_GroupPhoto, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_InvoiceAddr, String App_InvoiceImage, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
+    public Application(Long id, String App_Num, String App_Name, String App_Owner, String App_Type, String App_Level, String App_Uplevel, String App_UplevelName, String App_Phone, String App_Province, String App_City, String App_Country, String App_Town, String App_PCCT, String App_Address, String App_Area, String App_Lng, String App_Lat, String App_Contract, String App_IdCardF, String App_IdCardB, String App_Licence, String App_GroupPhoto, String App_BankNum, String App_BankName, String App_BankOwner, String App_InvoiceType, String App_InvoiceBankNum, String App_InvoiceBankName, String App_InvoiceBankName2, String App_InvoiceBankOwner, String App_InvoiceBankPhone, String App_InvoiceVatNum, String App_InvoiceAddr, String App_InvoiceImage, String App_Send, String App_Status, java.util.Date App_TimeFlag) {
         this.id = id;
         this.App_Num = App_Num;
         this.App_Name = App_Name;
@@ -58,11 +60,13 @@ public class Application {
         this.App_Type = App_Type;
         this.App_Level = App_Level;
         this.App_Uplevel = App_Uplevel;
+        this.App_UplevelName = App_UplevelName;
         this.App_Phone = App_Phone;
         this.App_Province = App_Province;
         this.App_City = App_City;
         this.App_Country = App_Country;
         this.App_Town = App_Town;
+        this.App_PCCT = App_PCCT;
         this.App_Address = App_Address;
         this.App_Area = App_Area;
         this.App_Lng = App_Lng;
@@ -145,6 +149,14 @@ public class Application {
         this.App_Uplevel = App_Uplevel;
     }
 
+    public String getApp_UplevelName() {
+        return App_UplevelName;
+    }
+
+    public void setApp_UplevelName(String App_UplevelName) {
+        this.App_UplevelName = App_UplevelName;
+    }
+
     public String getApp_Phone() {
         return App_Phone;
     }
@@ -183,6 +195,14 @@ public class Application {
 
     public void setApp_Town(String App_Town) {
         this.App_Town = App_Town;
+    }
+
+    public String getApp_PCCT() {
+        return App_PCCT;
+    }
+
+    public void setApp_PCCT(String App_PCCT) {
+        this.App_PCCT = App_PCCT;
     }
 
     public String getApp_Address() {
